@@ -1,17 +1,11 @@
 import pygame
-import sys
 import buttons
+import specfunctions
 
 pygame.init()
 size = width, height = 600, 600
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Dungeons&Mathematics")
-
-
-def terminate():
-    pygame.quit()
-    sys.exit()
-
 
 menu_buttons = pygame.sprite.Group()
 
@@ -22,7 +16,7 @@ buttons.Button(menu_buttons, text="Рекорды", x=width // 2, y=350, f_size=
 buttons.Button(menu_buttons, text="Настройки", x=width // 2, y=400, f_size=40,
                press_event=lambda: print("SETTINGS!"))
 buttons.Button(menu_buttons, text="Выход", x=width // 2, y=450, f_size=40,
-               press_event=terminate)
+               press_event=specfunctions.terminate)
 
 fps = 60
 clock = pygame.time.Clock()
@@ -30,7 +24,7 @@ clock = pygame.time.Clock()
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            terminate()
+            specfunctions.terminate()
         menu_buttons.update(event)
     screen.fill((0, 0, 0))
     menu_buttons.draw(screen)
