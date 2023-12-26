@@ -6,7 +6,7 @@ import specfunctions
 pygame.init()
 
 screen = pygame.display.set_mode(consts.SIZE)
-pygame.display.set_caption("Dungeons&Mathematics")
+pygame.display.set_caption(consts.TITLE)
 
 menu_buttons = pygame.sprite.Group()
 
