@@ -22,13 +22,12 @@ class Button(pygame.sprite.Sprite):
         self.rect.center = self.center
 
     def update(self, *args):
+        if self.rect.collidepoint(*pygame.mouse.get_pos()):
+            self.config_image(2)
+        else:
+            self.config_image(1)
         if args:
             event = args[0]
-            if event.type == pygame.MOUSEMOTION:
-                if self.rect.collidepoint(*event.pos):
-                    self.config_image(2)
-                else:
-                    self.config_image(1)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1 and self.rect.collidepoint(*event.pos):
                     if self.event is not None:
