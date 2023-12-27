@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.im = 0
         self.counter = 0
         self.state = Player.right
-        self.speed = 5
+        self.speed = 3
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
