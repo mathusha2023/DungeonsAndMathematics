@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
 
 
-def start_game(screen, clock):
+def start_game(clock):
     all_sprites = pygame.sprite.Group()
     Player(all_sprites)
 
@@ -62,8 +62,8 @@ def start_game(screen, clock):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return
-        screen.fill((0, 0, 0))
-        all_sprites.draw(screen)
+        consts.SCREEN.fill((0, 0, 0))
+        all_sprites.draw(consts.SCREEN)
         all_sprites.update()
         pygame.display.flip()
         clock.tick(consts.FPS)
