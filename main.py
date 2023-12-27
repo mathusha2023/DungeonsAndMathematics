@@ -7,16 +7,29 @@ pygame.init()
 
 screen = pygame.display.set_mode(consts.SIZE)
 pygame.display.set_caption(consts.TITLE)
+pygame.display.set_icon(specfunctions.load_image("logo.png"))
 
-menu_buttons = pygame.sprite.Group()
+all_sprites = pygame.sprite.Group()
 
-buttons.Button(menu_buttons, text="Играть!", x=consts.WIDTH // 2, y=300, f_size=40,
+
+class Title(pygame.sprite.Sprite):
+    image = specfunctions.load_image("title.png", -1)
+
+    def __init__(self):
+        super().__init__(all_sprites)
+        self.image = Title.image
+        self.rect = self.image.get_rect()
+        self.rect.center = (consts.WIDTH // 2, 150)
+
+
+Title()
+buttons.Button(all_sprites, text="Играть!", x=consts.WIDTH // 2, y=300, f_size=40,
                press_event=lambda: print("PLAYING!"))
-buttons.Button(menu_buttons, text="Рекорды", x=consts.WIDTH // 2, y=350, f_size=40,
+buttons.Button(all_sprites, text="Рекорды", x=consts.WIDTH // 2, y=350, f_size=40,
                press_event=lambda: print("RECORDS!"))
-buttons.Button(menu_buttons, text="Настройки", x=consts.WIDTH // 2, y=400, f_size=40,
+buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=400, f_size=40,
                press_event=lambda: print("SETTINGS!"))
-buttons.Button(menu_buttons, text="Выход", x=consts.WIDTH // 2, y=450, f_size=40,
+buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=450, f_size=40,
                press_event=specfunctions.terminate)
 
 
@@ -26,8 +39,8 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             specfunctions.terminate()
-        menu_buttons.update(event)
+        all_sprites.update(event)
     screen.fill((0, 0, 0))
-    menu_buttons.draw(screen)
+    all_sprites.draw(screen)
     pygame.display.flip()
     clock.tick(consts.FPS)
