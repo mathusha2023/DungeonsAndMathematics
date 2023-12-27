@@ -13,7 +13,7 @@ all_sprites = pygame.sprite.Group()
 
 
 class Title(pygame.sprite.Sprite):
-    image = specfunctions.load_image("title.png", -1)
+    image = specfunctions.load_image("title.png")
 
     def __init__(self):
         super().__init__(all_sprites)
