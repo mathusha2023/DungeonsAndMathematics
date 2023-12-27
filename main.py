@@ -2,14 +2,10 @@ import pygame
 import consts
 import buttons
 import specfunctions
+import game
 
-pygame.init()
-
-screen = pygame.display.set_mode(consts.SIZE)
 pygame.display.set_caption(consts.TITLE)
 pygame.display.set_icon(specfunctions.load_image("logo.png"))
-
-import game
 
 all_sprites = pygame.sprite.Group()
 
@@ -28,7 +24,7 @@ class Title(pygame.sprite.Sprite):
 
 Title()
 buttons.Button(all_sprites, text="Играть!", x=consts.WIDTH // 2, y=300, f_size=40,
-               press_event=lambda: game.start_game(screen, clock))
+               press_event=lambda: game.start_game(consts.SCREEN, clock))
 buttons.Button(all_sprites, text="Рекорды", x=consts.WIDTH // 2, y=350, f_size=40,
                press_event=lambda: print("RECORDS!"))
 buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=400, f_size=40,
@@ -41,7 +37,7 @@ while True:
         if event.type == pygame.QUIT:
             specfunctions.terminate()
         all_sprites.update(event)
-    screen.fill((0, 0, 0))
-    all_sprites.draw(screen)
+    consts.SCREEN.fill((0, 0, 0))
+    all_sprites.draw(consts.SCREEN)
     pygame.display.flip()
     clock.tick(consts.FPS)

@@ -21,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.left_ims = [Player.left_go1_im, Player.left_go2_im]
         self.right_ims = [Player.right_go1_im, Player.right_go2_im]
         self.im = 0
+        self.counter = 0
         self.state = Player.right
         self.speed = 5
 
@@ -32,17 +33,20 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.left_ims[self.im]
                 self.state = Player.left
                 self.rect.x -= self.speed
-            if pressed_keys[pygame.K_d]:
+            elif pressed_keys[pygame.K_d]:
                 self.image = self.right_ims[self.im]
                 self.state = Player.right
                 self.rect.x += self.speed
             if pressed_keys[pygame.K_w]:
                 self.image = self.left_ims[self.im] if self.state == Player.left else self.right_ims[self.im]
                 self.rect.y -= self.speed
-            if pressed_keys[pygame.K_s]:
+            elif pressed_keys[pygame.K_s]:
                 self.image = self.left_ims[self.im] if self.state == Player.left else self.right_ims[self.im]
                 self.rect.y += self.speed
-            self.im = 1 - self.im
+            self.counter += 1
+            if not self.counter % 5:
+                self.im = 1 - self.im
+                self.counter = 0
         else:
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
 

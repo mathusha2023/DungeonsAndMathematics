@@ -1,6 +1,10 @@
+import pygame
 import random
 
-SIZE = WIDTH, HEIGHT = 600, 600
+pygame.init()
+
+SIZE = WIDTH, HEIGHT = 800, 600
+SCREEN = pygame.display.set_mode(SIZE)
 FPS = 60
 TITLE = "Dungeons&Mathematics: " + random.choice(("2 + 2 = 5",
                                                   "физика лучше!",
