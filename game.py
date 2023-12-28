@@ -2,6 +2,10 @@ import pygame
 import consts
 import specfunctions
 
+all_sprites = pygame.sprite.Group()
+walls = pygame.sprite.Group()
+player_group = pygame.sprite.Group()
+
 
 class Player(pygame.sprite.Sprite):
     left_st_im = specfunctions.load_image("ura_left_st.png")
@@ -14,8 +18,8 @@ class Player(pygame.sprite.Sprite):
     right = 0
     left = 1
 
-    def __init__(self, pos_x, pos_y, *groups):
-        super().__init__(*groups)
+    def __init__(self, pos_x, pos_y):
+        super().__init__(all_sprites, player_group)
         self.image = Player.right_st_im
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
@@ -60,7 +64,7 @@ class TileImages:
 
 class Tile(pygame.sprite.Sprite):
     def __init__(self, tile_im, pos_x, pos_y, *groups):
-        super().__init__(*groups)
+        super().__init__(all_sprites, *groups)
         self.image = tile_im
         self.rect = self.image.get_rect().move(
             consts.TILE_WIDTH * pos_x, consts.TILE_HEIGHT * pos_y)
@@ -87,25 +91,34 @@ def load_level(filename):
     return level_map
 
 
-def generate_level(level, all_sprites, walls, player_group):
+def generate_level(level):
     new_player, x, y = None, None, None
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == '.':
-                Tile(TileImages.floor, x, y, all_sprites)
+                Tile(TileImages.floor, x, y)
             elif level[y][x] == '|':
-                Tile(TileImages.wall, x, y, all_sprites, walls)
+                Tile(TileImages.wall, x, y, walls)
             elif level[y][x] == '@':
-                Tile(TileImages.floor, x, y, all_sprites)
-                new_player = Player(x, y, all_sprites, player_group)
+                Tile(TileImages.floor, x, y)
+                new_player = Player(x, y)
     return new_player, x, y
 
 
+def empty_groups():
+    all_sprites.empty()
+    walls.empty()
+    player_group.empty()
+
+
+def apply_all(camera):
+    for sprite in all_sprites:
+        camera.apply(sprite)
+
+
 def start_game(clock):
-    all_sprites = pygame.sprite.Group()
-    walls = pygame.sprite.Group()
-    player_group = pygame.sprite.Group()
-    player, level_x, level_y = generate_level(load_level('map1.txt'), all_sprites, walls, player_group)
+    empty_groups()
+    player, level_x, level_y = generate_level(load_level('map1.txt'))
     camera = Camera()
 
     while True:
@@ -120,7 +133,6 @@ def start_game(clock):
         player_group.draw(consts.SCREEN)
         all_sprites.update()
         camera.update(player)
-        for sprite in all_sprites:
-            camera.apply(sprite)
+        apply_all(camera)
         pygame.display.flip()
         clock.tick(consts.FPS)
