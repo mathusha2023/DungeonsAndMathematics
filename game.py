@@ -29,6 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.im = 0
         self.counter = 0
         self.state = Player.right
+        #self.speed = 3
         self.speed = 100
 
     def update(self, *args):
