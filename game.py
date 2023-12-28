@@ -58,8 +58,8 @@ class Player(pygame.sprite.Sprite):
 
 
 class TileImages:
-    wall = specfunctions.load_image("wall.jpg")
-    floor = specfunctions.load_image("floor.jpg")
+    wall = specfunctions.load_image("wall2d.png")
+    floor = specfunctions.load_image("floor.png")
 
 
 class Tile(pygame.sprite.Sprite):
