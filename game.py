@@ -81,14 +81,18 @@ class Portal(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
+        self.counter = 0
 
     def add_frames(self):
         for i in range(1, 25):
             self.frames.append(specfunctions.load_image(f"portals/portal{i}.png"))
 
     def update(self, *args):
-        self.image = self.frames[self.cur_frame]
-        self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+        self.counter += 1
+        if not self.counter % 3:
+            self.image = self.frames[self.cur_frame]
+            self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+            self.counter = 0
 
 
 class Camera:
