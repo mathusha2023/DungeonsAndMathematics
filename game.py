@@ -58,7 +58,8 @@ class Player(pygame.sprite.Sprite):
 
 
 class TileImages:
-    wall = specfunctions.load_image("wall2d.png")
+    wall2d = specfunctions.load_image("wall2d.png")
+    wall3d = specfunctions.load_image("wall3d.png")
     floor = specfunctions.load_image("floor.png")
 
 
@@ -98,7 +99,9 @@ def generate_level(level):
             if level[y][x] == '.':
                 Tile(TileImages.floor, x, y)
             elif level[y][x] == '|':
-                Tile(TileImages.wall, x, y, walls)
+                Tile(TileImages.wall2d, x, y, walls)
+            elif level[y][x] == '/':
+                Tile(TileImages.wall3d, x, y, walls)
             elif level[y][x] == '@':
                 Tile(TileImages.floor, x, y)
                 new_player = Player(x, y)
