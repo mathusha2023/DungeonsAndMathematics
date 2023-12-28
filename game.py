@@ -48,24 +48,26 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.right_ims[self.im]
                 self.state = Player.right
                 self.rect.x += self.speed
+            self.stop_wall_moving()
+            self.prev_x = self.rect.x
             if pressed_keys[pygame.K_w]:
                 self.image = self.left_ims[self.im] if self.state == Player.left else self.right_ims[self.im]
                 self.rect.y -= self.speed
             elif pressed_keys[pygame.K_s]:
                 self.image = self.left_ims[self.im] if self.state == Player.left else self.right_ims[self.im]
                 self.rect.y += self.speed
+            self.stop_wall_moving()
             self.counter += 1
-            if pygame.sprite.spritecollideany(self, walls):
-                self.reset()
             if not self.counter % 5:
                 self.im = 1 - self.im
                 self.counter = 0
         else:
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
 
-    def reset(self):
-        self.rect.x = self.prev_x
-        self.rect.y = self.prev_y
+    def stop_wall_moving(self):
+        if pygame.sprite.spritecollideany(self, walls):
+            self.rect.x = self.prev_x
+            self.rect.y = self.prev_y
 
 
 class TileImages:
