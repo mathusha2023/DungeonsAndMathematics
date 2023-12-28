@@ -6,6 +6,8 @@ import weapon
 all_sprites = pygame.sprite.Group()
 walls = pygame.sprite.Group()
 player_group = pygame.sprite.Group()
+weapons = pygame.sprite.Group()
+bullets = pygame.sprite.Group()
 
 
 class Player(pygame.sprite.Sprite):
@@ -34,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.state = Player.right
         self.speed = 5
         # self.speed = 100
-        self.weapon = weapon.RangedWeapon(*self.rect.center, all_sprites)
+        self.weapon = weapon.RangedWeapon(*self.rect.center, bullets, weapons, all_sprites)
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -154,11 +156,21 @@ def empty_groups():
     all_sprites.empty()
     walls.empty()
     player_group.empty()
+    bullets.empty()
+    weapons.empty()
 
 
 def apply_all(camera):
     for sprite in all_sprites:
         camera.apply(sprite)
+
+
+def draw_all():
+    consts.SCREEN.fill((0, 0, 0))
+    all_sprites.draw(consts.SCREEN)
+    bullets.draw(consts.SCREEN)
+    player_group.draw(consts.SCREEN)
+    weapons.draw(consts.SCREEN)
 
 
 def start_game(clock):
@@ -176,9 +188,7 @@ def start_game(clock):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     player.shoot(*event.pos)
-        consts.SCREEN.fill((0, 0, 0))
-        all_sprites.draw(consts.SCREEN)
-        player_group.draw(consts.SCREEN)
+        draw_all()
         all_sprites.update()
         camera.update(player)
         apply_all(camera)
