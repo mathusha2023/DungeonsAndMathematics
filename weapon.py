@@ -2,7 +2,7 @@ import pygame
 import math
 import consts
 import specfunctions
-from spriteGroups import bullets, weapons, all_sprites
+from spriteGroups import bullets, weapons, all_sprites, walls
 
 
 class Weapon(pygame.sprite.Sprite):
@@ -30,20 +30,19 @@ class RangedWeapon(Weapon):
         super().__init__(pos_x, pos_y)
 
     def shoot(self, x, y):
-        Bullet(self.rect.x, self.rect.y, x, y, 200)
+        Bullet(self.rect.x, self.rect.y, x, y)
 
 
 class Bullet(pygame.sprite.Sprite):
     image = specfunctions.load_image("bullet.png")
 
-    def __init__(self, pos_x, pos_y, target_x, target_y, brange):
+    def __init__(self, pos_x, pos_y, target_x, target_y):
         super().__init__(bullets, all_sprites)
         self.image = Bullet.image
         self.rect = self.image.get_rect()
         self.rect.center = (pos_x, pos_y)
         self.target_x = target_x
         self.target_y = target_y
-        self.brange = brange
         self.speed = 25
         self.vx, self.vy = self.get_speeds()
 
@@ -56,3 +55,5 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self, *args):
         self.rect = self.rect.move(self.vx, self.vy)
+        if pygame.sprite.spritecollideany(self, walls):
+            self.kill()
