@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.im = 0
         self.counter = 0
         self.state = Player.right
-        self.speed = 3
+        self.speed = 100
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -58,8 +58,7 @@ class Player(pygame.sprite.Sprite):
 
 
 class TileImages:
-    wall2d = specfunctions.load_image("wall2d.png")
-    wall3d = specfunctions.load_image("wall3d.png")
+    wall = specfunctions.load_image("wall.png")
     floor = specfunctions.load_image("floor.png")
 
 
@@ -99,9 +98,7 @@ def generate_level(level):
             if level[y][x] == '.':
                 Tile(TileImages.floor, x, y)
             elif level[y][x] == '|':
-                Tile(TileImages.wall2d, x, y, walls)
-            elif level[y][x] == '/':
-                Tile(TileImages.wall3d, x, y, walls)
+                Tile(TileImages.wall, x, y, walls)
             elif level[y][x] == '@':
                 Tile(TileImages.floor, x, y)
                 new_player = Player(x, y)
