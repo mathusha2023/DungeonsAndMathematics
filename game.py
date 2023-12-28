@@ -1,6 +1,7 @@
 import pygame
 import consts
 import specfunctions
+import weapon
 
 all_sprites = pygame.sprite.Group()
 walls = pygame.sprite.Group()
@@ -33,6 +34,7 @@ class Player(pygame.sprite.Sprite):
         self.state = Player.right
         self.speed = 5
         # self.speed = 100
+        self.weapon = weapon.RangedWeapon(*self.rect.center, all_sprites)
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -61,6 +63,7 @@ class Player(pygame.sprite.Sprite):
             if not self.counter % 5:
                 self.im = 1 - self.im
                 self.counter = 0
+            self.weapon.update(*self.rect.center)
         else:
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
 
@@ -68,6 +71,9 @@ class Player(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, walls):
             self.rect.x = self.prev_x
             self.rect.y = self.prev_y
+
+    def shoot(self, x, y):
+        self.weapon.shoot(x, y)
 
 
 class TileImages:
@@ -167,6 +173,9 @@ def start_game(clock):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    player.shoot(*event.pos)
         consts.SCREEN.fill((0, 0, 0))
         all_sprites.draw(consts.SCREEN)
         player_group.draw(consts.SCREEN)
