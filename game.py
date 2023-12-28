@@ -59,7 +59,6 @@ class Player(pygame.sprite.Sprite):
             if not self.counter % 5:
                 self.im = 1 - self.im
                 self.counter = 0
-            self.weapon.update(*self.rect.center)
         else:
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
 
@@ -183,7 +182,7 @@ def start_game(clock):
                 if event.button == 1:
                     player.shoot(*event.pos)
         draw_all()
-        all_sprites.update()
+        all_sprites.update(*player.rect.center)
         camera.update(player)
         apply_all(camera)
         pygame.display.flip()
