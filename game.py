@@ -29,8 +29,8 @@ class Player(pygame.sprite.Sprite):
         self.im = 0
         self.counter = 0
         self.state = Player.right
-        #self.speed = 3
-        self.speed = 100
+        self.speed = 5
+        # self.speed = 100
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -71,6 +71,26 @@ class Tile(pygame.sprite.Sprite):
             consts.TILE_WIDTH * pos_x, consts.TILE_HEIGHT * pos_y)
 
 
+class Portal(pygame.sprite.Sprite):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(all_sprites)
+        self.frames = []
+        self.cur_frame = 0
+        self.add_frames()
+        self.image = self.frames[0]
+        self.rect = self.image.get_rect()
+        self.rect.x = pos_x * consts.TILE_WIDTH
+        self.rect.y = pos_y * consts.TILE_HEIGHT
+
+    def add_frames(self):
+        for i in range(1, 25):
+            self.frames.append(specfunctions.load_image(f"portals/portal{i}.png"))
+
+    def update(self, *args):
+        self.image = self.frames[self.cur_frame]
+        self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+
+
 class Camera:
     def __init__(self):
         self.dx = 0
@@ -100,6 +120,8 @@ def generate_level(level):
                 Tile(TileImages.floor, x, y)
             elif level[y][x] == '|':
                 Tile(TileImages.wall, x, y, walls)
+            elif level[y][x] == "#":
+                Portal(x, y)
             elif level[y][x] == '@':
                 Tile(TileImages.floor, x, y)
                 new_player = Player(x, y)
