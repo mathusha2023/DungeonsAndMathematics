@@ -1,11 +1,13 @@
 import pygame
 import math
 import consts
+import specfunctions
+from spriteGroups import bullets, weapons, all_sprites
 
 
 class Weapon(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y, *groups):
-        super().__init__(*groups)
+    def __init__(self, pos_x, pos_y):
+        super().__init__(weapons, all_sprites)
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
@@ -17,26 +19,26 @@ class Weapon(pygame.sprite.Sprite):
 
 
 class MeleeWeapon(Weapon):
-    def __init__(self, pos_x, pos_y, *groups):
-        super().__init__(pos_x, pos_y, *groups)
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
 
 
 class RangedWeapon(Weapon):
-    def __init__(self, pos_x, pos_y, bullets_group, weapons_group, *groups):
+    def __init__(self, pos_x, pos_y):
         self.image = pygame.Surface((25, 20))
         pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 25, 20))
-        super().__init__(pos_x, pos_y, weapons_group, *groups)
-        self.groups = list(groups) + [bullets_group]
+        super().__init__(pos_x, pos_y)
 
     def shoot(self, x, y):
-        Bullet(self.rect.x, self.rect.y, x, y, 200, *self.groups)
+        Bullet(self.rect.x, self.rect.y, x, y, 200)
 
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y, target_x, target_y, brange, *groups):
-        super().__init__(*groups)
-        self.image = pygame.Surface((12, 12))
-        pygame.draw.circle(self.image, (255, 0, 0), (6, 6), 6)
+    image = specfunctions.load_image("bullet.png")
+
+    def __init__(self, pos_x, pos_y, target_x, target_y, brange):
+        super().__init__(bullets, all_sprites)
+        self.image = Bullet.image
         self.rect = self.image.get_rect()
         self.rect.center = (pos_x, pos_y)
         self.target_x = target_x

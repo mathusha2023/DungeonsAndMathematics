@@ -1,13 +1,7 @@
-import pygame
 import consts
 import specfunctions
 import weapon
-
-all_sprites = pygame.sprite.Group()
-walls = pygame.sprite.Group()
-player_group = pygame.sprite.Group()
-weapons = pygame.sprite.Group()
-bullets = pygame.sprite.Group()
+from spriteGroups import *
 
 
 class Player(pygame.sprite.Sprite):
@@ -36,7 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.state = Player.right
         self.speed = 5
         # self.speed = 100
-        self.weapon = weapon.RangedWeapon(*self.rect.center, bullets, weapons, all_sprites)
+        self.weapon = weapon.RangedWeapon(*self.rect.center)
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
