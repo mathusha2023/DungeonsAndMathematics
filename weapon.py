@@ -25,7 +25,7 @@ class MeleeWeapon(Weapon):
 
 class RangedWeapon(Weapon):
     def __init__(self, pos_x, pos_y):
-        self.image = pygame.Surface((25, 20))
+        self.image = pygame.Surface((35, 10))
         pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 25, 20))
         super().__init__(pos_x, pos_y)
 
