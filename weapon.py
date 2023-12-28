@@ -1,21 +1,34 @@
 import pygame
 import math
-import consts
 import specfunctions
 from spriteGroups import bullets, weapons, all_sprites, walls
 
 
 class Weapon(pygame.sprite.Sprite):
+    image_left = None
+    image_right = None
+    right = 0
+    left = 1
+
     def __init__(self, pos_x, pos_y):
         super().__init__(weapons, all_sprites)
         self.rect = self.image.get_rect()
-        self.rect.x = pos_x * consts.TILE_WIDTH
-        self.rect.y = pos_y * consts.TILE_HEIGHT
+        self.rect.x = pos_x
+        self.rect.y = pos_y
+        self.state = Weapon.right
 
     def update(self, *args):
         if args:
             self.rect.x = args[0]
             self.rect.y = args[1]
+            self.state = args[2]
+        # self.image = self.image_left if self.state == Weapon.left else self.image_right
+        if self.state == Weapon.left:
+            self.image = self.image_left
+            self.rect.right = self.rect.x
+        else:
+            self.image = self.image_right
+            self.rect.x = self.rect.right
 
 
 class MeleeWeapon(Weapon):
@@ -34,10 +47,11 @@ class RangedWeapon(Weapon):
 
 
 class ShotGun(RangedWeapon):
-    image = specfunctions.load_image("weapons/weaponranged1_right.png")
+    image_left = specfunctions.load_image("weapons/weaponranged1_left.png")
+    image_right = specfunctions.load_image("weapons/weaponranged1_right.png")
 
     def __init__(self, pos_x, pos_y):
-        self.image = ShotGun.image
+        self.image = ShotGun.image_left
         super().__init__(pos_x, pos_y)
 
 

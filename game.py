@@ -155,7 +155,8 @@ def empty_groups():
 
 def apply_all(camera):
     for sprite in all_sprites:
-        camera.apply(sprite)
+        if sprite is not [i for i in player_group][0].weapon:
+            camera.apply(sprite)
 
 
 def draw_all():
@@ -182,7 +183,7 @@ def start_game(clock):
                 if event.button == 1:
                     player.shoot(*event.pos)
         draw_all()
-        all_sprites.update(*player.rect.center)
+        all_sprites.update(*player.rect.center, player.state)
         camera.update(player)
         apply_all(camera)
         pygame.display.flip()
