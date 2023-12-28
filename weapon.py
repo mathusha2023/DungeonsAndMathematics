@@ -25,12 +25,20 @@ class MeleeWeapon(Weapon):
 
 class RangedWeapon(Weapon):
     def __init__(self, pos_x, pos_y):
-        self.image = pygame.Surface((35, 10))
-        pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 25, 20))
+        # self.image = pygame.Surface((35, 10))
+        # pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 25, 20))
         super().__init__(pos_x, pos_y)
 
     def shoot(self, x, y):
         Bullet(self.rect.x, self.rect.y, x, y)
+
+
+class ShotGun(RangedWeapon):
+    image = specfunctions.load_image("weapons/weaponranged1_right.png")
+
+    def __init__(self, pos_x, pos_y):
+        self.image = ShotGun.image
+        super().__init__(pos_x, pos_y)
 
 
 class Bullet(pygame.sprite.Sprite):

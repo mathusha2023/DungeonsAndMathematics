@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.state = Player.right
         self.speed = 5
         # self.speed = 100
-        self.weapon = weapon.RangedWeapon(*self.rect.center)
+        self.weapon = weapon.ShotGun(*self.rect.center)
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
