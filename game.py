@@ -14,10 +14,12 @@ class Player(pygame.sprite.Sprite):
     right = 0
     left = 1
 
-    def __init__(self, *groups):
+    def __init__(self, pos_x, pos_y, *groups):
         super().__init__(*groups)
         self.image = Player.right_st_im
         self.rect = self.image.get_rect()
+        self.rect.x = pos_x * consts.TILE_WIDTH
+        self.rect.y = pos_y * consts.TILE_HEIGHT
         self.left_ims = [Player.left_go1_im, Player.left_go2_im]
         self.right_ims = [Player.right_go1_im, Player.right_go2_im]
         self.im = 0
@@ -51,9 +53,60 @@ class Player(pygame.sprite.Sprite):
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
 
 
+class TileImages:
+    wall = specfunctions.load_image("wall.jpg")
+    floor = specfunctions.load_image("floor.jpg")
+
+
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, tile_im, pos_x, pos_y, *groups):
+        super().__init__(*groups)
+        self.image = tile_im
+        self.rect = self.image.get_rect().move(
+            consts.TILE_WIDTH * pos_x, consts.TILE_HEIGHT * pos_y)
+
+
+class Camera:
+    def __init__(self):
+        self.dx = 0
+        self.dy = 0
+
+    def apply(self, obj):
+        obj.rect.x += self.dx
+        obj.rect.y += self.dy
+
+    def update(self, target):
+        self.dx = -(target.rect.x + target.rect.w // 2 - consts.WIDTH // 2)
+        self.dy = -(target.rect.y + target.rect.h // 2 - consts.HEIGHT // 2)
+
+
+def load_level(filename):
+    filename = "data/maps/" + filename
+    with open(filename, 'r') as mapFile:
+        level_map = [line.strip() for line in mapFile]
+    return level_map
+
+
+def generate_level(level, all_sprites, walls, player_group):
+    new_player, x, y = None, None, None
+    for y in range(len(level)):
+        for x in range(len(level[y])):
+            if level[y][x] == '.':
+                Tile(TileImages.floor, x, y, all_sprites)
+            elif level[y][x] == '|':
+                Tile(TileImages.wall, x, y, all_sprites, walls)
+            elif level[y][x] == '@':
+                Tile(TileImages.floor, x, y, all_sprites)
+                new_player = Player(x, y, all_sprites, player_group)
+    return new_player, x, y
+
+
 def start_game(clock):
     all_sprites = pygame.sprite.Group()
-    Player(all_sprites)
+    walls = pygame.sprite.Group()
+    player_group = pygame.sprite.Group()
+    player, level_x, level_y = generate_level(load_level('map1.txt'), all_sprites, walls, player_group)
+    camera = Camera()
 
     while True:
         for event in pygame.event.get():
@@ -64,6 +117,10 @@ def start_game(clock):
                     return
         consts.SCREEN.fill((0, 0, 0))
         all_sprites.draw(consts.SCREEN)
+        player_group.draw(consts.SCREEN)
         all_sprites.update()
+        camera.update(player)
+        for sprite in all_sprites:
+            camera.apply(sprite)
         pygame.display.flip()
         clock.tick(consts.FPS)

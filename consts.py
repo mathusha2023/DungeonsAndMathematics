@@ -11,3 +11,4 @@ TITLE = "Dungeons&Mathematics: " + random.choice(("2 + 2 = 5",
                                                   "история о бесполезной науке",
                                                   "убей их всех!",
                                                   "попробуй Soul Knight!"))
+TILE_WIDTH = TILE_HEIGHT = 60
