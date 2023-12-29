@@ -72,6 +72,8 @@ class Player(pygame.sprite.Sprite):
         if self.weapon and not (
                 (self.weapon.rect.x - 20 <= x <= self.weapon.rect.right + 20)
                 and (self.rect.y - 20 <= y <= self.rect.bottom + 20)):
+            if isinstance(self.weapon, weapon.ShotGun) and self.weapon.counter % 60:
+                return
             if x > self.rect.centerx:
                 self.state = Player.right
                 self.weapon.state = weapon.Weapon.right

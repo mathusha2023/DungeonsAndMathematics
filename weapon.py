@@ -55,8 +55,6 @@ class ShotGun(Weapon):
         self.counter = 60
 
     def shoot(self, x, y):
-        if self.counter % 60:
-            return
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         Bullet(start_x, self.rect.centery, x, y)
         Bullet(start_x, self.rect.centery, x - 20, y - 20)
@@ -93,9 +91,6 @@ class Bullet(pygame.sprite.Sprite):
             vx, vy = dx / frames, dy / frames
         else:
             vx, vy = dx, dy
-        if abs(vx) < 10 and abs(vy) < 10:
-            vx = math.copysign(25, -vx)
-            vy = 0
         return vx, vy
 
     def update(self, *args):
