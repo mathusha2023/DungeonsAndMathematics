@@ -80,7 +80,10 @@ class Bullet(pygame.sprite.Sprite):
         dy = self.target_y - self.rect.centery
         d = math.sqrt(dx ** 2 + dy ** 2)
         frames = math.ceil(d / self.speed)
-        vx, vy = dx / frames, dy / frames
+        if frames:
+            vx, vy = dx / frames, dy / frames
+        else:
+            vx, vy = dx, dy
         if abs(vx) < 10 and abs(vy) < 10:
             vx = math.copysign(25, -vx)
             vy = 0
