@@ -70,8 +70,8 @@ class Player(pygame.sprite.Sprite):
 
     def shoot(self, x, y):
         if self.weapon and not (
-                (self.weapon.rect.x - 20 <= x <= self.weapon.rect.right + 20)
-                and (self.rect.y - 20 <= y <= self.rect.bottom + 20)):
+                (self.weapon.rect.x - 30 <= x <= self.weapon.rect.right + 30)
+                and (self.rect.y - 30 <= y <= self.rect.bottom + 30)):
             if isinstance(self.weapon, weapon.ShotGun) and self.weapon.counter % 60:
                 return
             if x > self.rect.centerx:
