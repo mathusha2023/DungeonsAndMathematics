@@ -68,7 +68,14 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = self.prev_y
 
     def shoot(self, x, y):
-        self.weapon.shoot(x, y)
+        if self.weapon:
+            if x > self.rect.centerx:
+                self.state = Player.right
+                self.weapon.state = Player.right
+            else:
+                self.state = Player.left
+                self.weapon.state = Player.left
+            self.weapon.shoot(x, y)
 
 
 class TileImages:
