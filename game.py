@@ -1,3 +1,4 @@
+import random
 import consts
 import specfunctions
 import weapon
@@ -167,7 +168,7 @@ def generate_level(level):
                 new_player = Player(x, y)
             elif level[y][x] == "W":
                 Tile(TileImages.floor, x, y)
-                weapon.ShotGun(x, y)
+                random.choice(weapon.weapons_list)(x, y)
     return new_player, x, y
 
 

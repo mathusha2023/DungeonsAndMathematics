@@ -31,24 +31,17 @@ class Weapon(pygame.sprite.Sprite):
         self.rect.y = self.owner.rect.centery
         self.state = self.owner.state
 
-
-class RangedWeapon(Weapon):
-    def __init__(self, pos_x, pos_y, owner=None):
-        # self.image = pygame.Surface((35, 10))
-        # pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 25, 20))
-        super().__init__(pos_x, pos_y, owner)
-
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         Bullet(start_x, self.rect.centery, x, y)
 
 
-class ShotGun(RangedWeapon):
-    image_left = specfunctions.load_image("weapons/weaponranged1_left.png")
-    image_right = specfunctions.load_image("weapons/weaponranged1_right.png")
+class Rifle(Weapon):
+    image_left = specfunctions.load_image("weapons/weapon1_left.png")
+    image_right = specfunctions.load_image("weapons/weapon1_right.png")
 
     def __init__(self, pos_x, pos_y, owner=None):
-        self.image = ShotGun.image_right
+        self.image = Rifle.image_right
         super().__init__(pos_x, pos_y, owner)
 
 
@@ -80,3 +73,15 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.rect.move(self.vx, self.vy)
         if pygame.sprite.spritecollideany(self, walls):
             self.kill()
+
+
+class ShotGun(Weapon):
+    image_left = specfunctions.load_image("weapons/weapon1_left.png")
+    image_right = specfunctions.load_image("weapons/weapon1_right.png")
+
+    def __init__(self, pos_x, pos_y, owner=None):
+        self.image = ShotGun.image_right
+        super().__init__(pos_x, pos_y, owner)
+
+
+weapons_list = [Rifle, ShotGun]
