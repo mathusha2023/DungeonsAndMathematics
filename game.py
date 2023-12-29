@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.state = Player.right
         self.speed = 5
         # self.speed = 100
-        self.weapon = weapon.ShotGun(*self.rect.center, owner=self)
+        self.weapon = None
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -77,6 +77,19 @@ class Player(pygame.sprite.Sprite):
                 self.weapon.state = weapon.Weapon.left
             self.weapon.shoot(x, y)
 
+    def interaction(self, x, y):
+        portal = [i for i in portal_group][0]
+        if portal.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, portal):
+            portal.teleport()
+        for w in weapons:
+            if w.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, w):
+                if self.weapon:
+                    self.weapon.owner = None
+                    self.weapon.rect.center = w.rect.center
+                self.weapon = w
+                w.owner = self
+                return
+
 
 class TileImages:
     wall = specfunctions.load_image("wall.png")
@@ -93,7 +106,7 @@ class Tile(pygame.sprite.Sprite):
 
 class Portal(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
-        super().__init__(all_sprites)
+        super().__init__(portal_group, all_sprites)
         self.frames = []
         self.cur_frame = 0
         self.add_frames()
@@ -113,6 +126,9 @@ class Portal(pygame.sprite.Sprite):
             self.image = self.frames[self.cur_frame]
             self.cur_frame = (self.cur_frame + 1) % len(self.frames)
             self.counter = 0
+
+    def teleport(self):
+        print("TP!")
 
 
 class Camera:
@@ -165,7 +181,7 @@ def empty_groups():
 
 def apply_all(camera):
     for sprite in all_sprites:
-        # if sprite is not [i for i in player_group][0].weapon:
+        if sprite is not [i for i in player_group][0].weapon:
             camera.apply(sprite)
 
 
@@ -192,6 +208,8 @@ def start_game(clock):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     player.shoot(*event.pos)
+                if event.button == 3:
+                    player.interaction(*event.pos)
         draw_all()
         all_sprites.update(*player.rect.center, player.state)
         camera.update(player)

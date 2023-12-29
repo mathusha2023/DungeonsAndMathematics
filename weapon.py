@@ -26,14 +26,12 @@ class Weapon(pygame.sprite.Sprite):
             self.rect.x = args[0]
             self.rect.y = args[1]
             self.state = args[2]
-        # self.image = self.image_left if self.state == Weapon.left else self.image_right
         if self.state == Weapon.left:
             self.image = self.image_left
             self.rect.right = self.owner.rect.centerx
         else:
             self.image = self.image_right
             self.rect.x = self.owner.rect.centerx
-        self.rect.y = self.owner.rect.centery
 
 
 class MeleeWeapon(Weapon):
@@ -57,7 +55,7 @@ class ShotGun(RangedWeapon):
     image_right = specfunctions.load_image("weapons/weaponranged1_right.png")
 
     def __init__(self, pos_x, pos_y, owner=None):
-        self.image = ShotGun.image_left
+        self.image = ShotGun.image_right
         super().__init__(pos_x, pos_y, owner)
 
 
