@@ -211,9 +211,10 @@ def start_game(clock):
                     player.shoot(*event.pos)
                 if event.button == 3:
                     player.interaction(*event.pos)
+            player.shoot(*pygame.mouse.get_pos())
         draw_all()
         all_sprites.update()
         camera.update(player)
         apply_all(camera)
         pygame.display.flip()
-        clock.tick(consts.FPS)
+        # clock.tick(consts.FPS)
