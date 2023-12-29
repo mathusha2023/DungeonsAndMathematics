@@ -69,7 +69,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = self.prev_y
 
     def shoot(self, x, y):
-        if self.weapon:
+        if self.weapon and not (
+                (self.weapon.rect.x - 20 <= x <= self.weapon.rect.right + 20)
+                and (self.rect.y - 20 <= y <= self.rect.bottom + 20)):
             if x > self.rect.centerx:
                 self.state = Player.right
                 self.weapon.state = weapon.Weapon.right
