@@ -52,14 +52,23 @@ class ShotGun(Weapon):
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = ShotGun.image_right
         super().__init__(pos_x, pos_y, owner)
+        self.counter = 60
 
     def shoot(self, x, y):
+        if self.counter % 60:
+            return
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         Bullet(start_x, self.rect.centery, x, y)
         Bullet(start_x, self.rect.centery, x - 20, y - 20)
         Bullet(start_x, self.rect.centery, x + 20, y - 20)
         Bullet(start_x, self.rect.centery, x - 40, y - 40)
         Bullet(start_x, self.rect.centery, x + 40, y - 40)
+        self.counter = 1
+
+    def update(self, *args):
+        super().update(*args)
+        if self.counter < 60:
+            self.counter += 1
 
 
 class Bullet(pygame.sprite.Sprite):
