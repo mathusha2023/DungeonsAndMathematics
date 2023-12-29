@@ -48,7 +48,8 @@ class RangedWeapon(Weapon):
         super().__init__(pos_x, pos_y, owner)
 
     def shoot(self, x, y):
-        Bullet(self.rect.x, self.rect.y, x, y)
+        start_x = self.rect.x if self.state == Weapon.left else self.rect.right
+        Bullet(start_x, self.rect.centery, x, y)
 
 
 class ShotGun(RangedWeapon):

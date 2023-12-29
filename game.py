@@ -71,10 +71,10 @@ class Player(pygame.sprite.Sprite):
         if self.weapon:
             if x > self.rect.centerx:
                 self.state = Player.right
-                self.weapon.state = Player.right
+                self.weapon.state = weapon.Weapon.right
             else:
                 self.state = Player.left
-                self.weapon.state = Player.left
+                self.weapon.state = weapon.Weapon.left
             self.weapon.shoot(x, y)
 
 
