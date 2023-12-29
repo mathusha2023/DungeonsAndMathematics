@@ -75,7 +75,12 @@ class Bullet(pygame.sprite.Sprite):
         dy = self.target_y - self.rect.centery
         d = math.sqrt(dx ** 2 + dy ** 2)
         frames = math.ceil(d / self.speed)
-        return dx / frames, dy / frames
+        vx, vy = dx / frames, dy / frames
+        print(vx, vy)
+        if abs(vx) < 10 and abs(vy) < 10:
+            vx = math.copysign(25, -vx)
+            vy = 0
+        return vx, vy
 
     def update(self, *args):
         self.rect = self.rect.move(self.vx, self.vy)
