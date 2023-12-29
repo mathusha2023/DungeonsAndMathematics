@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.state = Player.right
         self.speed = 5
         # self.speed = 100
-        self.weapon = weapon.ShotGun(*self.rect.center)
+        self.weapon = weapon.ShotGun(*self.rect.center, owner=self)
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -124,7 +124,7 @@ class Camera:
 
 def load_level(filename):
     filename = "data/maps/" + filename
-    with open(filename, 'r') as mapFile:
+    with open(filename, "r") as mapFile:
         level_map = [line.strip() for line in mapFile]
     return level_map
 
@@ -133,15 +133,18 @@ def generate_level(level):
     new_player, x, y = None, None, None
     for y in range(len(level)):
         for x in range(len(level[y])):
-            if level[y][x] == '.':
+            if level[y][x] == ".":
                 Tile(TileImages.floor, x, y)
-            elif level[y][x] == '|':
+            elif level[y][x] == "|":
                 Tile(TileImages.wall, x, y, walls)
             elif level[y][x] == "#":
                 Portal(x, y)
-            elif level[y][x] == '@':
+            elif level[y][x] == "@":
                 Tile(TileImages.floor, x, y)
                 new_player = Player(x, y)
+            elif level[y][x] == "W":
+                Tile(TileImages.floor, x, y)
+                weapon.ShotGun(x, y)
     return new_player, x, y
 
 
@@ -155,7 +158,7 @@ def empty_groups():
 
 def apply_all(camera):
     for sprite in all_sprites:
-        if sprite is not [i for i in player_group][0].weapon:
+        # if sprite is not [i for i in player_group][0].weapon:
             camera.apply(sprite)
 
 
