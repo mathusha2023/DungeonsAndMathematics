@@ -1,7 +1,11 @@
 import random
+
+import pygame.sprite
+
 import consts
 import specfunctions
 import weapon
+import bonuses
 from spriteGroups import *
 
 
@@ -32,6 +36,8 @@ class Player(pygame.sprite.Sprite):
         self.speed = 5
         # self.speed = 100
         self.weapon = None
+        self.ammo = 0
+        self.hp = 50
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -60,6 +66,7 @@ class Player(pygame.sprite.Sprite):
             if not self.counter % 5:
                 self.im = 1 - self.im
                 self.counter = 0
+            self.take_bonuses()
         else:
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
 
@@ -71,7 +78,7 @@ class Player(pygame.sprite.Sprite):
     def shoot(self, x, y):
         if self.weapon and not (
                 (self.weapon.rect.x - 30 <= x <= self.weapon.rect.right + 30)
-                and (self.rect.y - 30 <= y <= self.rect.bottom + 30)):
+                and (self.rect.y - 30 <= y <= self.rect.bottom + 30)) and self.ammo:
             if isinstance(self.weapon, weapon.ShotGun) and self.weapon.counter % 60:
                 return
             if x > self.rect.centerx:
@@ -81,6 +88,7 @@ class Player(pygame.sprite.Sprite):
                 self.state = Player.left
                 self.weapon.state = weapon.Weapon.left
             self.weapon.shoot(x, y)
+            self.ammo -= 1
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]
@@ -94,6 +102,11 @@ class Player(pygame.sprite.Sprite):
                 self.weapon = w
                 w.owner = self
                 return
+
+    def take_bonuses(self):
+        for sprite in bonus_group:
+            if pygame.sprite.collide_rect(self, sprite):
+                sprite.take(self)
 
 
 class TileImages:
@@ -173,6 +186,12 @@ def generate_level(level):
             elif level[y][x] == "W":
                 Tile(TileImages.floor, x, y)
                 random.choice(weapon.weapons_list)(x, y)
+            elif level[y][x] == "A":
+                Tile(TileImages.floor, x, y)
+                bonuses.Ammo(x, y)
+            elif level[y][x] == "H":
+                Tile(TileImages.floor, x, y)
+                bonuses.Heal(x, y)
     return new_player, x, y
 
 
