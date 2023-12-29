@@ -24,10 +24,10 @@ class Weapon(pygame.sprite.Sprite):
             return
         if self.state == Weapon.left:
             self.image = self.image_left
-            self.rect.right = self.owner.rect.centerx
+            self.rect.right = self.owner.rect.centerx + 15
         else:
             self.image = self.image_right
-            self.rect.x = self.owner.rect.centerx
+            self.rect.x = self.owner.rect.centerx - 15
         self.rect.y = self.owner.rect.centery
         self.state = self.owner.state
 
@@ -46,8 +46,8 @@ class Rifle(Weapon):
 
 
 class ShotGun(Weapon):
-    image_left = specfunctions.load_image("weapons/weapon1_left.png")
-    image_right = specfunctions.load_image("weapons/weapon1_right.png")
+    image_left = specfunctions.load_image("weapons/weapon2_left.png")
+    image_right = specfunctions.load_image("weapons/weapon2_right.png")
 
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = ShotGun.image_right
@@ -91,7 +91,6 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self, *args):
         self.rect = self.rect.move(self.vx, self.vy)
-        print(len(bullets))
         if pygame.sprite.spritecollideany(self, walls):
             self.kill()
 
