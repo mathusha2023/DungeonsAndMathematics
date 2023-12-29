@@ -32,11 +32,6 @@ class Weapon(pygame.sprite.Sprite):
         self.state = self.owner.state
 
 
-class MeleeWeapon(Weapon):
-    def __init__(self, pos_x, pos_y, owner=None):
-        super().__init__(pos_x, pos_y, owner)
-
-
 class RangedWeapon(Weapon):
     def __init__(self, pos_x, pos_y, owner=None):
         # self.image = pygame.Surface((35, 10))
@@ -76,7 +71,6 @@ class Bullet(pygame.sprite.Sprite):
         d = math.sqrt(dx ** 2 + dy ** 2)
         frames = math.ceil(d / self.speed)
         vx, vy = dx / frames, dy / frames
-        print(vx, vy)
         if abs(vx) < 10 and abs(vy) < 10:
             vx = math.copysign(25, -vx)
             vy = 0
