@@ -211,7 +211,7 @@ def start_game(clock):
                 if event.button == 3:
                     player.interaction(*event.pos)
         draw_all()
-        all_sprites.update(*player.rect.center, player.state)
+        all_sprites.update()
         camera.update(player)
         apply_all(camera)
         pygame.display.flip()

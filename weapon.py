@@ -22,16 +22,14 @@ class Weapon(pygame.sprite.Sprite):
     def update(self, *args):
         if self.owner is None:
             return
-        if args:
-            self.rect.x = args[0]
-            self.rect.y = args[1]
-            self.state = args[2]
         if self.state == Weapon.left:
             self.image = self.image_left
             self.rect.right = self.owner.rect.centerx
         else:
             self.image = self.image_right
             self.rect.x = self.owner.rect.centerx
+        self.rect.y = self.owner.rect.centery
+        self.state = self.owner.state
 
 
 class MeleeWeapon(Weapon):
