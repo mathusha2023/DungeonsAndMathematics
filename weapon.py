@@ -87,14 +87,17 @@ class AK47(Weapon):
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         start_y = self.rect.y + (self.rect.centery - self.rect.y) // 2
-        Bullet(start_x, start_y, x, y)
+        Bullet(start_x, start_y, x, y, speed=20)
+        Bullet(start_x, start_y, x, y, speed=25)
+        Bullet(start_x, start_y, x, y, speed=30)
+
         self.counter = 1
 
 
 class Bullet(pygame.sprite.Sprite):
     image = specfunctions.load_image("bullet.png")
 
-    def __init__(self, pos_x, pos_y, target_x, target_y, speed=25):
+    def __init__(self, pos_x, pos_y, target_x, target_y, speed=20):
         super().__init__(bullets, all_sprites)
         self.image = Bullet.image
         self.rect = self.image.get_rect()
