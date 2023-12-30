@@ -11,13 +11,15 @@ class Weapon(pygame.sprite.Sprite):
     right = 0
     left = 1
 
-    def __init__(self, pos_x, pos_y, owner=None):
+    def __init__(self, pos_x, pos_y, owner=None, counter=1):
         super().__init__(weapons, all_sprites)
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
         self.state = Weapon.right
         self.owner = owner
+        self.counter = counter
+        self.max_counter = counter
 
     def update(self, *args):
         if self.owner is None:
@@ -30,10 +32,16 @@ class Weapon(pygame.sprite.Sprite):
             self.rect.x = self.owner.rect.centerx - 15
         self.rect.y = self.owner.rect.centery
         self.state = self.owner.state
+        if self.counter < self.max_counter:
+            self.counter += 1
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         Bullet(start_x, self.rect.centery, x, y)
+        self.counter = 1
+
+    def is_ready(self):
+        return self.counter == self.max_counter
 
 
 class Rifle(Weapon):
@@ -42,18 +50,12 @@ class Rifle(Weapon):
 
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = Rifle.image_right
-        super().__init__(pos_x, pos_y, owner)
-        self.counter = consts.FPS // 1.5
+        super().__init__(pos_x, pos_y, owner, counter=consts.FPS // 1.5)
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         Bullet(start_x, self.rect.centery, x, y, speed=35)
         self.counter = 1
-
-    def update(self, *args):
-        super().update(*args)
-        if self.counter < consts.FPS // 1.5:
-            self.counter += 1
 
 
 class ShotGun(Weapon):
@@ -62,8 +64,7 @@ class ShotGun(Weapon):
 
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = ShotGun.image_right
-        super().__init__(pos_x, pos_y, owner)
-        self.counter = consts.FPS
+        super().__init__(pos_x, pos_y, owner, counter=consts.FPS)
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
@@ -74,11 +75,6 @@ class ShotGun(Weapon):
         Bullet(start_x, self.rect.centery, x + 40, y - 40)
         self.counter = 1
 
-    def update(self, *args):
-        super().update(*args)
-        if self.counter < consts.FPS:
-            self.counter += 1
-
 
 class AK47(Weapon):
     image_left = specfunctions.load_image("weapons/weapon3_left.png")
@@ -86,12 +82,13 @@ class AK47(Weapon):
 
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = AK47.image_right
-        super().__init__(pos_x, pos_y, owner)
+        super().__init__(pos_x, pos_y, owner, counter=consts.FPS // 3)
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         start_y = self.rect.y + (self.rect.centery - self.rect.y) // 2
         Bullet(start_x, start_y, x, y)
+        self.counter = 1
 
 
 class Bullet(pygame.sprite.Sprite):
