@@ -1,7 +1,4 @@
 import random
-
-import pygame.sprite
-
 import consts
 import specfunctions
 import weapon
