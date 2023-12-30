@@ -86,6 +86,7 @@ class Player(pygame.sprite.Sprite):
             self.ammo -= 1
         else:
             self.punch()
+
     def punch(self):
         weapon.Fist(self.rect.x, self.rect.y, self.state)
 

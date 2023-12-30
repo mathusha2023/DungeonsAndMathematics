@@ -137,27 +137,32 @@ class Bullet(pygame.sprite.Sprite):
 
 
 class Fist(pygame.sprite.Sprite):
+    right = 0
+    left = 1
+
     def __init__(self, pos_x, pos_y, state):
         super().__init__(all_sprites, weapons)
-        self.right_sprites = []
-        self.left_sprites = []
-        self.load_sprites()
+        self.sprites = []
+        self.load_sprites(state)
         self.im = 0
         self.state = state
         self.counter = 0
-        self.image = self.right_sprites[self.im]
-        self.rect = self.image.get_rect().move((pos_x+20, pos_y-30))
+        self.image = self.sprites[self.im]
+        self.rect = self.image.get_rect().move((pos_x + 20, pos_y - 30)) if state == Fist.right else (
+            self.image.get_rect().move((pos_x - 20, pos_y - 30)))
 
-    def load_sprites(self):
+    def load_sprites(self, state):
         for i in range(1, 4):
-            self.right_sprites.append(specfunctions.load_image(f"weapons/fists/fist{i}_r.png"))
-            self.left_sprites.append(specfunctions.load_image(f"weapons/fists/fist{i}_l.png"))
+            if state == Fist.right:
+                self.sprites.append(specfunctions.load_image(f"weapons/fists/fist{i}_r.png"))
+            else:
+                self.sprites.append(specfunctions.load_image(f"weapons/fists/fist{i}_l.png"))
 
     def update(self, *args):
-        if self.im == len(self.right_sprites):
+        if self.im == len(self.sprites):
             self.kill()
             return
-        self.image = self.right_sprites[self.im]
+        self.image = self.sprites[self.im]
         self.counter += 1
         if not self.counter % 5:
             self.im += 1
