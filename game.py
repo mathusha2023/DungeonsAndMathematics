@@ -76,7 +76,7 @@ class Player(pygame.sprite.Sprite):
         if self.weapon and not (
                 (self.weapon.rect.x - 30 <= x <= self.weapon.rect.right + 30)
                 and (self.rect.y - 30 <= y <= self.rect.bottom + 30)) and self.ammo:
-            if isinstance(self.weapon, weapon.ShotGun) and self.weapon.counter % 60:
+            if not self.check_weapon_kd():
                 return
             if x > self.rect.centerx:
                 self.state = Player.right
@@ -86,6 +86,13 @@ class Player(pygame.sprite.Sprite):
                 self.weapon.state = weapon.Weapon.left
             self.weapon.shoot(x, y)
             self.ammo -= 1
+
+    def check_weapon_kd(self):
+        if isinstance(self.weapon, weapon.ShotGun) and self.weapon.counter % consts.FPS:
+            return False
+        if isinstance(self.weapon, weapon.Rifle) and self.weapon.counter % (consts.FPS // 1.5):
+            return False
+        return True
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]

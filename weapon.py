@@ -43,6 +43,17 @@ class Rifle(Weapon):
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = Rifle.image_right
         super().__init__(pos_x, pos_y, owner)
+        self.counter = consts.FPS // 1.5
+
+    def shoot(self, x, y):
+        start_x = self.rect.x if self.state == Weapon.left else self.rect.right
+        Bullet(start_x, self.rect.centery, x, y, speed=35)
+        self.counter = 1
+
+    def update(self, *args):
+        super().update(*args)
+        if self.counter < consts.FPS // 1.5:
+            self.counter += 1
 
 
 class ShotGun(Weapon):
@@ -52,7 +63,7 @@ class ShotGun(Weapon):
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = ShotGun.image_right
         super().__init__(pos_x, pos_y, owner)
-        self.counter = 60
+        self.counter = consts.FPS
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
@@ -65,21 +76,21 @@ class ShotGun(Weapon):
 
     def update(self, *args):
         super().update(*args)
-        if self.counter < 60:
+        if self.counter < consts.FPS:
             self.counter += 1
 
 
 class Bullet(pygame.sprite.Sprite):
     image = specfunctions.load_image("bullet.png")
 
-    def __init__(self, pos_x, pos_y, target_x, target_y):
+    def __init__(self, pos_x, pos_y, target_x, target_y, speed=25):
         super().__init__(bullets, all_sprites)
         self.image = Bullet.image
         self.rect = self.image.get_rect()
         self.rect.center = (pos_x, pos_y)
         self.target_x = target_x
         self.target_y = target_y
-        self.speed = 25
+        self.speed = speed
         self.vx, self.vy = self.get_speeds()
 
     def get_speeds(self):
