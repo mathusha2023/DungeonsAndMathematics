@@ -34,5 +34,5 @@ class Heal(Bonus):
     def take(self, player):
         player.hp += 2
         if player.hp > 10:
-            player.hp = 50
+            player.hp = 10
         self.kill()
