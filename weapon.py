@@ -129,7 +129,7 @@ class Bullet(pygame.sprite.Sprite):
             return
         self.rect = self.rect.move(self.vx, self.vy)
         if pygame.sprite.spritecollideany(self, walls):
-            self.alive_counter = consts.FPS
+            self.alive_counter = 2
             self.image = Bullet.yaderka
 
 
