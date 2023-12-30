@@ -1,5 +1,6 @@
 import pygame
 import consts
+import specfunctions
 from spriteGroups import bonus_group, all_sprites
 
 
@@ -7,14 +8,15 @@ class Bonus(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, bonus_group)
         self.rect = self.image.get_rect()
-        self.rect.x = consts.TILE_WIDTH * pos_x - 15
-        self.rect.y = consts.TILE_HEIGHT * pos_y - 15
+        self.rect.x = consts.TILE_WIDTH * pos_x - self.rect.width // 2
+        self.rect.y = consts.TILE_HEIGHT * pos_y - self.rect.height // 2
 
 
 class Ammo(Bonus):
+    image = specfunctions.load_image("ammo.png")
+
     def __init__(self, pos_x, pos_y):
-        self.image = pygame.Surface((30, 30))
-        pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 30, 30))
+        self.image = Ammo.image
         super().__init__(pos_x, pos_y)
 
     def take(self, player):
@@ -23,9 +25,10 @@ class Ammo(Bonus):
 
 
 class Heal(Bonus):
+    image = specfunctions.load_image("heal.png")
+
     def __init__(self, pos_x, pos_y):
-        self.image = pygame.Surface((30, 30))
-        pygame.draw.rect(self.image, (255, 0, 0), (0, 0, 30, 30))
+        self.image = Heal.image
         super().__init__(pos_x, pos_y)
 
     def take(self, player):
