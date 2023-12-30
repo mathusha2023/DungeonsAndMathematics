@@ -18,7 +18,7 @@ class Ammo(Bonus):
         super().__init__(pos_x, pos_y)
 
     def take(self, player):
-        player.ammo += 10
+        player.ammo += 25
         self.kill()
 
 
