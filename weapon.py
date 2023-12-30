@@ -136,4 +136,9 @@ class Bullet(pygame.sprite.Sprite):
             self.rect.center = center
 
 
+class Fist(pygame.sprite.Sprite):
+    def __init__(self, pox_x, pox_y, state):
+        super().__init__(all_sprites, weapons)
+
+
 weapons_list = [Rifle, ShotGun, AK47]
