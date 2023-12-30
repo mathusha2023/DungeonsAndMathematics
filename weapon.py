@@ -80,6 +80,20 @@ class ShotGun(Weapon):
             self.counter += 1
 
 
+class AK47(Weapon):
+    image_left = specfunctions.load_image("weapons/weapon3_left.png")
+    image_right = specfunctions.load_image("weapons/weapon3_right.png")
+
+    def __init__(self, pos_x, pos_y, owner=None):
+        self.image = AK47.image_right
+        super().__init__(pos_x, pos_y, owner)
+
+    def shoot(self, x, y):
+        start_x = self.rect.x if self.state == Weapon.left else self.rect.right
+        start_y = self.rect.y + (self.rect.centery - self.rect.y) // 2
+        Bullet(start_x, start_y, x, y)
+
+
 class Bullet(pygame.sprite.Sprite):
     image = specfunctions.load_image("bullet.png")
 
@@ -110,4 +124,4 @@ class Bullet(pygame.sprite.Sprite):
             self.kill()
 
 
-weapons_list = [Rifle, ShotGun]
+weapons_list = [Rifle, ShotGun, AK47]
