@@ -108,6 +108,7 @@ class Bullet(pygame.sprite.Sprite):
         self.speed = speed
         self.damage = damage
         self.vx, self.vy = self.get_speeds()
+        self.alive_counter = 0
 
     def get_speeds(self):
         dx = self.target_x - self.rect.centerx
@@ -121,10 +122,15 @@ class Bullet(pygame.sprite.Sprite):
         return vx, vy
 
     def update(self, *args):
+        if self.alive_counter:
+            self.alive_counter -= 1
+            if not self.alive_counter:
+                self.kill()
+            return
         self.rect = self.rect.move(self.vx, self.vy)
         if pygame.sprite.spritecollideany(self, walls):
+            self.alive_counter = consts.FPS
             self.image = Bullet.yaderka
-            self.kill()
 
 
 weapons_list = [Rifle, ShotGun, AK47]
