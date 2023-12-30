@@ -96,6 +96,7 @@ class AK47(Weapon):
 
 class Bullet(pygame.sprite.Sprite):
     image = specfunctions.load_image("bullet.png")
+    yaderka = specfunctions.load_image("babah.png")
 
     def __init__(self, pos_x, pos_y, target_x, target_y, speed=20, damage=2):
         super().__init__(bullets, all_sprites)
@@ -122,6 +123,7 @@ class Bullet(pygame.sprite.Sprite):
     def update(self, *args):
         self.rect = self.rect.move(self.vx, self.vy)
         if pygame.sprite.spritecollideany(self, walls):
+            self.image = Bullet.yaderka
             self.kill()
 
 
