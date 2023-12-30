@@ -137,8 +137,27 @@ class Bullet(pygame.sprite.Sprite):
 
 
 class Fist(pygame.sprite.Sprite):
-    def __init__(self, pox_x, pox_y, state):
+    def __init__(self, pos_x, pos_y, state):
         super().__init__(all_sprites, weapons)
+        self.right_sprites = []
+        self.left_sprites = []
+        self.load_sprites()
+        self.im = 0
+        self.state = state
+        self.image = self.right_sprites[self.im]
+        self.rect = self.image.get_rect().move((pos_x, pos_y))
+
+    def load_sprites(self):
+        for i in range(1, 7):
+            self.right_sprites.append(specfunctions.load_image(f"weapons/fists/fist{i}_r.png"))
+            # self.left_sprites.append(specfunctions.load_image(f"weapons/fists/fist{i}_l.png"))
+
+    def update(self, *args):
+        self.im += 1
+        if self.im == len(self.right_sprites):
+            self.kill()
+            return
+        self.image = self.right_sprites[self.im]
 
 
 weapons_list = [Rifle, ShotGun, AK47]

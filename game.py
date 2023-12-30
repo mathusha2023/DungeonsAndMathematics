@@ -84,6 +84,10 @@ class Player(pygame.sprite.Sprite):
                 self.weapon.state = weapon.Weapon.left
             self.weapon.shoot(x, y)
             self.ammo -= 1
+        else:
+            self.punch()
+    def punch(self):
+        weapon.Fist(self.rect.x, self.rect.y, self.state)
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]
