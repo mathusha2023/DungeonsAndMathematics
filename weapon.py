@@ -131,6 +131,9 @@ class Bullet(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, walls):
             self.alive_counter = 2
             self.image = Bullet.yaderka
+            center = self.rect.center
+            self.rect = self.image.get_rect()
+            self.rect.center = center
 
 
 weapons_list = [Rifle, ShotGun, AK47]
