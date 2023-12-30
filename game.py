@@ -214,7 +214,7 @@ def draw_gui():
     consts.SCREEN.blit(Images.gui_hp, (10, 20))
     consts.SCREEN.blit(Images.gui_ammo, (25, 90))
     text = pygame.font.Font(None, 70).render(str(ammo), True, (255, 255, 255))
-    consts.SCREEN.blit(text, (85, 95))
+    consts.SCREEN.blit(text, (65, 95))
 
 
 def draw_all():

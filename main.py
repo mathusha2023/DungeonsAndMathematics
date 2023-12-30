@@ -20,20 +20,21 @@ class Title(pygame.sprite.Sprite):
         super().__init__(all_sprites)
         self.image = Title.image
         self.rect = self.image.get_rect()
-        self.rect.center = (consts.WIDTH // 2, 150)
+        self.rect.center = (consts.WIDTH // 2, 200)
 
 
 Title()
-buttons.Button(all_sprites, text="Играть!", x=consts.WIDTH // 2, y=300, f_size=40,
+buttons.Button(all_sprites, text="Играть!", x=consts.WIDTH // 2, y=375, f_size=45,
                press_event=lambda: game.start_game(clock))
-buttons.Button(all_sprites, text="Рекорды", x=consts.WIDTH // 2, y=350, f_size=40,
+buttons.Button(all_sprites, text="Рекорды", x=consts.WIDTH // 2, y=450, f_size=45,
                press_event=lambda: print("RECORDS!"))
-buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=400, f_size=40,
+buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=525, f_size=45,
                press_event=lambda: print("SETTINGS!"))
-buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=450, f_size=40,
+buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=600, f_size=45,
                press_event=specfunctions.terminate)
 buttons.RightButton(all_sprites, text="Поддержать автора", x=consts.WIDTH - 25, y=consts.HEIGHT - 10,
-                    press_event=lambda: webbrowser.open("https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212"))
+                    press_event=lambda: webbrowser.open("https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212"),
+                    f_active_color=(0, 255, 0))
 
 while True:
     for event in pygame.event.get():
