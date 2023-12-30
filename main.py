@@ -1,4 +1,5 @@
 import pygame
+import webbrowser
 import consts
 import buttons
 import specfunctions
@@ -31,6 +32,9 @@ buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=40
                press_event=lambda: print("SETTINGS!"))
 buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=450, f_size=40,
                press_event=specfunctions.terminate)
+buttons.RightButton(all_sprites, text="Поддержать автора", x=consts.WIDTH - 25, y=consts.HEIGHT - 10,
+                    press_event=lambda: webbrowser.open(
+                        "https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212"))
 
 while True:
     for event in pygame.event.get():
