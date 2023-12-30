@@ -34,7 +34,7 @@ class Player(pygame.sprite.Sprite):
         # self.speed = 50
         self.weapon = None
         self.ammo = 0
-        self.hp = 50
+        self.hp = 10
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -104,9 +104,11 @@ class Player(pygame.sprite.Sprite):
                 sprite.take(self)
 
 
-class TileImages:
+class Images:
     wall = specfunctions.load_image("wall.png")
     floor = specfunctions.load_image("floor.png")
+    gui_hp = specfunctions.load_image("gui_hp.png")
+    gui_ammo = specfunctions.load_image("gui_ammo.png")
 
 
 class Tile(pygame.sprite.Sprite):
@@ -170,22 +172,22 @@ def generate_level(level):
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == ".":
-                Tile(TileImages.floor, x, y)
+                Tile(Images.floor, x, y)
             elif level[y][x] == "|":
-                Tile(TileImages.wall, x, y, walls)
+                Tile(Images.wall, x, y, walls)
             elif level[y][x] == "#":
                 Portal(x, y)
             elif level[y][x] == "@":
-                Tile(TileImages.floor, x, y)
+                Tile(Images.floor, x, y)
                 new_player = Player(x, y)
             elif level[y][x] == "W":
-                Tile(TileImages.floor, x, y)
+                Tile(Images.floor, x, y)
                 random.choice(weapon.weapons_list)(x, y)
             elif level[y][x] == "A":
-                Tile(TileImages.floor, x, y)
+                Tile(Images.floor, x, y)
                 bonuses.Ammo(x, y)
             elif level[y][x] == "H":
-                Tile(TileImages.floor, x, y)
+                Tile(Images.floor, x, y)
                 bonuses.Heal(x, y)
     return new_player, x, y
 
@@ -204,12 +206,24 @@ def apply_all(camera):
             camera.apply(sprite)
 
 
+def draw_gui():
+    ammo = [i for i in player_group][0].ammo
+    hp = [i for i in player_group][0].hp
+    pygame.draw.rect(consts.SCREEN, (155, 45, 48), (30, 30, hp * 30, 40))
+    pygame.draw.rect(consts.SCREEN, (0, 0, 0), (30 + hp * 30, 30, (10 - hp) * 30, 40))
+    consts.SCREEN.blit(Images.gui_hp, (10, 20))
+    consts.SCREEN.blit(Images.gui_ammo, (25, 90))
+    text = pygame.font.Font(None, 70).render(str(ammo), True, (255, 255, 255))
+    consts.SCREEN.blit(text, (85, 95))
+
+
 def draw_all():
     consts.SCREEN.fill((0, 0, 0))
     all_sprites.draw(consts.SCREEN)
     bullets.draw(consts.SCREEN)
     player_group.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
+    draw_gui()
 
 
 def start_game(clock):
@@ -229,6 +243,9 @@ def start_game(clock):
                     player.shoot(*event.pos)
                 if event.button == 3:
                     player.interaction(*event.pos)
+                # if event.button == 2:
+                #     if player.hp > 0:
+                #         player.hp -= 1
         draw_all()
         all_sprites.update()
         camera.update(player)
