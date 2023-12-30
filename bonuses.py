@@ -7,14 +7,14 @@ class Bonus(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, bonus_group)
         self.rect = self.image.get_rect()
-        self.rect.x = consts.TILE_WIDTH * pos_x
-        self.rect.y = consts.TILE_HEIGHT * pos_y
+        self.rect.x = consts.TILE_WIDTH * pos_x - 15
+        self.rect.y = consts.TILE_HEIGHT * pos_y - 15
 
 
 class Ammo(Bonus):
     def __init__(self, pos_x, pos_y):
-        self.image = pygame.Surface((20, 20))
-        pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 20, 20))
+        self.image = pygame.Surface((30, 30))
+        pygame.draw.rect(self.image, (0, 0, 0), (0, 0, 30, 30))
         super().__init__(pos_x, pos_y)
 
     def take(self, player):
@@ -24,8 +24,8 @@ class Ammo(Bonus):
 
 class Heal(Bonus):
     def __init__(self, pos_x, pos_y):
-        self.image = pygame.Surface((20, 20))
-        pygame.draw.rect(self.image, (255, 0, 0), (0, 0, 20, 20))
+        self.image = pygame.Surface((30, 30))
+        pygame.draw.rect(self.image, (255, 0, 0), (0, 0, 30, 30))
         super().__init__(pos_x, pos_y)
 
     def take(self, player):

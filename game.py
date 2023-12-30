@@ -34,7 +34,7 @@ class Player(pygame.sprite.Sprite):
         self.counter = 0
         self.state = Player.right
         self.speed = 5
-        # self.speed = 100
+        # self.speed = 50
         self.weapon = None
         self.ammo = 0
         self.hp = 50
