@@ -1,5 +1,3 @@
-import random
-
 import pygame
 import webbrowser
 import consts
@@ -35,7 +33,7 @@ buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=40
 buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=450, f_size=40,
                press_event=specfunctions.terminate)
 buttons.RightButton(all_sprites, text="Поддержать автора", x=consts.WIDTH - 25, y=consts.HEIGHT - 10,
-                    press_event=lambda: webbrowser.open(random.choice(["https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212", "https://qiwi.com/payment/form/99999?extra[%27accountType%27]=phone&extra%5B%27account%27%5D=79107680881"])))
+                    press_event=lambda: webbrowser.open("https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212"))
 
 while True:
     for event in pygame.event.get():
