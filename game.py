@@ -35,6 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.weapon = None
         self.ammo = 0
         self.hp = 10
+        self.punch_kd = consts.FPS
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -66,6 +67,8 @@ class Player(pygame.sprite.Sprite):
             self.take_bonuses()
         else:
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
+        if self.punch_kd < consts.FPS:
+            self.punch_kd += 1
 
     def stop_wall_moving(self):
         if pygame.sprite.spritecollideany(self, walls):
@@ -73,22 +76,25 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = self.prev_y
 
     def shoot(self, x, y):
-        if self.weapon and self.weapon.is_ready() and not (
-                (self.weapon.rect.x - 30 <= x <= self.weapon.rect.right + 30)
-                and (self.rect.y - 30 <= y <= self.rect.bottom + 30)) and self.ammo:
-            if x > self.rect.centerx:
-                self.state = Player.right
-                self.weapon.state = weapon.Weapon.right
-            else:
-                self.state = Player.left
-                self.weapon.state = weapon.Weapon.left
-            self.weapon.shoot(x, y)
-            self.ammo -= 1
+        if self.weapon and self.ammo:
+            if self.weapon.is_ready() and not (
+                    self.weapon.rect.x - 30 <= x <= self.weapon.rect.right + 30
+                    and self.rect.y - 30 <= y <= self.rect.bottom + 30):
+                if x > self.rect.centerx:
+                    self.state = Player.right
+                    self.weapon.state = weapon.Weapon.right
+                else:
+                    self.state = Player.left
+                    self.weapon.state = weapon.Weapon.left
+                self.weapon.shoot(x, y)
+                self.ammo -= 1
         else:
-            self.punch()
+            if not self.punch_kd % consts.FPS:
+                self.punch()
+                self.punch_kd = 1
 
     def punch(self):
-        weapon.Fist(self.rect.x, self.rect.y, self.state)
+        weapon.Fist(*self.rect.center, self.state)
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]

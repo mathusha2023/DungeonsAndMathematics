@@ -148,8 +148,12 @@ class Fist(pygame.sprite.Sprite):
         self.state = state
         self.counter = 0
         self.image = self.sprites[self.im]
-        self.rect = self.image.get_rect().move((pos_x + 20, pos_y - 30)) if state == Fist.right else (
-            self.image.get_rect().move((pos_x - 20, pos_y - 30)))
+        self.rect = self.image.get_rect()
+        if state == Fist.left:
+            self.rect.x = pos_x - 55
+        else:
+            self.rect.right = pos_x + 55
+        self.rect.y = pos_y - 50
 
     def load_sprites(self, state):
         for i in range(1, 4):
