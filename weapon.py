@@ -135,6 +135,9 @@ class Bullet(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.rect.center = center
 
+    def is_alive(self):
+        return self.image == Bullet.image
+
 
 class Fist(pygame.sprite.Sprite):
     right = 0
@@ -145,7 +148,6 @@ class Fist(pygame.sprite.Sprite):
         self.sprites = []
         self.load_sprites(state)
         self.im = 0
-        self.state = state
         self.counter = 0
         self.image = self.sprites[self.im]
         self.rect = self.image.get_rect()
