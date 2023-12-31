@@ -98,8 +98,8 @@ class AK47(Weapon):
 
 
 class Bullet(pygame.sprite.Sprite):
-    image = specfunctions.load_image("bullet.png")
-    yaderka = specfunctions.load_image("babah.png")
+    image = specfunctions.load_image("weapons/bullet.png")
+    yaderka = specfunctions.load_image("weapons/babah.png")
 
     def __init__(self, pos_x, pos_y, target_x, target_y, speed=20, damage=2):
         super().__init__(bullets, all_sprites)
@@ -147,7 +147,7 @@ class Fist(pygame.sprite.Sprite):
     left = 1
 
     def __init__(self, pos_x, pos_y, state):
-        super().__init__(all_sprites, weapons)
+        super().__init__(all_sprites, bullets)
         self.sprites = []
         self.load_sprites(state)
         self.im = 0
@@ -159,6 +159,7 @@ class Fist(pygame.sprite.Sprite):
         else:
             self.rect.right = pos_x + 55
         self.rect.y = pos_y - 50
+        self.damage = 1
 
     def load_sprites(self, state):
         for i in range(1, 4):
@@ -178,4 +179,70 @@ class Fist(pygame.sprite.Sprite):
             self.counter = 0
 
 
-weapons_list = [Rifle, ShotGun, AK47]
+class Flamethrower(Weapon):
+    image_left = specfunctions.load_image("weapons/weapon4_left.png")
+    image_right = specfunctions.load_image("weapons/weapon4_right.png")
+
+    def __init__(self, pos_x, pos_y, owner=None):
+        self.image = Flamethrower.image_right
+        super().__init__(pos_x, pos_y, owner)
+        self.fire = None
+        self.ammo_counter = 0
+
+    def shoot(self, x, y):
+        pass
+
+    def update(self, *args):
+        super().update(*args)
+        if self.owner is None:
+            return
+        if not pygame.mouse.get_pressed()[0] or not self.owner.ammo:
+            if self.fire:
+                self.fire.kill()
+                self.fire = None
+            return
+        if self.fire is None:
+            self.fire = Fire(self)
+        self.fire.update()
+        if not self.ammo_counter % consts.FPS:
+            self.owner.ammo -= 1
+        self.ammo_counter = (self.ammo_counter + 1) % consts.FPS
+
+
+class Fire(pygame.sprite.Sprite):
+    def __init__(self, flamethrower):
+        super().__init__(all_sprites, bullets)
+        self.left_frames = []
+        self.right_frames = []
+        self.cur_frame = 0
+        self.add_frames()
+        self.flamethrower = flamethrower
+        self.image = None
+        self.rect = self.right_frames[0].get_rect()
+        self.update_image()
+        self.counter = 0
+        self.damage = 1
+
+    def add_frames(self):
+        for i in range(1, 11):
+            self.left_frames.append(specfunctions.load_image(f"weapons/fire_left/{i}.png"))
+            self.right_frames.append(specfunctions.load_image(f"weapons/fire_right/{i}.png"))
+
+    def update_image(self):
+        if self.flamethrower.state == Weapon.right:
+            self.image = self.right_frames[self.cur_frame]
+            self.rect.x = self.flamethrower.rect.right
+        else:
+            self.image = self.left_frames[self.cur_frame]
+            self.rect.right = self.flamethrower.rect.x
+        self.rect.centery = self.flamethrower.rect.centery
+
+    def update(self, *args):
+        self.counter += 1
+        self.update_image()
+        if not self.counter % 3:
+            self.cur_frame = (self.cur_frame + 1) % len(self.right_frames)
+            self.counter = 0
+
+
+weapons_list = [Rifle, ShotGun, AK47, Flamethrower]

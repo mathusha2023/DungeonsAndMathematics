@@ -212,7 +212,7 @@ def empty_groups():
 
 def apply_all(camera):
     for sprite in all_sprites:
-        if sprite is not [i for i in player_group][0].weapon:
+        if sprite is not [i for i in player_group][0].weapon and not isinstance(sprite, weapon.Fire):
             camera.apply(sprite)
 
 
@@ -230,8 +230,8 @@ def draw_gui():
 def draw_all():
     consts.SCREEN.fill((0, 0, 0))
     all_sprites.draw(consts.SCREEN)
-    bullets.draw(consts.SCREEN)
     player_group.draw(consts.SCREEN)
+    bullets.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
     draw_gui()
 
