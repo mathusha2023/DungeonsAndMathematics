@@ -87,7 +87,6 @@ class Player(pygame.sprite.Sprite):
                     self.state = Player.left
                     self.weapon.state = weapon.Weapon.left
                 self.weapon.shoot(x, y)
-                self.ammo -= 1
         else:
             if not self.punch_kd % consts.FPS:
                 self.punch()

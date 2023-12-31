@@ -39,6 +39,7 @@ class Weapon(pygame.sprite.Sprite):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         Bullet(start_x, self.rect.centery, x, y)
         self.counter = 1
+        self.owner.ammo -= 1
 
     def is_ready(self):
         return self.counter == self.max_counter
@@ -56,6 +57,7 @@ class Rifle(Weapon):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         Bullet(start_x, self.rect.centery, x, y, speed=35, damage=3)
         self.counter = 1
+        self.owner.ammo -= 1
 
 
 class ShotGun(Weapon):
@@ -74,6 +76,7 @@ class ShotGun(Weapon):
         Bullet(start_x, self.rect.centery, x - 40, y - 40, damage=1)
         Bullet(start_x, self.rect.centery, x + 40, y - 40, damage=1)
         self.counter = 1
+        self.owner.ammo -= 1
 
 
 class AK47(Weapon):
@@ -90,8 +93,8 @@ class AK47(Weapon):
         Bullet(start_x, start_y, x, y, speed=20)
         Bullet(start_x, start_y, x, y, speed=25)
         Bullet(start_x, start_y, x, y, speed=30)
-
         self.counter = 1
+        self.owner.ammo -= 1
 
 
 class Bullet(pygame.sprite.Sprite):
