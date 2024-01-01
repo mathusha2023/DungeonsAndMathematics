@@ -55,7 +55,7 @@ class Rifle(Weapon):
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
-        Bullet(start_x, self.rect.centery, x, y, speed=35, damage=3)
+        Bullet(start_x, self.rect.centery, x, y, speed=35, damage=3, brange=1200)
         self.counter = 1
         self.owner.ammo -= 1
 
@@ -70,11 +70,11 @@ class ShotGun(Weapon):
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
-        Bullet(start_x, self.rect.centery, x, y, damage=1)
-        Bullet(start_x, self.rect.centery, x - 20, y - 20, damage=1)
-        Bullet(start_x, self.rect.centery, x + 20, y - 20, damage=1)
-        Bullet(start_x, self.rect.centery, x - 40, y - 40, damage=1)
-        Bullet(start_x, self.rect.centery, x + 40, y - 40, damage=1)
+        Bullet(start_x, self.rect.centery, x, y, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x - 20, y - 20, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x + 20, y - 20, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x - 40, y - 40, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x + 40, y - 40, damage=1, brange=300)
         self.counter = 1
         self.owner.ammo -= 1
 
@@ -101,7 +101,7 @@ class Bullet(pygame.sprite.Sprite):
     image = specfunctions.load_image("weapons/bullet.png")
     yaderka = specfunctions.load_image("weapons/babah.png")
 
-    def __init__(self, pos_x, pos_y, target_x, target_y, speed=20, damage=2):
+    def __init__(self, pos_x, pos_y, target_x, target_y, speed=20, damage=2, brange=600):
         super().__init__(bullets, all_sprites)
         self.image = Bullet.image
         self.rect = self.image.get_rect()
@@ -110,6 +110,8 @@ class Bullet(pygame.sprite.Sprite):
         self.target_y = target_y
         self.speed = speed
         self.damage = damage
+        self.path = 0
+        self.range = brange
         self.vx, self.vy = self.get_speeds()
         self.alive_counter = 0
 
@@ -137,9 +139,15 @@ class Bullet(pygame.sprite.Sprite):
             center = self.rect.center
             self.rect = self.image.get_rect()
             self.rect.center = center
+        self.check_range()
 
     def is_alive(self):
         return self.image == Bullet.image
+
+    def check_range(self):
+        self.path += math.sqrt(self.vx ** 2 + self.vy ** 2)
+        if self.path > self.range:
+            self.kill()
 
 
 class Fist(pygame.sprite.Sprite):
