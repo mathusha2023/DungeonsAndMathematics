@@ -212,7 +212,7 @@ class Flamethrower(Weapon):
         if self.fire is None:
             self.fire = Fire(self)
         self.fire.update()
-        if not self.ammo_counter % consts.FPS:
+        if not self.ammo_counter % (consts.FPS // 2):
             self.owner.ammo -= 1
         self.ammo_counter = (self.ammo_counter + 1) % consts.FPS
 
