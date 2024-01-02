@@ -30,7 +30,6 @@ class Enemy(pygame.sprite.Sprite):
         self.counter = 0
         self.state = Enemy.right
         self.speed = 5
-        self.weapon = weapon.ShotGun(pos_x, pos_y, owner=self, is_players=False)
         self.ammo = 1000000000000000000000000000000000000
         self.hp = 10
 
@@ -50,8 +49,30 @@ class Enemy(pygame.sprite.Sprite):
                     self.kill()
                     self.weapon.kill()
 
+    def check_player(self):
+        return self.checking_rect.colliderect([i for i in player_group][0].rect)
+
     def update(self, *args):
         self.update_checkrect()
         self.check_player_shot()
-        if not self.checking_rect.colliderect([i for i in player_group][0].rect):
+        if not self.check_player():
             return
+
+    def shoot(self):
+        self.weapon.shoot(*[i for i in player_group][0].rect.center)
+
+
+class SniperEnemy(Enemy):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
+        self.counter = 2 * consts.FPS
+        self.weapon = weapon.Rifle(pos_x, pos_y, owner=self, is_players=False)
+
+    def update(self, *args):
+        super().update(*args)
+        self.counter += 1
+        if not self.check_player():
+            return
+        if not self.counter % (2 * consts.FPS):
+            self.counter = 1
+            self.shoot()

@@ -70,6 +70,7 @@ class Player(pygame.sprite.Sprite):
             self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
         if self.punch_kd < consts.FPS:
             self.punch_kd += 1
+        self.check_enemy_shot()
 
     def stop_wall_moving(self):
         if pygame.sprite.spritecollideany(self, walls):
@@ -113,6 +114,14 @@ class Player(pygame.sprite.Sprite):
         for sprite in bonus_group:
             if pygame.sprite.collide_rect(self, sprite):
                 sprite.take(self)
+
+    def check_enemy_shot(self):
+        for bullet in pygame.sprite.spritecollide(self, enemies_bullets, False):
+            if bullet.is_alive():
+                bullet.kill()
+                self.hp -= bullet.damage
+                if self.hp <= 0:
+                    specfunctions.terminate()
 
 
 class Images:
@@ -202,7 +211,7 @@ def generate_level(level):
                 bonuses.Heal(x, y)
             elif level[y][x] == "+":
                 Tile(Images.floor, x, y)
-                enemy.Enemy(x, y)
+                enemy.SniperEnemy(x, y)
     return new_player, x, y
 
 
