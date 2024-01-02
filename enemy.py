@@ -29,6 +29,7 @@ class Enemy(pygame.sprite.Sprite):
         self.im = 0
         self.counter = 0
         self.state = Enemy.right
+        self.weapon = None
         self.speed = 5
         self.ammo = 1000000000000000000000000000000000000
         self.hp = 10
