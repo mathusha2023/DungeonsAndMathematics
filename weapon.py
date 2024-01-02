@@ -2,7 +2,7 @@ import pygame
 import math
 import consts
 import specfunctions
-from spriteGroups import bullets, weapons, all_sprites, walls
+from spriteGroups import bullets, weapons, all_sprites, walls, player_bullets, enemies_bullets
 
 
 class Weapon(pygame.sprite.Sprite):
@@ -11,7 +11,7 @@ class Weapon(pygame.sprite.Sprite):
     right = 0
     left = 1
 
-    def __init__(self, pos_x, pos_y, owner=None, counter=1):
+    def __init__(self, pos_x, pos_y, owner=None, counter=1, is_players=True):
         super().__init__(weapons, all_sprites)
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
@@ -20,6 +20,7 @@ class Weapon(pygame.sprite.Sprite):
         self.owner = owner
         self.counter = counter
         self.max_counter = counter
+        self.is_players = is_players
 
     def update(self, *args):
         if self.owner is None:
@@ -37,7 +38,7 @@ class Weapon(pygame.sprite.Sprite):
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
-        Bullet(start_x, self.rect.centery, x, y)
+        Bullet(start_x, self.rect.centery, x, y, self.is_players)
         self.counter = 1
         self.owner.ammo -= 1
 
@@ -49,13 +50,13 @@ class Rifle(Weapon):
     image_left = specfunctions.load_image("weapons/weapon1_left.png")
     image_right = specfunctions.load_image("weapons/weapon1_right.png")
 
-    def __init__(self, pos_x, pos_y, owner=None):
+    def __init__(self, pos_x, pos_y, owner=None, is_players=True):
         self.image = Rifle.image_right
-        super().__init__(pos_x, pos_y, owner, counter=consts.FPS // 1.5)
+        super().__init__(pos_x, pos_y, owner, counter=consts.FPS // 1.5, is_players=is_players)
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
-        Bullet(start_x, self.rect.centery, x, y, speed=35, damage=3, brange=1200)
+        Bullet(start_x, self.rect.centery, x, y, self.is_players, speed=35, damage=3, brange=1200)
         self.counter = 1
         self.owner.ammo -= 1
 
@@ -64,17 +65,17 @@ class ShotGun(Weapon):
     image_left = specfunctions.load_image("weapons/weapon2_left.png")
     image_right = specfunctions.load_image("weapons/weapon2_right.png")
 
-    def __init__(self, pos_x, pos_y, owner=None):
+    def __init__(self, pos_x, pos_y, owner=None, is_players=True):
         self.image = ShotGun.image_right
-        super().__init__(pos_x, pos_y, owner, counter=consts.FPS)
+        super().__init__(pos_x, pos_y, owner, counter=consts.FPS, is_players=is_players)
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
-        Bullet(start_x, self.rect.centery, x, y, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x - 20, y - 20, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x + 20, y - 20, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x - 40, y - 40, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x + 40, y - 40, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x, y, self.is_players, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x - 20, y - 20, self.is_players, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x + 20, y - 20, self.is_players, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x - 40, y - 40, self.is_players, damage=1, brange=300)
+        Bullet(start_x, self.rect.centery, x + 40, y - 40, self.is_players, damage=1, brange=300)
         self.counter = 1
         self.owner.ammo -= 1
 
@@ -83,16 +84,16 @@ class AK47(Weapon):
     image_left = specfunctions.load_image("weapons/weapon3_left.png")
     image_right = specfunctions.load_image("weapons/weapon3_right.png")
 
-    def __init__(self, pos_x, pos_y, owner=None):
+    def __init__(self, pos_x, pos_y, owner=None, is_players=True):
         self.image = AK47.image_right
-        super().__init__(pos_x, pos_y, owner, counter=consts.FPS // 3)
+        super().__init__(pos_x, pos_y, owner, counter=consts.FPS // 3, is_players=is_players)
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         start_y = self.rect.y + (self.rect.centery - self.rect.y) // 2
-        Bullet(start_x, start_y, x, y, speed=20)
-        Bullet(start_x, start_y, x, y, speed=25)
-        Bullet(start_x, start_y, x, y, speed=30)
+        Bullet(start_x, start_y, x, y, self.is_players, speed=20)
+        Bullet(start_x, start_y, x, y, self.is_players, speed=25)
+        Bullet(start_x, start_y, x, y, self.is_players, speed=30)
         self.counter = 1
         self.owner.ammo -= 1
 
@@ -101,8 +102,9 @@ class Bullet(pygame.sprite.Sprite):
     image = specfunctions.load_image("weapons/bullet.png")
     yaderka = specfunctions.load_image("weapons/babah.png")
 
-    def __init__(self, pos_x, pos_y, target_x, target_y, speed=20, damage=2, brange=600):
-        super().__init__(bullets, all_sprites)
+    def __init__(self, pos_x, pos_y, target_x, target_y, is_players, speed=20, damage=2, brange=600):
+        group = player_bullets if is_players else enemies_bullets
+        super().__init__(bullets, all_sprites, group)
         self.image = Bullet.image
         self.rect = self.image.get_rect()
         self.rect.center = (pos_x, pos_y)
@@ -155,7 +157,7 @@ class Fist(pygame.sprite.Sprite):
     left = 1
 
     def __init__(self, pos_x, pos_y, state):
-        super().__init__(all_sprites, bullets)
+        super().__init__(all_sprites, bullets, player_bullets)
         self.sprites = []
         self.load_sprites(state)
         self.im = 0
@@ -168,6 +170,7 @@ class Fist(pygame.sprite.Sprite):
             self.rect.right = pos_x + 55
         self.rect.y = pos_y - 50
         self.damage = 1
+        self.attacked = False
 
     def load_sprites(self, state):
         for i in range(1, 4):
@@ -185,6 +188,9 @@ class Fist(pygame.sprite.Sprite):
         if not self.counter % 5:
             self.im += 1
             self.counter = 0
+
+    def is_alive(self):
+        return not self.attacked
 
 
 class Flamethrower(Weapon):
@@ -219,7 +225,7 @@ class Flamethrower(Weapon):
 
 class Fire(pygame.sprite.Sprite):
     def __init__(self, flamethrower):
-        super().__init__(all_sprites, bullets)
+        super().__init__(all_sprites, bullets, player_bullets)
         self.left_frames = []
         self.right_frames = []
         self.cur_frame = 0
@@ -251,6 +257,9 @@ class Fire(pygame.sprite.Sprite):
         if not self.counter % 3:
             self.cur_frame = (self.cur_frame + 1) % len(self.right_frames)
             self.counter = 0
+
+    def is_alive(self):
+        return True
 
 
 weapons_list = [Rifle, ShotGun, AK47, Flamethrower]

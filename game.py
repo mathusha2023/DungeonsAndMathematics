@@ -3,6 +3,7 @@ import consts
 import specfunctions
 import weapon
 import bonuses
+import enemy
 from spriteGroups import *
 
 
@@ -199,6 +200,9 @@ def generate_level(level):
             elif level[y][x] == "H":
                 Tile(Images.floor, x, y)
                 bonuses.Heal(x, y)
+            elif level[y][x] == "+":
+                Tile(Images.floor, x, y)
+                enemy.Enemy(x, y)
     return new_player, x, y
 
 
@@ -208,6 +212,11 @@ def empty_groups():
     player_group.empty()
     bullets.empty()
     weapons.empty()
+    bonus_group.empty()
+    player_bullets.empty()
+    enemies_bullets.empty()
+    enemies.empty()
+    portal_group.empty()
 
 
 def apply_all(camera):
@@ -230,6 +239,7 @@ def draw_gui():
 def draw_all():
     consts.SCREEN.fill((0, 0, 0))
     all_sprites.draw(consts.SCREEN)
+    enemies.draw(consts.SCREEN)
     player_group.draw(consts.SCREEN)
     bullets.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
