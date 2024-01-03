@@ -213,7 +213,7 @@ def generate_level(level):
                 bonuses.Heal(x, y)
             elif level[y][x] == "+":
                 Tile(Images.floor, x, y)
-                enemy.SniperEnemy(x, y)
+                enemy.FollowEnemy(x, y)
     return new_player, x, y
 
 

@@ -1,4 +1,5 @@
 import pygame
+import math
 import consts
 import specfunctions
 from spriteGroups import all_sprites, enemies, player_group, player_bullets
@@ -32,7 +33,7 @@ class Enemy(pygame.sprite.Sprite):
         self.counter = 0
         self.state = Enemy.right
         self.weapon = None
-        self.speed = 5
+        self.speed = 3
         self.ammo = 1000000000000000000000000000000000000
         self.hp = 10
 
@@ -91,3 +92,41 @@ class SniperEnemy(Enemy):
 
     def shoot(self):
         self.weapon.shoot(*[i for i in player_group][0].rect.center)
+
+
+class FollowEnemy(Enemy):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y, checkrect_size=800)
+        self.weapon = weapon.ShotGun(pos_x, pos_y, owner=self, is_players=False)
+        self.moving = False
+
+    def shoot(self):
+        self.weapon.shoot(*[i for i in player_group][0].rect.center)
+
+    def check_distance(self):
+        x1, y1 = [i for i in player_group][0].rect.topleft
+        x2, y2 = self.rect.topleft
+        return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) <= 300
+
+    def update(self, *args):
+        super().update(*args)
+        if not self.check_player():
+            return
+        if self.check_distance():
+            if self.weapon.is_ready():
+                self.shoot()
+            self.moving = False
+        else:
+            self.move_to_player()
+            self.moving = True
+        if self.moving:
+            self.image = self.left_ims[self.im] if self.state == Enemy.left else self.right_ims[self.im]
+            self.counter += 1
+            if not self.counter % 5:
+                self.im = 1 - self.im
+                self.counter = 0
+
+    def move_to_player(self):
+        x1, y1 = [i for i in player_group][0].rect.topleft
+        x2, y2 = self.rect.topleft
+        self.rect = self.rect.move(math.copysign(self.speed, x1 - x2), math.copysign(self.speed, y1 - y2))
