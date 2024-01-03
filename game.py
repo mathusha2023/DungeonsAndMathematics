@@ -193,27 +193,31 @@ def generate_level(level):
     new_player, x, y = None, None, None
     for y in range(len(level)):
         for x in range(len(level[y])):
-            if level[y][x] == ".":
+            cell = level[y][x]
+            if cell == ".":
                 Tile(Images.floor, x, y)
-            elif level[y][x] == "|":
+            elif cell == "|":
                 Tile(Images.wall, x, y, walls)
-            elif level[y][x] == "#":
+            elif cell == "#":
                 Portal(x, y)
-            elif level[y][x] == "@":
+            elif cell == "@":
                 Tile(Images.floor, x, y)
                 new_player = Player(x, y)
-            elif level[y][x] == "W":
+            elif cell == "W":
                 Tile(Images.floor, x, y)
                 random.choice(weapon.weapons_list)(x, y)
-            elif level[y][x] == "A":
+            elif cell == "A":
                 Tile(Images.floor, x, y)
                 bonuses.Ammo(x, y)
-            elif level[y][x] == "H":
+            elif cell == "H":
                 Tile(Images.floor, x, y)
                 bonuses.Heal(x, y)
-            elif level[y][x] == "+":
+            elif cell == "F":
                 Tile(Images.floor, x, y)
                 enemy.FollowEnemy(x, y)
+            elif cell == "S":
+                Tile(Images.floor, x, y)
+                enemy.SniperEnemy(x, y)
     return new_player, x, y
 
 
