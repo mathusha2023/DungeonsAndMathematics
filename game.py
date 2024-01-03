@@ -92,12 +92,12 @@ class Player(pygame.sprite.Sprite):
                     self.weapon.state = weapon.Weapon.left
                 self.weapon.shoot(x, y)
         else:
-            if not self.punch_kd % consts.FPS:
-                self.punch()
-                self.punch_kd = 1
+            self.punch()
 
     def punch(self):
-        weapon.Fist(*self.rect.center, self.state)
+        if not self.punch_kd % consts.FPS:
+            weapon.Fist(*self.rect.center, self.state)
+            self.punch_kd = 1
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]
@@ -273,6 +273,8 @@ def start_game(clock):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return
+                if event.key == pygame.K_SPACE:
+                    player.punch()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     player.shoot(*event.pos)

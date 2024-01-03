@@ -183,6 +183,7 @@ class Fist(pygame.sprite.Sprite):
         if self.im == len(self.sprites):
             self.kill()
             return
+        pygame.sprite.spritecollide(self, enemies_bullets, True)
         self.image = self.sprites[self.im]
         self.counter += 1
         if not self.counter % 5:
