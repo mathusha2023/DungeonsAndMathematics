@@ -273,11 +273,11 @@ def start_game(clock):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return
-                if event.key == pygame.K_SPACE:
-                    player.punch()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     player.shoot(*event.pos)
+                if event.button == 2:
+                    player.punch()
                 if event.button == 3:
                     player.interaction(*event.pos)
         draw_all()
