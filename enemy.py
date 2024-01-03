@@ -2,7 +2,7 @@ import pygame
 import math
 import consts
 import specfunctions
-from spriteGroups import all_sprites, enemies, player_group, player_bullets
+from spriteGroups import all_sprites, enemies, player_group, player_bullets, walls
 import weapon
 
 
@@ -23,6 +23,8 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
+        self.prev_x = self.rect.x
+        self.prev_y = self.rect.y
         self.checkrect_size = checkrect_size
         self.checking_rect = pygame.Rect(
             (0, 0, self.rect.width + self.checkrect_size, self.rect.height + self.checkrect_size))
@@ -40,6 +42,11 @@ class Enemy(pygame.sprite.Sprite):
     def update_checkrect(self):
         self.checking_rect.x = self.rect.x - self.checkrect_size // 2
         self.checking_rect.y = self.rect.y - self.checkrect_size // 2
+
+    def stop_wall_moving(self):
+        if pygame.sprite.spritecollideany(self, walls):
+            self.rect.x = self.prev_x
+            self.rect.y = self.prev_y
 
     def check_player_shot(self):
         for bullet in pygame.sprite.spritecollide(self, player_bullets, False):
@@ -112,6 +119,8 @@ class FollowEnemy(Enemy):
         super().update(*args)
         if not self.check_player():
             return
+        self.prev_x = self.rect.x
+        self.prev_y = self.rect.y
         if self.check_distance():
             if self.weapon.is_ready():
                 self.shoot()
@@ -130,3 +139,4 @@ class FollowEnemy(Enemy):
         x1, y1 = [i for i in player_group][0].rect.topleft
         x2, y2 = self.rect.topleft
         self.rect = self.rect.move(math.copysign(self.speed, x1 - x2), math.copysign(self.speed, y1 - y2))
+        self.stop_wall_moving()

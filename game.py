@@ -278,9 +278,6 @@ def start_game(clock):
                     player.shoot(*event.pos)
                 if event.button == 3:
                     player.interaction(*event.pos)
-                # if event.button == 2:
-                #     if player.hp > 0:
-                #         player.hp -= 1
         draw_all()
         all_sprites.update()
         camera.update(player)
