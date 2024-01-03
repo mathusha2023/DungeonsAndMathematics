@@ -31,11 +31,13 @@ class Player(pygame.sprite.Sprite):
         self.im = 0
         self.counter = 0
         self.state = Player.right
-        self.speed = 5
-        # self.speed = 50
         self.weapon = None
-        self.ammo = 0
-        self.hp = 10
+        self.speed = 5
+        # self.ammo = 0
+        # self.hp = 10
+        # self.speed = 50
+        self.ammo = 1000
+        self.hp = 1000
         self.punch_kd = consts.FPS
 
     def update(self, *args):
