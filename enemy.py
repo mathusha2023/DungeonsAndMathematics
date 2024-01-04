@@ -101,8 +101,8 @@ class Enemy(pygame.sprite.Sprite):
 
 
 class SniperEnemy(Enemy):
-    left_st_im = specfunctions.load_image("enemies/enemy_sniper_left.png")
-    right_st_im = specfunctions.load_image("enemies/enemy_sniper_right.png")
+    left_st_im = specfunctions.load_image("enemies/enemy1/enemy_sniper_left.png")
+    right_st_im = specfunctions.load_image("enemies/enemy1/enemy_sniper_right.png")
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y, checkrect_size=1080)
@@ -124,12 +124,12 @@ class SniperEnemy(Enemy):
 
 
 class FollowEnemy(Enemy):
-    left_st_im = specfunctions.load_image("enemies/ura_left_st_enemy.png")
-    left_go1_im = specfunctions.load_image("enemies/ura_left_go1_enemy.png")
-    left_go2_im = specfunctions.load_image("enemies/ura_left_go2_enemy.png")
-    right_st_im = specfunctions.load_image("enemies/ura_right_st_enemy.png")
-    right_go1_im = specfunctions.load_image("enemies/ura_right_go1_enemy.png")
-    right_go2_im = specfunctions.load_image("enemies/ura_right_go2_enemy.png")
+    left_st_im = specfunctions.load_image("enemies/enemy2/left_st_enemy.png")
+    left_go1_im = specfunctions.load_image("enemies/enemy2/left_go1_enemy.png")
+    left_go2_im = specfunctions.load_image("enemies/enemy2/left_go2_enemy.png")
+    right_st_im = specfunctions.load_image("enemies/enemy2/right_st_enemy.png")
+    right_go1_im = specfunctions.load_image("enemies/enemy2/right_go1_enemy.png")
+    right_go2_im = specfunctions.load_image("enemies/enemy2/right_go2_enemy.png")
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
