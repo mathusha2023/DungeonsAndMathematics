@@ -39,6 +39,7 @@ class Player(pygame.sprite.Sprite):
         # self.ammo = 1000
         # self.hp = 1000
         self.punch_kd = consts.FPS
+        self.isalive = True
 
     def update(self, *args):
         pressed_keys = pygame.key.get_pressed()
@@ -126,7 +127,7 @@ class Player(pygame.sprite.Sprite):
     def get_damage(self, damage):
         self.hp -= damage
         if self.hp <= 0:
-            specfunctions.terminate()
+            self.isalive = False
 
 
 class Images:
@@ -288,6 +289,8 @@ def start_game(clock):
                     player.interaction(*event.pos)
         draw_all()
         all_sprites.update()
+        if not player.isalive:
+            return
         camera.update(player)
         apply_all(camera)
         pygame.display.flip()
