@@ -99,13 +99,18 @@ class AK47(Weapon):
 
 
 class Bullet(pygame.sprite.Sprite):
-    image = specfunctions.load_image("weapons/bullet.png")
+    image_player = specfunctions.load_image("weapons/bullet.png")
+    image_enemy = specfunctions.load_image("weapons/bullet_enemy.png")
     yaderka = specfunctions.load_image("weapons/babah.png")
 
     def __init__(self, pos_x, pos_y, target_x, target_y, is_players, speed=20, damage=2, brange=600):
-        group = player_bullets if is_players else enemies_bullets
+        if is_players:
+            group = player_bullets
+            self.image = Bullet.image_player
+        else:
+            group = enemies_bullets
+            self.image = Bullet.image_enemy
         super().__init__(bullets, all_sprites, group)
-        self.image = Bullet.image
         self.rect = self.image.get_rect()
         self.rect.center = (pos_x, pos_y)
         self.target_x = target_x
@@ -144,7 +149,7 @@ class Bullet(pygame.sprite.Sprite):
         self.check_range()
 
     def is_alive(self):
-        return self.image == Bullet.image
+        return self.image != Bullet.yaderka
 
     def check_range(self):
         self.path += math.sqrt(self.vx ** 2 + self.vy ** 2)
