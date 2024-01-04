@@ -124,6 +124,13 @@ class SniperEnemy(Enemy):
 
 
 class FollowEnemy(Enemy):
+    left_st_im = specfunctions.load_image("enemies/ura_left_st_enemy.png")
+    left_go1_im = specfunctions.load_image("enemies/ura_left_go1_enemy.png")
+    left_go2_im = specfunctions.load_image("enemies/ura_left_go2_enemy.png")
+    right_st_im = specfunctions.load_image("enemies/ura_right_st_enemy.png")
+    right_go1_im = specfunctions.load_image("enemies/ura_right_go1_enemy.png")
+    right_go2_im = specfunctions.load_image("enemies/ura_right_go2_enemy.png")
+
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.weapon = weapon.ShotGun(pos_x, pos_y, owner=self, is_players=False)
