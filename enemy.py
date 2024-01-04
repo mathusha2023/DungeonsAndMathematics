@@ -219,6 +219,7 @@ class RamEnemy(Enemy):
             self.ram_y = y
             self.ramming = True
             self.ram_counter = 1
+            self.damage_counter = consts.FPS
         self.rect.x += self.ram_speed_x
         self.stop_wall_moving()
         self.prev_x = self.rect.x
