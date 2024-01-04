@@ -19,7 +19,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, pos_x, pos_y, checkrect_size=900):
         super().__init__(enemies, all_sprites)
-        self.image = Enemy.right_st_im
+        self.image = self.right_st_im
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
@@ -29,8 +29,8 @@ class Enemy(pygame.sprite.Sprite):
         self.checking_rect = pygame.Rect(
             (0, 0, self.rect.width + self.checkrect_size, self.rect.height + self.checkrect_size))
         self.update_checkrect()
-        self.left_ims = [Enemy.left_go1_im, Enemy.left_go2_im]
-        self.right_ims = [Enemy.right_go1_im, Enemy.right_go2_im]
+        self.left_ims = [self.left_go1_im, self.left_go2_im]
+        self.right_ims = [self.right_go1_im, self.right_go2_im]
         self.im = 0
         self.counter = 0
         self.state = Enemy.right
@@ -74,9 +74,9 @@ class Enemy(pygame.sprite.Sprite):
         self.update_checkrect()
         self.update_state()
         if self.state == Enemy.right:
-            self.image = Enemy.right_st_im
+            self.image = self.right_st_im
         else:
-            self.image = Enemy.left_st_im
+            self.image = self.left_st_im
         self.check_player_shot()
         if not self.check_player():
             return
@@ -101,6 +101,9 @@ class Enemy(pygame.sprite.Sprite):
 
 
 class SniperEnemy(Enemy):
+    left_st_im = specfunctions.load_image("enemies/enemy_sniper_left.png")
+    right_st_im = specfunctions.load_image("enemies/enemy_sniper_right.png")
+
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y, checkrect_size=1080)
         self.counter = 2 * consts.FPS
