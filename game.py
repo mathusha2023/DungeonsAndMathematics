@@ -121,9 +121,12 @@ class Player(pygame.sprite.Sprite):
         for bullet in pygame.sprite.spritecollide(self, enemies_bullets, False):
             if bullet.is_alive():
                 bullet.kill()
-                self.hp -= bullet.damage
-                if self.hp <= 0:
-                    specfunctions.terminate()
+                self.get_damage(bullet.damage)
+
+    def get_damage(self, damage):
+        self.hp -= damage
+        if self.hp <= 0:
+            specfunctions.terminate()
 
 
 class Images:
@@ -218,6 +221,9 @@ def generate_level(level):
             elif cell == "S":
                 Tile(Images.floor, x, y)
                 enemy.SniperEnemy(x, y)
+            elif cell == "R":
+                Tile(Images.floor, x, y)
+                enemy.RamEnemy(x, y)
     return new_player, x, y
 
 
