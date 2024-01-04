@@ -159,8 +159,12 @@ class FollowEnemy(Enemy):
 
 
 class RamEnemy(Enemy):
+    left_st_im = specfunctions.load_image("enemies/enemy3/enemy3_left1.png")
+    right_st_im = specfunctions.load_image("enemies/enemy3/enemy3_right1.png")
+
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
+        self.add_frames()
         self.damage_counter = consts.FPS
         self.ram_counter = 6 * consts.FPS
         self.damage = 2
@@ -169,6 +173,13 @@ class RamEnemy(Enemy):
         self.ram_speed_y = None
         self.ram_x = None
         self.ram_y = None
+
+    def add_frames(self):
+        self.left_ims = []
+        self.right_ims = []
+        for i in range(1, 8):
+            self.left_ims.append(specfunctions.load_image(f"enemies/enemy3/enemy3_left{i}.png"))
+            self.right_ims.append(specfunctions.load_image(f"enemies/enemy3/enemy3_right{i}.png"))
 
     def update(self, *args):
         super().update(*args)
@@ -188,8 +199,8 @@ class RamEnemy(Enemy):
             self.move_to_player()
         self.image = self.left_ims[self.im] if self.state == Enemy.left else self.right_ims[self.im]
         self.counter += 1
-        if not self.counter % 5:
-            self.im = 1 - self.im
+        if not self.counter % 2:
+            self.im = (self.im + 1) % len(self.left_ims)
             self.counter = 0
 
     def collide_player(self):
