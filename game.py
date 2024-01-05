@@ -37,7 +37,7 @@ class Player(pygame.sprite.Sprite):
         self.hp = 10
         # self.speed = 50
         # self.ammo = 1000
-        self.hp = 1000
+        # self.hp = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
 
@@ -270,8 +270,8 @@ def draw_all():
 
 def start_game(clock):
     empty_groups()
-    # player, level_x, level_y = generate_level(load_level("map1.txt"))
-    player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
+    player, level_x, level_y = generate_level(load_level("map1.txt"))
+    # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
     while True:
