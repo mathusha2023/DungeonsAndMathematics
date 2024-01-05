@@ -91,9 +91,9 @@ class AK47(Weapon):
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
         start_y = self.rect.y + (self.rect.centery - self.rect.y) // 2
-        Bullet(start_x, start_y, x, y, self.is_players, speed=20)
+        Bullet(start_x, start_y, x, y, self.is_players, speed=20, damage=1)
         Bullet(start_x, start_y, x, y, self.is_players, speed=25)
-        Bullet(start_x, start_y, x, y, self.is_players, speed=30)
+        Bullet(start_x, start_y, x, y, self.is_players, speed=30, damage=1)
         self.counter = 1
         self.owner.ammo -= 1
 

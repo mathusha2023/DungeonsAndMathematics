@@ -168,7 +168,7 @@ class RamEnemy(Enemy):
         self.dash_right = []
         self.add_frames()
         self.damage_counter = consts.FPS
-        self.ram_counter = 6 * consts.FPS
+        self.ram_counter = 1 * consts.FPS
         self.damage = 2
         self.ramming = False
         self.ram_speed_x = None
@@ -194,7 +194,7 @@ class RamEnemy(Enemy):
         if not (self.check_player() or self.ramming):
             return
         self.collide_player()
-        if (self.check_distance() and not self.ram_counter % (6 * consts.FPS)) or self.ramming:
+        if (self.check_distance() and not self.ram_counter % (1 * consts.FPS)) or self.ramming:
             if not self.ramming:
                 self.ram(*[i for i in player_group][0].rect.center)
             else:
@@ -221,7 +221,9 @@ class RamEnemy(Enemy):
                 self.damage_counter = 1
 
     def ram(self, x=None, y=None):
-        if x and self.get_ram_speed(x, y):
+        if x:
+            if not self.get_ram_speed(x, y):
+                return
             self.ram_x = x
             self.ram_y = y
             self.ramming = True
