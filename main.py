@@ -33,7 +33,8 @@ buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=52
 buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=600, f_size=45,
                press_event=specfunctions.terminate)
 buttons.RightButton(all_sprites, text="Поддержать автора", x=consts.WIDTH - 25, y=consts.HEIGHT - 10,
-                    press_event=lambda: webbrowser.open("https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212"),
+                    press_event=lambda: webbrowser.open(
+                        "https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212"),
                     f_active_color=(0, 255, 0))
 
 while True:
