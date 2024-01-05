@@ -159,7 +159,7 @@ class FollowEnemy(Enemy):
 
 
 class RamEnemy(Enemy):
-    left_st_im = specfunctions.load_image("enemies/enemy3/enemy3_left1.png")
+    left_st_im = specfunctions.load_image("enemies/enemy3/enemy3_left1_dash.png")
     right_st_im = specfunctions.load_image("enemies/enemy3/enemy3_right1.png")
 
     def __init__(self, pos_x, pos_y):
