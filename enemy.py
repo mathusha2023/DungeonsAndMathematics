@@ -164,6 +164,8 @@ class RamEnemy(Enemy):
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
+        self.dash_left = []
+        self.dash_right = []
         self.add_frames()
         self.damage_counter = consts.FPS
         self.ram_counter = 6 * consts.FPS
@@ -180,6 +182,8 @@ class RamEnemy(Enemy):
         for i in range(1, 8):
             self.left_ims.append(specfunctions.load_image(f"enemies/enemy3/enemy3_left{i}.png"))
             self.right_ims.append(specfunctions.load_image(f"enemies/enemy3/enemy3_right{i}.png"))
+            self.dash_left.append(specfunctions.load_image(f"enemies/enemy3/enemy3_left{i}_dash.png"))
+            self.dash_right.append(specfunctions.load_image(f"enemies/enemy3/enemy3_right{i}_dash.png"))
 
     def update(self, *args):
         super().update(*args)
@@ -197,7 +201,10 @@ class RamEnemy(Enemy):
                 self.ram()
         else:
             self.move_to_player()
-        self.image = self.left_ims[self.im] if self.state == Enemy.left else self.right_ims[self.im]
+        if self.ramming:
+            self.image = self.dash_left[self.im] if self.state == Enemy.left else self.dash_right[self.im]
+        else:
+            self.image = self.left_ims[self.im] if self.state == Enemy.left else self.right_ims[self.im]
         self.counter += 1
         if not self.counter % 2:
             self.im = (self.im + 1) % len(self.left_ims)
