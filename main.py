@@ -8,6 +8,9 @@ import game
 pygame.display.set_caption(consts.TITLE)
 pygame.display.set_icon(specfunctions.load_image("logo.png"))
 
+pygame.mixer.music.load("data/audio/dungeonmusic.mp3")
+pygame.mixer.music.play()
+
 all_sprites = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
