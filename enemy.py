@@ -17,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
     right = 0
     left = 1
 
-    def __init__(self, pos_x, pos_y, checkrect_size=900):
+    def __init__(self, pos_x, pos_y, checkrect_size=1080):
         super().__init__(enemies, all_sprites)
         self.image = self.right_st_im
         self.rect = self.image.get_rect()
