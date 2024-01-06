@@ -163,7 +163,7 @@ class RamEnemy(Enemy):
     right_st_im = specfunctions.load_image("enemies/enemy3/enemy3_right1.png")
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        super().__init__(pos_x, pos_y, checkrect_size=1500)
         self.dash_left = []
         self.dash_right = []
         self.add_frames()

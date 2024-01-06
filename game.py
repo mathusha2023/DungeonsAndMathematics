@@ -270,7 +270,7 @@ def draw_all():
 
 def start_game(clock):
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("map1.txt"))
+    player, level_x, level_y = generate_level(load_level("map2.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
