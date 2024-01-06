@@ -4,6 +4,7 @@ import specfunctions
 import weapon
 import bonuses
 import enemy
+import sounds
 from spriteGroups import *
 
 
@@ -269,6 +270,7 @@ def draw_all():
 
 
 def start_game(clock):
+    sounds.dungeon_music()
     empty_groups()
     player, level_x, level_y = generate_level(load_level("map2.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
@@ -280,6 +282,7 @@ def start_game(clock):
                 specfunctions.terminate()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    sounds.lobby_music()
                     return
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
@@ -291,6 +294,7 @@ def start_game(clock):
         draw_all()
         all_sprites.update()
         if not player.isalive:
+            sounds.lobby_music()
             return
         camera.update(player)
         apply_all(camera)
