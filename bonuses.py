@@ -32,7 +32,7 @@ class Heal(Bonus):
         super().__init__(pos_x, pos_y)
 
     def take(self, player):
-        player.hp += 2
+        player.hp += 3
         if player.hp > 10:
             player.hp = 10
         self.kill()
