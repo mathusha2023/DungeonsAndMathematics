@@ -56,7 +56,8 @@ class Rifle(Weapon):
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
-        Bullet(start_x, self.rect.centery, x, y, self.is_players, speed=35, damage=3, brange=1200)
+        speed = 35 if self.is_players else 30
+        Bullet(start_x, self.rect.centery, x, y, self.is_players, speed=speed, damage=3, brange=1200)
         self.counter = 1
         self.owner.ammo -= 1
 
@@ -71,11 +72,12 @@ class ShotGun(Weapon):
 
     def shoot(self, x, y):
         start_x = self.rect.x if self.state == Weapon.left else self.rect.right
-        Bullet(start_x, self.rect.centery, x, y, self.is_players, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x - 20, y - 20, self.is_players, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x + 20, y - 20, self.is_players, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x - 40, y - 40, self.is_players, damage=1, brange=300)
-        Bullet(start_x, self.rect.centery, x + 40, y - 40, self.is_players, damage=1, brange=300)
+        brange = 450 if self.is_players else 300
+        Bullet(start_x, self.rect.centery, x, y, self.is_players, damage=1, brange=brange)
+        Bullet(start_x, self.rect.centery, x - 20, y - 20, self.is_players, damage=1, brange=brange)
+        Bullet(start_x, self.rect.centery, x + 20, y - 20, self.is_players, damage=1, brange=brange)
+        Bullet(start_x, self.rect.centery, x - 40, y - 40, self.is_players, damage=1, brange=brange)
+        Bullet(start_x, self.rect.centery, x + 40, y - 40, self.is_players, damage=1, brange=brange)
         self.counter = 1
         self.owner.ammo -= 1
 

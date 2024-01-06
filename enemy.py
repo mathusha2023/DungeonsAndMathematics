@@ -170,6 +170,7 @@ class RamEnemy(Enemy):
         self.damage_counter = consts.FPS
         self.ram_counter = 1 * consts.FPS
         self.damage = 2
+        self.path = 0
         self.ramming = False
         self.ram_speed_x = None
         self.ram_speed_y = None
@@ -226,6 +227,7 @@ class RamEnemy(Enemy):
                 return
             self.ram_x = x
             self.ram_y = y
+            self.path = 0
             self.ramming = True
             self.ram_counter = 1
             self.damage_counter = consts.FPS
@@ -233,7 +235,13 @@ class RamEnemy(Enemy):
         self.stop_wall_moving()
         self.prev_x = self.rect.x
         self.rect.y += self.ram_speed_y
+        self.check_ram_range()
         self.stop_wall_moving()
+
+    def check_ram_range(self):
+        self.path += math.sqrt(self.ram_speed_x ** 2 + self.ram_speed_y ** 2)
+        if self.path > 1000:
+            self.ramming = False
 
     def get_ram_speed(self, x, y):
         dx = x - self.rect.centerx
