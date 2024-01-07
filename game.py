@@ -280,10 +280,10 @@ def draw_all(player):
     all_sprites.draw(consts.SCREEN)
     portal_group.draw(consts.SCREEN)
     enemies.draw(consts.SCREEN)
-    boss_group.draw(consts.SCREEN)
     player_group.draw(consts.SCREEN)
     bullets.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
+    boss_group.draw(consts.SCREEN)
     draw_gui()
     if player.damage_counter or player.hp < 3:
         consts.SCREEN.blit(Images.damage_frame, (0, 0))
@@ -292,7 +292,7 @@ def draw_all(player):
 def start_game(clock):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("map1.txt"))
+    player, level_x, level_y = generate_level(load_level("mapboss.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
