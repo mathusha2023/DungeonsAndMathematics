@@ -4,6 +4,7 @@ import specfunctions
 import weapon
 import bonuses
 import enemy
+import boss
 import sounds
 from spriteGroups import *
 
@@ -203,6 +204,8 @@ def generate_level(level):
                 Tile(Images.floor, x, y)
             elif cell == "|":
                 Tile(Images.wall, x, y, walls)
+            elif cell == "+":
+                Tile(Images.floor, x, y, boss_walls)
             elif cell == "#":
                 Portal(x, y)
             elif cell == "@":
@@ -226,6 +229,9 @@ def generate_level(level):
             elif cell == "R":
                 Tile(Images.floor, x, y)
                 enemy.RamEnemy(x, y)
+            elif cell == "B":
+                Portal(x, y)
+                boss.BossSinus(x, y)
     return new_player, x, y
 
 
@@ -272,7 +278,7 @@ def draw_all():
 def start_game(clock):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("map2.txt"))
+    player, level_x, level_y = generate_level(load_level("bosstest.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
