@@ -278,7 +278,7 @@ def draw_all():
 def start_game(clock):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("bosstest.txt"))
+    player, level_x, level_y = generate_level(load_level("mapboss.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
