@@ -2,14 +2,14 @@ import pygame
 import consts
 import specfunctions
 import weapon
-from spriteGroups import all_sprites, enemies, player_group, player_bullets, walls, boss_walls
+from spriteGroups import all_sprites, player_group, player_bullets, walls, boss_walls, boss_group
 
 
 class BossSinus(pygame.sprite.Sprite):
     image = specfunctions.load_image("bosses/Sinus/Sinus.png")
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(all_sprites, enemies)
+        super().__init__(all_sprites, boss_group)
         self.image = BossSinus.image
         self.rect = self.image.get_rect()
         self.rect.center = pos_x * consts.TILE_WIDTH, pos_y * consts.TILE_HEIGHT
@@ -27,6 +27,9 @@ class BossSinus(pygame.sprite.Sprite):
 
     def check_player(self):
         return self.checking_rect.colliderect([i for i in player_group][0].rect)
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
 
     def update(self, *args):
         self.update_checkrect()

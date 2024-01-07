@@ -269,6 +269,7 @@ def draw_all():
     consts.SCREEN.fill((0, 0, 0))
     all_sprites.draw(consts.SCREEN)
     enemies.draw(consts.SCREEN)
+    boss_group.draw(consts.SCREEN)
     player_group.draw(consts.SCREEN)
     bullets.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
