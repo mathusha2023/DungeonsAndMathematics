@@ -62,3 +62,16 @@ class BossSinus(pygame.sprite.Sprite):
                     self.fight = False
                     self.kill()
 
+
+class AnswerStone(pygame.sprite.Sprite):
+    image = specfunctions.load_image("ura/ura_left_st.png")
+
+    def __init__(self, pos_x, pos_y):
+        super().__init__(all_sprites, boss_group)
+        self.image = AnswerStone.image
+        self.rect = self.image.get_rect()
+        self.rect.x = pos_x * consts.TILE_WIDTH
+        self.rect.y = pos_y * consts.TILE_HEIGHT
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)

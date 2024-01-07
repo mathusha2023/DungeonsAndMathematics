@@ -232,6 +232,9 @@ def generate_level(level):
             elif cell == "B":
                 Portal(x, y)
                 boss.BossSinus(x, y)
+            elif cell == "P":
+                Tile(Images.floor, x, y)
+                boss.AnswerStone(x, y)
     return new_player, x, y
 
 
@@ -246,6 +249,8 @@ def empty_groups():
     enemies_bullets.empty()
     enemies.empty()
     portal_group.empty()
+    boss_walls.empty()
+    boss_group.empty()
 
 
 def apply_all(camera):
