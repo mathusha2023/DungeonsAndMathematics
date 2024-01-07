@@ -39,7 +39,9 @@ class BossSinus(pygame.sprite.Sprite):
 
     def update_boss_walls(self):
         if self.fight:
-            walls.remove(boss_walls)
+            for wall in boss_walls:
+                wall.kill()
+                all_sprites.add(wall)
         else:
             walls.add(boss_walls)
 
