@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.hp = 10
         # self.speed = 50
         # self.ammo = 1000
-        # self.hp = 10000
+        self.hp = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
 
