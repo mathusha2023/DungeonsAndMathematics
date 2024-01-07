@@ -32,6 +32,7 @@ class Player(pygame.sprite.Sprite):
         self.right_ims = [Player.right_go1_im, Player.right_go2_im]
         self.im = 0
         self.counter = 0
+        self.damage_counter = 0
         self.state = Player.right
         self.weapon = None
         self.speed = 5
@@ -44,6 +45,8 @@ class Player(pygame.sprite.Sprite):
         self.isalive = True
 
     def update(self, *args):
+        if self.damage_counter:
+            self.damage_counter -= 1
         pressed_keys = pygame.key.get_pressed()
         if any([pressed_keys[pygame.K_a], pressed_keys[pygame.K_d],
                 pressed_keys[pygame.K_w], pressed_keys[pygame.K_s]]):
@@ -128,6 +131,7 @@ class Player(pygame.sprite.Sprite):
 
     def get_damage(self, damage):
         self.hp -= damage
+        self.damage_counter = 5
         if self.hp <= 0:
             self.isalive = False
 
@@ -137,6 +141,7 @@ class Images:
     floor = specfunctions.load_image("floor.png")
     gui_hp = specfunctions.load_image("gui_hp.png")
     gui_ammo = specfunctions.load_image("gui_ammo.png")
+    damage_frame = specfunctions.load_image("damage.png")
 
 
 class Tile(pygame.sprite.Sprite):
@@ -268,7 +273,7 @@ def draw_gui():
     consts.SCREEN.blit(text, (65, 95))
 
 
-def draw_all():
+def draw_all(player):
     consts.SCREEN.fill((0, 0, 0))
     all_sprites.draw(consts.SCREEN)
     portal_group.draw(consts.SCREEN)
@@ -278,12 +283,14 @@ def draw_all():
     bullets.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
     draw_gui()
+    if player.damage_counter:
+        consts.SCREEN.blit(Images.damage_frame, (0, 0))
 
 
 def start_game(clock):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("mapboss.txt"))
+    player, level_x, level_y = generate_level(load_level("map1.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
@@ -302,7 +309,7 @@ def start_game(clock):
                     player.punch()
                 if event.button == 3:
                     player.interaction(*event.pos)
-        draw_all()
+        draw_all(player)
         all_sprites.update()
         if not player.isalive:
             sounds.lobby_music()
