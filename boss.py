@@ -73,6 +73,8 @@ class BossSinus(pygame.sprite.Sprite):
 
 class AnswerStone(pygame.sprite.Sprite):
     image = specfunctions.load_image("bosses/answerstones/answer_stone.png")
+    image_right = specfunctions.load_image("bosses/answerstones/answer_stone_right.png")
+    image_wrong = specfunctions.load_image("bosses/answerstones/answer_stone_wrong.png")
 
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, boss_group)
