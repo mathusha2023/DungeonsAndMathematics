@@ -2,7 +2,6 @@ import pygame
 import random
 import consts
 import specfunctions
-import weapon
 from spriteGroups import all_sprites, player_group, player_bullets, walls, boss_walls, boss_group
 
 
@@ -31,6 +30,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.right_answer = None
         self.font = pygame.font.Font(None, 36)
         self.ask_counter = 0
+        self.damage = 2
 
     def update_checkrect(self):
         self.checking_rect.x = self.rect.x - self.checkrect_sizex // 2
@@ -89,6 +89,14 @@ class BossSinus(pygame.sprite.Sprite):
         for stone, variant in zip(self.answerstones, variants):
             stone.load_variant(variant)
 
+    # вызывается камнем с вариантом ответа, в который выстрелил игрок
+    def get_answer(self, stone):
+        if self.answerstones.index(stone) != self.right_answer:
+            [i for i in player_group][0].get_damage(self.damage)
+            self.damage += 2
+            print("NO")
+        self.ask_counter = 0
+
 
 class AnswerStone(pygame.sprite.Sprite):
     image = specfunctions.load_image("bosses/answerstones/answer_stone.png")
@@ -117,3 +125,12 @@ class AnswerStone(pygame.sprite.Sprite):
 
     def load_variant(self, variant):
         self.variant = self.font.render(str(variant), True, (255, 255, 255))
+
+    def check_player_shot(self):
+        if pygame.sprite.spritecollideany(self, player_bullets):
+            for bullet in player_bullets:
+                bullet.kill()
+            self.boss.get_answer(self)
+
+    def update(self, *args):
+        self.check_player_shot()
