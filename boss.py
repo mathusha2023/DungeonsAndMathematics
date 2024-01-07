@@ -31,6 +31,8 @@ class BossSinus(pygame.sprite.Sprite):
         self.font = pygame.font.Font(None, 36)
         self.ask_counter = 0
         self.damage = 2
+        self.hp = 3
+        self.damaged = False
 
     def update_checkrect(self):
         self.checking_rect.x = self.rect.x - self.checkrect_sizex // 2
@@ -53,6 +55,9 @@ class BossSinus(pygame.sprite.Sprite):
 
     def update(self, *args):
         self.update_checkrect()
+        if not ((self.cur_question - 1) % 3 or self.damaged or self.cur_question == 1):
+            self.get_damage()
+            self.damaged = True
         if self.ask_counter:
             self.ask_counter -= 1
         if self.check_player() and not self.fight:
@@ -83,7 +88,6 @@ class BossSinus(pygame.sprite.Sprite):
         self.question = self.font.render(q_text, True, (255, 255, 255))
         self.right_answer = r_variant
         self.take_variants(variants)
-        self.cur_question += 1
 
     def take_variants(self, variants):
         for stone, variant in zip(self.answerstones, variants):
@@ -94,8 +98,16 @@ class BossSinus(pygame.sprite.Sprite):
         if self.answerstones.index(stone) != self.right_answer:
             [i for i in player_group][0].get_damage(self.damage)
             self.damage += 2
-            print("NO")
         self.ask_counter = 0
+        self.cur_question += 1
+        self.damaged = False
+
+    def get_damage(self):
+        self.hp -= 1
+        if self.hp <= 0:
+            self.update_boss_walls()
+            self.fight = False
+            self.kill()
 
 
 class AnswerStone(pygame.sprite.Sprite):
