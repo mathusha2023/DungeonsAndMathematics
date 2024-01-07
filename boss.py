@@ -14,8 +14,8 @@ class BossSinus(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
-        self.checkrect_sizex = 9 * consts.TILE_WIDTH
-        self.checkrect_sizey = 9 * consts.TILE_HEIGHT
+        self.checkrect_sizex = 8 * consts.TILE_WIDTH
+        self.checkrect_sizey = 8 * consts.TILE_HEIGHT
         self.checking_rect = pygame.Rect(
             (0, 0, self.rect.width + self.checkrect_sizex, self.rect.height + self.checkrect_sizey))
         self.update_checkrect()
@@ -64,7 +64,7 @@ class BossSinus(pygame.sprite.Sprite):
 
 
 class AnswerStone(pygame.sprite.Sprite):
-    image = specfunctions.load_image("ura/ura_left_st.png")
+    image = specfunctions.load_image("bosses/cumni/answer_stone.png")
 
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, boss_group)
