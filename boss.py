@@ -24,7 +24,8 @@ class BossSinus(pygame.sprite.Sprite):
         self.fight = False
         self.qu_lvl_1 = [["2 + 2 = ", (1, 2, 3, 4), 3], ["2 + 2 = ", (2, 3, 4, 5), 2], ["2 + 2 = ", (4, 24, 34, 44), 0]]
         self.qu_lvl_2 = [["1 + 2 = ", (1, 2, 3, 4), 2], ["1 + 2 = ", (2, 3, 4, 5), 1], ["1 + 2 = ", (4, 3, 34, 44), 1]]
-        self.qu_lvl_3 = [["2 + 2 = ", (1, 2, 3, 4), 3], ["2 + 2 = ", (2, 3, 4, 5), 2], ["2 + 2 = ", (4, 24, 34, 44), 0]]
+        self.qu_lvl_3 = [["2 + 2 = ", (1, 2, 3, 4), 3], ["2 + 2 = ", (2, 3, 4, 5), 2], ["2 + 2 = ", (4, 24, 34, 44), 0],
+                         ["1 + 2 = ", (1, 2, 3, 4), 2]]
         self.cur_question = 1
         self.question = None
         self.right_answer = None
@@ -118,6 +119,9 @@ class BossSinus(pygame.sprite.Sprite):
             self.fight = False
             self.kill()
 
+    def is_alive(self):
+        return self.hp > 0
+
 
 class AnswerStone(pygame.sprite.Sprite):
     image = specfunctions.load_image("bosses/answerstones/answer_stone.png")
@@ -155,3 +159,5 @@ class AnswerStone(pygame.sprite.Sprite):
 
     def update(self, *args):
         self.check_player_shot()
+        if not self.boss.is_alive():
+            self.variant = None
