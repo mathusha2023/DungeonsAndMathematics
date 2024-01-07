@@ -224,6 +224,7 @@ def generate_level(level):
                 Tile(Images.floor, x, y)
                 enemy.FollowEnemy(x, y)
             elif cell == "S":
+                Tile(Images.floor, x, y)
                 enemy.SniperEnemy(x, y)
             elif cell == "R":
                 Tile(Images.floor, x, y)
