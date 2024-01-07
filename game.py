@@ -285,14 +285,14 @@ def draw_all(player):
     bullets.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
     draw_gui()
-    if player.damage_counter:
+    if player.damage_counter or player.hp < 3:
         consts.SCREEN.blit(Images.damage_frame, (0, 0))
 
 
 def start_game(clock):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("mapboss.txt"))
+    player, level_x, level_y = generate_level(load_level("map1.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
