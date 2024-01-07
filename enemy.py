@@ -17,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
     right = 0
     left = 1
 
-    def __init__(self, pos_x, pos_y, checkrect_size=1080):
+    def __init__(self, pos_x, pos_y, checkrect_sizex=consts.WIDTH, checkrect_sizey=consts.HEIGHT):
         super().__init__(enemies, all_sprites)
         self.image = self.right_st_im
         self.rect = self.image.get_rect()
@@ -25,9 +25,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.y = pos_y * consts.TILE_HEIGHT
         self.prev_x = self.rect.x
         self.prev_y = self.rect.y
-        self.checkrect_size = checkrect_size
+        self.checkrect_sizex = checkrect_sizex
+        self.checkrect_sizey = checkrect_sizey
         self.checking_rect = pygame.Rect(
-            (0, 0, self.rect.width + self.checkrect_size, self.rect.height + self.checkrect_size))
+            (0, 0, self.rect.width + self.checkrect_sizex, self.rect.height + self.checkrect_sizey))
         self.update_checkrect()
         self.left_ims = [self.left_go1_im, self.left_go2_im]
         self.right_ims = [self.right_go1_im, self.right_go2_im]
@@ -40,8 +41,8 @@ class Enemy(pygame.sprite.Sprite):
         self.hp = 10
 
     def update_checkrect(self):
-        self.checking_rect.x = self.rect.x - self.checkrect_size // 2
-        self.checking_rect.y = self.rect.y - self.checkrect_size // 2
+        self.checking_rect.x = self.rect.x - self.checkrect_sizex // 2
+        self.checking_rect.y = self.rect.y - self.checkrect_sizey // 2
 
     def stop_wall_moving(self):
         if pygame.sprite.spritecollideany(self, walls):
@@ -105,9 +106,10 @@ class SniperEnemy(Enemy):
     right_st_im = specfunctions.load_image("enemies/enemy1/enemy_sniper_right.png")
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y, checkrect_size=1080)
+        super().__init__(pos_x, pos_y)
         self.counter = 2 * consts.FPS
         self.weapon = weapon.Rifle(pos_x, pos_y, owner=self, is_players=False)
+        self.hp = 6
 
     def update(self, *args):
         super().update(*args)
@@ -135,6 +137,7 @@ class FollowEnemy(Enemy):
         super().__init__(pos_x, pos_y)
         self.weapon = weapon.ShotGun(pos_x, pos_y, owner=self, is_players=False)
         self.moving = False
+        self.hp = 8
 
     def shoot(self):
         self.weapon.shoot(*[i for i in player_group][0].rect.center)
@@ -163,7 +166,7 @@ class RamEnemy(Enemy):
     right_st_im = specfunctions.load_image("enemies/enemy3/enemy3_right1.png")
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y, checkrect_size=1500)
+        super().__init__(pos_x, pos_y)
         self.dash_left = []
         self.dash_right = []
         self.add_frames()
