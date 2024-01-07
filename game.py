@@ -86,6 +86,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = self.prev_y
 
     def shoot(self, x, y):
+        if isinstance(self.weapon, weapon.Flamethrower):
+            return
         if self.weapon and self.ammo:
             if self.weapon.is_ready() and not (
                     self.weapon.rect.x - 30 <= x <= self.weapon.rect.right + 30
@@ -290,7 +292,7 @@ def draw_all(player):
 def start_game(clock):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("map1.txt"))
+    player, level_x, level_y = generate_level(load_level("mapboss.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
