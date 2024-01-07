@@ -33,6 +33,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.damage = 2
         self.hp = 3
         self.damaged = False
+        self.answered = None
 
     def update_checkrect(self):
         self.checking_rect.x = self.rect.x - self.checkrect_sizex // 2
@@ -66,6 +67,8 @@ class BossSinus(pygame.sprite.Sprite):
         if not self.fight:
             return
         if not self.ask_counter:
+            if self.question and not self.answered:
+                self.get_answer(-1)
             self.ask()
             self.ask_counter = 15 * consts.FPS
 
@@ -88,6 +91,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.question = self.font.render(q_text, True, (255, 255, 255))
         self.right_answer = r_variant
         self.take_variants(variants)
+        self.answered = False
 
     def take_variants(self, variants):
         for stone, variant in zip(self.answerstones, variants):
@@ -95,12 +99,17 @@ class BossSinus(pygame.sprite.Sprite):
 
     # вызывается камнем с вариантом ответа, в который выстрелил игрок
     def get_answer(self, stone):
-        if self.answerstones.index(stone) != self.right_answer:
+        try:
+            i = self.answerstones.index(stone)
+        except ValueError:
+            i = stone
+        if i != self.right_answer:
             [i for i in player_group][0].get_damage(self.damage)
             self.damage += 2
         self.ask_counter = 0
         self.cur_question += 1
         self.damaged = False
+        self.answered = True
 
     def get_damage(self):
         self.hp -= 1
