@@ -6,7 +6,7 @@ from spriteGroups import all_sprites, player_group, player_bullets, walls, boss_
 
 
 class BossSinus(pygame.sprite.Sprite):
-    image = specfunctions.load_image("bosses/Sinus/Sinus.png")
+    image = specfunctions.load_image("bosses/sinus/sinus.png")
 
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, boss_group)
@@ -14,11 +14,13 @@ class BossSinus(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
-        self.checkrect_sizex = 8 * consts.TILE_WIDTH
-        self.checkrect_sizey = 8 * consts.TILE_HEIGHT
+        self.checkrect_sizex = 7 * consts.TILE_WIDTH
+        self.checkrect_sizey = 7 * consts.TILE_HEIGHT
         self.checking_rect = pygame.Rect(
             (0, 0, self.rect.width + self.checkrect_sizex, self.rect.height + self.checkrect_sizey))
         self.update_checkrect()
+        self.answerstones = []
+        self.spawn_answerstones(pos_x, pos_y)
         self.fight = False
         self.hp = 20
 
@@ -28,6 +30,12 @@ class BossSinus(pygame.sprite.Sprite):
 
     def check_player(self):
         return self.checking_rect.colliderect([i for i in player_group][0].rect)
+
+    def spawn_answerstones(self, x, y):
+        self.answerstones.append(AnswerStone(x - 8, y - 4))
+        self.answerstones.append(AnswerStone(x + 8, y - 4))
+        self.answerstones.append(AnswerStone(x - 8, y + 6))
+        self.answerstones.append(AnswerStone(x + 8, y + 6))
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -64,7 +72,7 @@ class BossSinus(pygame.sprite.Sprite):
 
 
 class AnswerStone(pygame.sprite.Sprite):
-    image = specfunctions.load_image("bosses/cumni/answer_stone.png")
+    image = specfunctions.load_image("bosses/answerstones/answer_stone.png")
 
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, boss_group)

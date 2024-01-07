@@ -224,17 +224,14 @@ def generate_level(level):
                 Tile(Images.floor, x, y)
                 enemy.FollowEnemy(x, y)
             elif cell == "S":
-                Tile(Images.floor, x, y)
                 enemy.SniperEnemy(x, y)
             elif cell == "R":
                 Tile(Images.floor, x, y)
                 enemy.RamEnemy(x, y)
             elif cell == "B":
-                Portal(x, y)
-                boss.BossSinus(x, y)
-            elif cell == "P":
+                Portal(x, y + 1)
                 Tile(Images.floor, x, y)
-                boss.AnswerStone(x, y)
+                boss.BossSinus(x, y)
     return new_player, x, y
 
 
@@ -273,6 +270,7 @@ def draw_gui():
 def draw_all():
     consts.SCREEN.fill((0, 0, 0))
     all_sprites.draw(consts.SCREEN)
+    portal_group.draw(consts.SCREEN)
     enemies.draw(consts.SCREEN)
     boss_group.draw(consts.SCREEN)
     player_group.draw(consts.SCREEN)
