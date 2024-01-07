@@ -13,8 +13,8 @@ class BossSinus(pygame.sprite.Sprite):
         self.image = BossSinus.image
         self.rect = self.image.get_rect()
         self.rect.center = pos_x * consts.TILE_WIDTH, pos_y * consts.TILE_HEIGHT
-        self.checkrect_sizex = 18 * consts.TILE_WIDTH
-        self.checkrect_sizey = 12 * consts.TILE_HEIGHT
+        self.checkrect_sizex = 9 * consts.TILE_WIDTH
+        self.checkrect_sizey = 9 * consts.TILE_HEIGHT
         self.checking_rect = pygame.Rect(
             (0, 0, self.rect.width + self.checkrect_sizex, self.rect.height + self.checkrect_sizey))
         self.update_checkrect()
