@@ -43,7 +43,9 @@ class Player(pygame.sprite.Sprite):
         # self.hp = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
-        self.score = 0
+        self.score = 1000
+        self.dungeon_level = 1
+        self.tp = False
 
     def update(self, *args):
         if self.damage_counter:
@@ -110,8 +112,9 @@ class Player(pygame.sprite.Sprite):
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]
-        if portal.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, portal) and self.score > 250:
-            portal.teleport()
+        if (portal.rect.collidepoint(x, y) and
+                pygame.sprite.collide_rect(self, portal) and self.score > 250 * self.dungeon_level):
+            self.tp = True
         for w in weapons:
             if w.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, w):
                 if self.weapon:
@@ -137,6 +140,17 @@ class Player(pygame.sprite.Sprite):
         self.damage_counter = 5
         if self.hp <= 0:
             self.isalive = False
+
+    def copy_previous(self, other):
+        self.ammo = other.ammo
+        self.hp = other.hp
+        self.score = other.score
+        self.dungeon_level = other.dungeon_level + 1
+        self.weapon = other.weapon
+        if self.weapon:
+            self.weapon.owner = self
+            all_sprites.add(self.weapon)
+            weapons.add(self.weapon)
 
 
 class Images:
@@ -177,9 +191,6 @@ class Portal(pygame.sprite.Sprite):
             self.image = self.frames[self.cur_frame]
             self.cur_frame = (self.cur_frame + 1) % len(self.frames)
             self.counter = 0
-
-    def teleport(self):
-        print("TP!")
 
 
 class Camera:
@@ -261,8 +272,7 @@ def empty_groups():
 
 def apply_all(camera):
     for sprite in all_sprites:
-        if sprite is not [i for i in player_group][0].weapon and not isinstance(sprite, weapon.Fire):
-            camera.apply(sprite)
+        camera.apply(sprite)
 
 
 def draw_gui(player):
@@ -293,12 +303,21 @@ def draw_all(player):
         consts.SCREEN.blit(Images.damage_frame, (0, 0))
 
 
-def start_game(clock):
+def start_game(prev_player=None):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("map1.txt"))
+    if prev_player is None:
+        map_ = "map1.txt"
+    elif not (prev_player.dungeon_level + 1) % 3:
+        map_ = "mapboss.txt"
+    else:
+        map_ = random.choice(["map2.txt"])
+    player, level_x, level_y = generate_level(load_level(map_))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
+    if prev_player is not None:
+        player.copy_previous(prev_player)
     camera = Camera()
+    clock = pygame.time.Clock()
 
     while True:
         for event in pygame.event.get():
@@ -317,8 +336,12 @@ def start_game(clock):
                     player.interaction(*event.pos)
         draw_all(player)
         all_sprites.update()
+        weapons.update()
         if not player.isalive:
             sounds.lobby_music()
+            return
+        if player.tp:
+            start_game(player)
             return
         camera.update(player)
         apply_all(camera)

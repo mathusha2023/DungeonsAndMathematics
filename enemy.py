@@ -62,6 +62,7 @@ class Enemy(pygame.sprite.Sprite):
                     [i for i in player_group][0].score += 10
                     if self.weapon:
                         self.weapon.kill()
+                    return
 
     def check_player(self):
         return self.checking_rect.colliderect([i for i in player_group][0].rect)

@@ -27,7 +27,7 @@ class Title(pygame.sprite.Sprite):
 
 Title()
 buttons.Button(all_sprites, text="Играть!", x=consts.WIDTH // 2, y=375, f_size=45,
-               press_event=lambda: game.start_game(clock))
+               press_event=game.start_game)
 buttons.Button(all_sprites, text="Рекорды", x=consts.WIDTH // 2, y=450, f_size=45,
                press_event=lambda: print("RECORDS!"))
 buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=525, f_size=45,
