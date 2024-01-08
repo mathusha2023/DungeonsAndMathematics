@@ -117,6 +117,10 @@ class BossSinus(pygame.sprite.Sprite):
 
     # вызывается камнем с вариантом ответа, в который выстрелил игрок
     def get_answer(self, stone):
+        self.ask_counter = 0
+        self.cur_question += 1
+        self.damaged = False
+        self.answered = True
         try:
             i = self.answerstones.index(stone)
         except ValueError:
@@ -124,10 +128,6 @@ class BossSinus(pygame.sprite.Sprite):
         if i != self.right_answer:
             [i for i in player_group][0].get_damage(self.damage)
             self.damage += 2
-        self.ask_counter = 0
-        self.cur_question += 1
-        self.damaged = False
-        self.answered = True
 
     def get_damage(self):
         self.hp -= 1

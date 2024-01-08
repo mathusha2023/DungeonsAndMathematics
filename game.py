@@ -86,9 +86,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = self.prev_y
 
     def shoot(self, x, y):
-        if isinstance(self.weapon, weapon.Flamethrower):
-            return
         if self.weapon and self.ammo:
+            if isinstance(self.weapon, weapon.Flamethrower):
+                return
             if self.weapon.is_ready() and not (
                     self.weapon.rect.x - 30 <= x <= self.weapon.rect.right + 30
                     and self.rect.y - 30 <= y <= self.rect.bottom + 30):
