@@ -43,7 +43,7 @@ class Player(pygame.sprite.Sprite):
         # self.hp = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
-        self.score = 1000
+        self.score = 0
         self.dungeon_level = 1
         self.tp = False
 
