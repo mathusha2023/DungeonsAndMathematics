@@ -50,6 +50,8 @@ class BossSinus(pygame.sprite.Sprite):
         self.answerstones.append(AnswerStone(x + 8, y + 6, self))
 
     def draw(self, surface):
+        for stone in self.answerstones:
+            stone.draw_(surface)
         surface.blit(self.image, self.rect)
         if self.question:
             surface.blit(self.question, (self.rect.centerx - self.question.get_rect().width // 2,
@@ -144,7 +146,7 @@ class AnswerStone(pygame.sprite.Sprite):
         self.variant = None
         self.font = pygame.font.Font(None, 34)
 
-    def draw(self, surface):
+    def draw_(self, surface):
         surface.blit(self.image, self.rect)
         if self.variant:
             if self.rect.y < self.boss.rect.y:
@@ -153,6 +155,9 @@ class AnswerStone(pygame.sprite.Sprite):
             else:
                 surface.blit(self.variant, (self.rect.centerx - self.variant.get_rect().width // 2,
                                             self.rect.y - self.variant.get_rect().height - 10))
+
+    def draw(self, surface):
+        pass
 
     def load_variant(self, variant):
         self.variant = self.font.render(str(variant), True, (255, 255, 255))
