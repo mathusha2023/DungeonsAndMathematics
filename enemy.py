@@ -59,6 +59,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.hp -= bullet.damage
                 if self.hp <= 0:
                     self.kill()
+                    [i for i in player_group][0].score += 10
                     if self.weapon:
                         self.weapon.kill()
 

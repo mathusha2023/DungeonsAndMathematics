@@ -135,6 +135,7 @@ class BossSinus(pygame.sprite.Sprite):
             self.update_boss_walls()
             self.fight = False
             self.kill()
+            [i for i in player_group][0].score += 300
 
     def is_alive(self):
         return self.hp > 0

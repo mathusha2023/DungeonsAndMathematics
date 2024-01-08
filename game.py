@@ -43,6 +43,7 @@ class Player(pygame.sprite.Sprite):
         # self.hp = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
+        self.score = 0
 
     def update(self, *args):
         if self.damage_counter:
@@ -109,7 +110,7 @@ class Player(pygame.sprite.Sprite):
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]
-        if portal.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, portal):
+        if portal.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, portal) and self.score > 250:
             portal.teleport()
         for w in weapons:
             if w.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, w):
@@ -264,15 +265,18 @@ def apply_all(camera):
             camera.apply(sprite)
 
 
-def draw_gui():
-    ammo = [i for i in player_group][0].ammo
-    hp = [i for i in player_group][0].hp
+def draw_gui(player):
+    ammo = player.ammo
+    hp = player.hp
+    score = player.score
     pygame.draw.rect(consts.SCREEN, (155, 45, 48), (30, 30, hp * 30, 40))
     pygame.draw.rect(consts.SCREEN, (0, 0, 0), (30 + hp * 30, 30, (10 - hp) * 30, 40))
     consts.SCREEN.blit(Images.gui_hp, (10, 20))
     consts.SCREEN.blit(Images.gui_ammo, (25, 90))
     text = pygame.font.Font(None, 70).render(str(ammo), True, (255, 255, 255))
     consts.SCREEN.blit(text, (65, 95))
+    text = pygame.font.Font(None, 70).render(str(score), True, (255, 255, 255))
+    consts.SCREEN.blit(text, (consts.WIDTH - text.get_rect().width - 10, 30))
 
 
 def draw_all(player):
@@ -284,7 +288,7 @@ def draw_all(player):
     bullets.draw(consts.SCREEN)
     weapons.draw(consts.SCREEN)
     boss_group.draw(consts.SCREEN)
-    draw_gui()
+    draw_gui(player)
     if player.damage_counter or player.hp < 3:
         consts.SCREEN.blit(Images.damage_frame, (0, 0))
 
@@ -292,7 +296,7 @@ def draw_all(player):
 def start_game(clock):
     sounds.dungeon_music()
     empty_groups()
-    player, level_x, level_y = generate_level(load_level("mapboss.txt"))
+    player, level_x, level_y = generate_level(load_level("map1.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     camera = Camera()
 
