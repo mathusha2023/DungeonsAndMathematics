@@ -308,6 +308,9 @@ def start_game(prev_player=None):
     empty_groups()
     if prev_player is None:
         map_ = "map1.txt"
+    elif prev_player.dungeon_level == 3:
+        sounds.lobby_music()
+        return
     elif not (prev_player.dungeon_level + 1) % 3:
         map_ = "mapboss.txt"
     else:
