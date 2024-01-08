@@ -1,1 +1,0 @@
-https://qiwi.com/payment/form/99999?extra[%27accountType%27]=phone&extra%5B%27account%27%5D=79107680881
