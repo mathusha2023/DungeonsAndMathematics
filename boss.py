@@ -57,11 +57,20 @@ class BossSinus(pygame.sprite.Sprite):
             surface.blit(self.question, (self.rect.centerx - self.question.get_rect().width // 2,
                                          self.rect.y - self.question.get_rect().height - 10))
         if self.fight:
-            pygame.draw.rect(consts.SCREEN, (155, 45, 48), (240, 630, 200 * self.hp, 40))
-            pygame.draw.rect(consts.SCREEN, (0, 0, 0), (240 + 200 * self.hp, 630, (3 - self.hp) * 200, 40))
-            txt = pygame.font.Font(None, 40).render("Синус: Посланник Математики",
-                                                    True, (255, 255, 255))
-            surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 650 - txt.get_rect().height // 2))
+            self.draw_bossbar(surface)
+            self.draw_timer(surface)
+
+    def draw_bossbar(self, surface):
+        pygame.draw.rect(consts.SCREEN, (155, 45, 48), (240, 630, 200 * self.hp, 40))
+        pygame.draw.rect(consts.SCREEN, (0, 0, 0), (240 + 200 * self.hp, 630, (3 - self.hp) * 200, 40))
+        txt = pygame.font.Font(None, 40).render("Синус: Посланник Математики",
+                                                True, (255, 255, 255))
+        surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 650 - txt.get_rect().height // 2))
+
+    def draw_timer(self, surface):
+        txt = pygame.font.Font(None, 38).render(f"Время на ответ: {self.ask_counter / consts.FPS:.2f}",
+                                                True, (255, 255, 255))
+        surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 600 - txt.get_rect().height // 2))
 
     def update(self, *args):
         self.update_checkrect()
@@ -157,13 +166,15 @@ class AnswerStone(pygame.sprite.Sprite):
                                             self.rect.y - self.variant.get_rect().height - 10))
 
     def draw(self, surface):
-        pass
+        if self.boss.is_alive():
+            return
+        surface.blit(self.image, self.rect)
 
     def load_variant(self, variant):
         self.variant = self.font.render(str(variant), True, (255, 255, 255))
 
     def check_player_shot(self):
-        if pygame.sprite.spritecollideany(self, player_bullets):
+        if pygame.sprite.spritecollideany(self, player_bullets) and self.variant:
             for bullet in player_bullets:
                 bullet.kill()
             self.boss.get_answer(self)
