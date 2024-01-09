@@ -1,5 +1,7 @@
 import random
+import time
 import consts
+import db
 import specfunctions
 import weapon
 import bonuses
@@ -38,14 +40,16 @@ class Player(pygame.sprite.Sprite):
         self.speed = 5
         self.ammo = 0
         self.hp = 10
+        self.score = 0
         # self.speed = 50
         # self.ammo = 1000
         # self.hp = 10000
+        # self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
-        self.score = 0
         self.dungeon_level = 1
         self.tp = False
+        self.start_time = time.time()
 
     def update(self, *args):
         if self.damage_counter:
@@ -146,6 +150,7 @@ class Player(pygame.sprite.Sprite):
         self.hp = other.hp
         self.score = other.score
         self.dungeon_level = other.dungeon_level + 1
+        self.start_time = other.start_time
         self.weapon = other.weapon
         if self.weapon:
             self.weapon.owner = self
@@ -303,12 +308,30 @@ def draw_all(player):
         consts.SCREEN.blit(Images.damage_frame, (0, 0))
 
 
+def get_record(player):
+    w = player.weapon
+    if w:
+        player_weapon = w.__class__.__name__.upper()
+    else:
+        player_weapon = "FIST"
+    now = time.time()
+    return player_weapon, format_time(now - player.start_time)
+
+
+def format_time(seconds):
+    seconds = int(seconds)
+    minutes = seconds // 60
+    seconds %= 60
+    return f"{minutes}:{seconds:0>2}"
+
+
 def start_game(prev_player=None):
     sounds.dungeon_music()
     empty_groups()
     if prev_player is None:
         map_ = "map1.txt"
     elif prev_player.dungeon_level == 3:
+        db.load_record(*get_record(prev_player))
         sounds.lobby_music()
         return
     elif not (prev_player.dungeon_level + 1) % 3:
