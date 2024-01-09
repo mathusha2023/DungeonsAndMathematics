@@ -38,7 +38,14 @@ class BossSinus(pygame.sprite.Sprite):
         self.hp = 3
         self.damaged = False
         self.answered = None
-        self.pause_counter = 0
+        self.pause_counter = 5 * consts.FPS
+        self.starting = True
+        self.start_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
+                                 ["Кто ты такой?",
+                                  "Какой-то мальчишка добрался до сюда? Невозможно!",
+                                  "Ты ищешь знаний в математике? Ну хорошо",
+                                  "Только для начала тебе придется победить меня!"])
+        self.phrase = None
 
     def add_frames(self):
         for i in range(1, 7):
@@ -62,6 +69,9 @@ class BossSinus(pygame.sprite.Sprite):
         for stone in self.answerstones:
             stone.draw_(surface)
         surface.blit(self.image, self.rect)
+        if self.starting and self.phrase:
+            surface.blit(self.phrase, (self.rect.centerx - self.phrase.get_rect().width // 2,
+                                       self.rect.y - self.phrase.get_rect().height - 10))
         if self.question:
             surface.blit(self.question, (self.rect.centerx - self.question.get_rect().width // 2,
                                          self.rect.y - self.question.get_rect().height - 10))
@@ -106,12 +116,22 @@ class BossSinus(pygame.sprite.Sprite):
             self.fight = True
         if not self.fight:
             return
+        if self.starting and not self.pause_counter:
+            self.next_phrase()
         if not self.ask_counter:
             if self.question and not self.answered:
                 self.get_answer(-1)
             if not self.pause_counter:
                 self.ask()
                 self.ask_counter = 15 * consts.FPS
+
+    def next_phrase(self):
+        try:
+            self.phrase = next(self.start_phrases)
+            self.pause_counter = 3 * consts.FPS
+        except StopIteration:
+            self.starting = False
+            self.pause_counter = 0
 
     def update_boss_walls(self):
         if self.fight:
