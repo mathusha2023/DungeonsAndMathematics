@@ -6,12 +6,10 @@ cur = connection.cursor()
 
 
 def get_records():
-    recv = """SELECT weapons.weapon, result, date FROM records
-    INNER JOIN weapons ON weapons.id = records.weapon
-    ORDER BY RESULT DESC
-    LIMIT 10"""
+    recv = """SELECT weapon, result, date FROM records
+    ORDER BY RESULT
+    LIMIT 9"""
     ans = cur.execute(recv).fetchall()
-    print(ans)
     return ans
 
 
