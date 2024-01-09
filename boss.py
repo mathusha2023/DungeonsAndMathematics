@@ -42,7 +42,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.starting = True
         self.start_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
                                  ["Кто ты такой?",
-                                  "Какой-то мальчишка добрался до сюда? Невозможно!",
+                                  "Какой-то мальчишка добрался сюда? Невозможно!",
                                   "Ты ищешь знаний в математике? Ну хорошо",
                                   "Только для начала тебе придется победить меня!"])
         self.death_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
