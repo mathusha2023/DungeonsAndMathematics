@@ -32,6 +32,7 @@ class Button(pygame.sprite.Sprite):
                 if event.button == 1 and self.rect.collidepoint(*event.pos):
                     if self.event is not None:
                         self.event()
+                        self.config_image(1)
 
 
 class RightButton(Button):
@@ -42,3 +43,22 @@ class RightButton(Button):
         self.rect.right = x
         self.rect.bottom = y
         self.center = self.rect.center
+
+
+class ExitButton(Button):
+    def __init__(self, *groups, text="Button", x=0, y=0,
+                 font=None, f_size=24, f_color=(255, 255, 255), f_active_color=(255, 255, 0)):
+        super().__init__(*groups, text=text, x=x, y=y,
+                         font=font, f_size=f_size, f_color=f_color, f_active_color=f_active_color)
+        self.clicked = False
+
+    def update(self, *args):
+        if self.rect.collidepoint(*pygame.mouse.get_pos()):
+            self.config_image(2)
+        else:
+            self.config_image(1)
+        if args:
+            event = args[0]
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and self.rect.collidepoint(*event.pos):
+                    self.clicked = True
