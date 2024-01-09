@@ -8,6 +8,7 @@ import bonuses
 import enemy
 import boss
 import sounds
+import buttons
 from spriteGroups import *
 
 
@@ -273,11 +274,13 @@ def empty_groups():
     portal_group.empty()
     boss_walls.empty()
     boss_group.empty()
+    exit_btn_group.empty()
 
 
 def apply_all(camera):
     for sprite in all_sprites:
-        camera.apply(sprite)
+        if sprite not in exit_btn_group:
+            camera.apply(sprite)
 
 
 def draw_gui(player):
@@ -304,6 +307,7 @@ def draw_all(player):
     weapons.draw(consts.SCREEN)
     boss_group.draw(consts.SCREEN)
     draw_gui(player)
+    exit_btn_group.draw(consts.SCREEN)
     if player.damage_counter or player.hp < 3:
         consts.SCREEN.blit(Images.damage_frame, (0, 0))
 
@@ -345,15 +349,13 @@ def start_game(prev_player=None):
         player.copy_previous(prev_player)
     camera = Camera()
     clock = pygame.time.Clock()
+    exit_btn = buttons.RightExitButton(all_sprites, exit_btn_group, text="Выход",
+                            x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=40)
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 specfunctions.terminate()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    sounds.lobby_music()
-                    return
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     player.shoot(*event.pos)
@@ -361,9 +363,13 @@ def start_game(prev_player=None):
                     player.punch()
                 if event.button == 3:
                     player.interaction(*event.pos)
+            exit_btn_group.update(event)
         draw_all(player)
         all_sprites.update()
         weapons.update()
+        if exit_btn.clicked:
+            sounds.lobby_music()
+            return
         if not player.isalive:
             sounds.lobby_music()
             return

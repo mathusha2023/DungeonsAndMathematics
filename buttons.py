@@ -62,3 +62,7 @@ class ExitButton(Button):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1 and self.rect.collidepoint(*event.pos):
                     self.clicked = True
+
+
+class RightExitButton(ExitButton, RightButton):
+    pass
