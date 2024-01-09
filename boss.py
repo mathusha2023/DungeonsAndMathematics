@@ -15,7 +15,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.counter = 0
         self.image = self.images[0]
         self.rect = self.image.get_rect()
-        self.rect.x = pos_x * consts.TILE_WIDTH
+        self.rect.x = pos_x * consts.TILE_WIDTH - 10
         self.rect.y = pos_y * consts.TILE_HEIGHT
         self.checkrect_sizex = 7 * consts.TILE_WIDTH
         self.checkrect_sizey = 7 * consts.TILE_HEIGHT
