@@ -45,6 +45,11 @@ class BossSinus(pygame.sprite.Sprite):
                                   "Какой-то мальчишка добрался до сюда? Невозможно!",
                                   "Ты ищешь знаний в математике? Ну хорошо",
                                   "Только для начала тебе придется победить меня!"])
+        self.death_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
+                                 ["Что ж, ты победил меня",
+                                  "Я дарую тебе все свои знания в математике",
+                                  "Но будет ли этого достаточно для выполнения твоей цели?"])
+        self.death = False
         self.phrase = None
 
     def add_frames(self):
@@ -69,7 +74,7 @@ class BossSinus(pygame.sprite.Sprite):
         for stone in self.answerstones:
             stone.draw_(surface)
         surface.blit(self.image, self.rect)
-        if self.starting and self.phrase:
+        if (self.starting or self.death) and self.phrase:
             surface.blit(self.phrase, (self.rect.centerx - self.phrase.get_rect().width // 2,
                                        self.rect.y - self.phrase.get_rect().height - 10))
         if self.question:
@@ -77,7 +82,7 @@ class BossSinus(pygame.sprite.Sprite):
                                          self.rect.y - self.question.get_rect().height - 10))
         if self.fight:
             self.draw_bossbar(surface)
-            if not self.pause_counter:
+            if not (self.pause_counter or self.death):
                 self.draw_timer(surface)
 
     def draw_bossbar(self, surface):
@@ -116,22 +121,30 @@ class BossSinus(pygame.sprite.Sprite):
             self.fight = True
         if not self.fight:
             return
-        if self.starting and not self.pause_counter:
+        if (self.starting or self.death) and not self.pause_counter:
             self.next_phrase()
         if not self.ask_counter:
             if self.question and not self.answered:
                 self.get_answer(-1)
-            if not self.pause_counter:
+            if not (self.pause_counter or self.death):
                 self.ask()
                 self.ask_counter = 15 * consts.FPS
 
     def next_phrase(self):
-        try:
-            self.phrase = next(self.start_phrases)
-            self.pause_counter = 3 * consts.FPS
-        except StopIteration:
-            self.starting = False
-            self.pause_counter = 0
+        if self.starting:
+            try:
+                self.phrase = next(self.start_phrases)
+                self.pause_counter = 3 * consts.FPS
+            except StopIteration:
+                self.starting = False
+                self.pause_counter = 0
+        if self.death:
+            try:
+                self.phrase = next(self.death_phrases)
+                self.pause_counter = 3 * consts.FPS
+            except StopIteration:
+                self.fight = False
+                self.kill_()
 
     def update_boss_walls(self):
         if self.fight:
@@ -185,9 +198,13 @@ class BossSinus(pygame.sprite.Sprite):
         self.hp -= 1
         if self.hp <= 0:
             self.update_boss_walls()
-            self.fight = False
-            self.kill()
-            [i for i in player_group][0].score += 300
+            self.death = True
+            self.pause_counter = 0
+
+    def kill_(self):
+        self.fight = False
+        self.kill()
+        [i for i in player_group][0].score += 300
 
     def is_alive(self):
         return self.hp > 0
