@@ -35,6 +35,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.hp = 3
         self.damaged = False
         self.answered = None
+        self.pause_counter = 0
 
     def update_checkrect(self):
         self.checking_rect.x = self.rect.x - self.checkrect_sizex // 2
@@ -58,7 +59,8 @@ class BossSinus(pygame.sprite.Sprite):
                                          self.rect.y - self.question.get_rect().height - 10))
         if self.fight:
             self.draw_bossbar(surface)
-            self.draw_timer(surface)
+            if not self.pause_counter:
+                self.draw_timer(surface)
 
     def draw_bossbar(self, surface):
         pygame.draw.rect(consts.SCREEN, (155, 45, 48), (240, 630, 200 * self.hp, 40))
@@ -79,6 +81,10 @@ class BossSinus(pygame.sprite.Sprite):
             self.damaged = True
         if self.ask_counter:
             self.ask_counter -= 1
+        if self.pause_counter:
+            self.pause_counter -= 1
+            self.question = None
+            self.right_answer = None
         if self.check_player() and not self.fight:
             self.update_boss_walls()
             self.fight = True
@@ -87,8 +93,9 @@ class BossSinus(pygame.sprite.Sprite):
         if not self.ask_counter:
             if self.question and not self.answered:
                 self.get_answer(-1)
-            self.ask()
-            self.ask_counter = 15 * consts.FPS
+            if not self.pause_counter:
+                self.ask()
+                self.ask_counter = 15 * consts.FPS
 
     def update_boss_walls(self):
         if self.fight:
@@ -115,12 +122,18 @@ class BossSinus(pygame.sprite.Sprite):
         for stone, variant in zip(self.answerstones, variants):
             stone.load_variant(variant)
 
+    def take_images(self, im):
+        for stone in self.answerstones:
+            stone.change_image(im)
+
     # вызывается камнем с вариантом ответа, в который выстрелил игрок
     def get_answer(self, stone):
         self.ask_counter = 0
+        self.pause_counter = 2 * consts.FPS
         self.cur_question += 1
         self.damaged = False
         self.answered = True
+        self.take_variants([None] * 4)
         try:
             i = self.answerstones.index(stone)
         except ValueError:
@@ -128,6 +141,9 @@ class BossSinus(pygame.sprite.Sprite):
         if i != self.right_answer:
             [i for i in player_group][0].get_damage(self.damage)
             self.damage += 2
+            self.take_images(AnswerStone.wrong)
+        else:
+            self.take_images(AnswerStone.right)
 
     def get_damage(self):
         self.hp -= 1
@@ -146,6 +162,9 @@ class AnswerStone(pygame.sprite.Sprite):
     image_right = specfunctions.load_image("bosses/answerstones/answer_stone_right.png")
     image_wrong = specfunctions.load_image("bosses/answerstones/answer_stone_wrong.png")
 
+    right = 0
+    wrong = 1
+
     def __init__(self, pos_x, pos_y, boss):
         super().__init__(all_sprites, boss_group)
         self.image = AnswerStone.image
@@ -155,6 +174,7 @@ class AnswerStone(pygame.sprite.Sprite):
         self.boss = boss
         self.variant = None
         self.font = pygame.font.Font(None, 34)
+        self.im_counter = 0
 
     def draw_(self, surface):
         surface.blit(self.image, self.rect)
@@ -172,7 +192,10 @@ class AnswerStone(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
     def load_variant(self, variant):
-        self.variant = self.font.render(str(variant), True, (255, 255, 255))
+        if variant:
+            self.variant = self.font.render(str(variant), True, (255, 255, 255))
+        else:
+            self.variant = None
 
     def check_player_shot(self):
         if pygame.sprite.spritecollideany(self, player_bullets) and self.variant:
@@ -182,5 +205,13 @@ class AnswerStone(pygame.sprite.Sprite):
 
     def update(self, *args):
         self.check_player_shot()
+        if not self.boss.pause_counter:
+            self.image = AnswerStone.image
         if not self.boss.is_alive():
             self.variant = None
+
+    def change_image(self, im):
+        if im == AnswerStone.right:
+            self.image = AnswerStone.image_right
+        elif im == AnswerStone.wrong:
+            self.image = AnswerStone.image_wrong
