@@ -350,7 +350,7 @@ def start_game(prev_player=None):
     camera = Camera()
     clock = pygame.time.Clock()
     exit_btn = buttons.RightExitButton(all_sprites, exit_btn_group, text="Выход",
-                            x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=40)
+                                       x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=40)
 
     while True:
         for event in pygame.event.get():
