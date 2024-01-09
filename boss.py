@@ -161,6 +161,7 @@ class AnswerStone(pygame.sprite.Sprite):
     image = specfunctions.load_image("bosses/answerstones/answer_stone.png")
     image_right = specfunctions.load_image("bosses/answerstones/answer_stone_right.png")
     image_wrong = specfunctions.load_image("bosses/answerstones/answer_stone_wrong.png")
+    image_dead = specfunctions.load_image("bosses/answerstones/answer_stone_dead.png")
 
     right = 0
     wrong = 1
@@ -209,6 +210,7 @@ class AnswerStone(pygame.sprite.Sprite):
             self.image = AnswerStone.image
         if not self.boss.is_alive():
             self.variant = None
+            self.image = AnswerStone.image_dead
 
     def change_image(self, im):
         if im == AnswerStone.right:
