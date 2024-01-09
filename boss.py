@@ -38,7 +38,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.hp = 3
         self.damaged = False
         self.answered = None
-        self.pause_counter = 5 * consts.FPS
+        self.pause_counter = 0
         self.starting = True
         self.start_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
                                  ["Кто ты такой?",
