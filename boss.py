@@ -6,11 +6,14 @@ from spriteGroups import all_sprites, player_group, player_bullets, walls, boss_
 
 
 class BossSinus(pygame.sprite.Sprite):
-    image = specfunctions.load_image("bosses/sinus/sinus.png")
-
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, boss_group)
-        self.image = BossSinus.image
+        self.images = []
+        self.images_anger = []
+        self.add_frames()
+        self.im = 0
+        self.counter = 0
+        self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
@@ -36,6 +39,11 @@ class BossSinus(pygame.sprite.Sprite):
         self.damaged = False
         self.answered = None
         self.pause_counter = 0
+
+    def add_frames(self):
+        for i in range(1, 7):
+            self.images.append(specfunctions.load_image(f"bosses/sinus/sinus{i}.png"))
+            self.images_anger.append(specfunctions.load_image(f"bosses/sinus/sinus{i}_anger.png"))
 
     def update_checkrect(self):
         self.checking_rect.x = self.rect.x - self.checkrect_sizex // 2
@@ -75,6 +83,14 @@ class BossSinus(pygame.sprite.Sprite):
         surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 600 - txt.get_rect().height // 2))
 
     def update(self, *args):
+        if self.hp > 1:
+            self.image = self.images[self.im]
+        else:
+            self.image = self.images_anger[self.im]
+        if not self.counter % 6:
+            self.im = (self.im + 1) % len(self.images)
+            self.counter = 1
+        self.counter += 1
         self.update_checkrect()
         if not ((self.cur_question - 1) % 3 or self.damaged or self.cur_question == 1):
             self.get_damage()
