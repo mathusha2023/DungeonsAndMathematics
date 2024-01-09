@@ -306,17 +306,17 @@ def draw_all(player):
 def start_game(prev_player=None):
     sounds.dungeon_music()
     empty_groups()
-    # if prev_player is None:
-    #     map_ = "map1.txt"
-    # elif prev_player.dungeon_level == 3:
-    #     sounds.lobby_music()
-    #     return
-    # elif not (prev_player.dungeon_level + 1) % 3:
-    #     map_ = "mapboss.txt"
-    # else:
-    #     map_ = random.choice(["map2.txt"])
-    # player, level_x, level_y = generate_level(load_level(map_))
-    player, level_x, level_y = generate_level(load_level("mapboss.txt"))
+    if prev_player is None:
+        map_ = "map1.txt"
+    elif prev_player.dungeon_level == 3:
+        sounds.lobby_music()
+        return
+    elif not (prev_player.dungeon_level + 1) % 3:
+        map_ = "mapboss.txt"
+    else:
+        map_ = random.choice(["map2.txt"])
+    player, level_x, level_y = generate_level(load_level(map_))
+    # player, level_x, level_y = generate_level(load_level("mapboss.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     if prev_player is not None:
         player.copy_previous(prev_player)
