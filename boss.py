@@ -119,7 +119,6 @@ class BossSinus(pygame.sprite.Sprite):
             self.right_answer = None
         if self.check_player() and not self.fight:
             self.update_boss_walls()
-            sounds.boss_music()
             self.fight = True
         if not self.fight:
             return
@@ -140,6 +139,7 @@ class BossSinus(pygame.sprite.Sprite):
             except StopIteration:
                 self.starting = False
                 self.pause_counter = 0
+                sounds.boss_music()
         if self.death:
             try:
                 self.phrase = next(self.death_phrases)
@@ -203,12 +203,12 @@ class BossSinus(pygame.sprite.Sprite):
             self.update_boss_walls()
             self.death = True
             self.pause_counter = 0
+            pygame.mixer.music.fadeout(3000)
 
     def kill_(self):
         self.fight = False
         self.kill()
         [i for i in player_group][0].score += 300
-        sounds.stop_music()
 
     def is_alive(self):
         return self.hp > 0

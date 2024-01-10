@@ -58,6 +58,3 @@ def fire_sound():
     sound = pygame.mixer.Sound("data/audio/fire.wav")
     sound.play()
 
-
-def stop_music():
-    pygame.mixer.music.fadeout(3000)
