@@ -10,8 +10,7 @@ import buttons
 class Settings:
     eng = 0
     rus = 1
-    jpn = 2
-    langs = {0: "english", 1: "русский", 2: "rjdfktd kj["}
+    langs = {0: "english", 1: "русский"}
 
     vol_music = 1
     vol_sound = 1
@@ -60,7 +59,7 @@ def settings_menu():
     dropdown = Dropdown(consts.SCREEN, consts.WIDTH // 2, 400, 400, 40,
                         name=Settings.langs[Settings.language],
                         choices=Settings.langs.values(),
-                        values=[Settings.eng, Settings.rus, Settings.jpn],
+                        values=[Settings.eng, Settings.rus],
                         textColour=(255, 255, 255), fontSize=34, inactiveColour=(0, 0, 0), hoverColour=(120, 120, 120),
                         pressedColour=(120, 120, 120))
 
