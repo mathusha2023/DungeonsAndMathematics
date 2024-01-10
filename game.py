@@ -45,8 +45,8 @@ class Player(pygame.sprite.Sprite):
         self.score = 0
         # self.speed = 50
         # self.ammo = 1000
-        # self.hp = 10000
-        # self.score = 10000
+        self.hp = 10000
+        self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
         self.dungeon_level = 1
@@ -349,7 +349,7 @@ def start_game(prev_player=None):
         map_ = "mapboss.txt"
         pygame.mixer.music.stop()
     else:
-        map_ = random.choice(["map2.txt"])
+        map_ = random.choice(["map2.txt", "map3.txt"])
     player, level_x, level_y = generate_level(load_level(map_))
     # player, level_x, level_y = generate_level(load_level("mapboss.txt"))
     # player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
