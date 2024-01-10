@@ -9,6 +9,7 @@ import enemy
 import boss
 import sounds
 import buttons
+import animations
 from spriteGroups import *
 
 
@@ -367,13 +368,12 @@ def start_game(prev_player=None):
         draw_all(player)
         all_sprites.update()
         weapons.update()
-        if button.clicked:
-            sounds.lobby_music()
-            return
-        if not player.isalive:
+        if not player.isalive or button.clicked:
+            animations.escape_animation()
             sounds.lobby_music()
             return
         if player.tp:
+            animations.escape_animation()
             start_game(player)
             return
         camera.update(player)
