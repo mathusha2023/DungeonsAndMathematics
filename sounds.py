@@ -40,9 +40,8 @@ def shoot_sound():
 
 
 def punch_sound():
-    # sound = pygame.mixer.Sound("data/audio/weapon.mp3")
-    # sound.play()
-    return
+    sound = pygame.mixer.Sound("data/audio/punch.wav")
+    sound.play()
 
 
 def death_sound():
@@ -52,6 +51,11 @@ def death_sound():
 
 def damage_sound():
     sound = pygame.mixer.Sound("data/audio/damage.wav")
+    sound.play()
+
+
+def fire_sound():
+    sound = pygame.mixer.Sound("data/audio/fire.wav")
     sound.play()
 
 
