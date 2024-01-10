@@ -43,10 +43,10 @@ class Player(pygame.sprite.Sprite):
         self.ammo = 0
         self.hp = 10
         self.score = 0
-        # self.speed = 50
-        # self.ammo = 1000
-        # self.hp = 10000
-        # self.score = 10000
+        self.speed = 50
+        self.ammo = 1000
+        self.hp = 10000
+        self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
         self.dungeon_level = 1
@@ -358,7 +358,7 @@ def start_game(prev_player=None):
     camera = Camera()
     clock = pygame.time.Clock()
     button = buttons.RightEscapeButton(all_sprites, exit_btn_group, text="Выход",
-                                       x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=40)
+                                       x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=40, f_active_color=(255, 0, 0))
 
     while True:
         for event in pygame.event.get():
