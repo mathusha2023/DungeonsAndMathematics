@@ -8,7 +8,7 @@ def lobby_music():
 
 
 def dungeon_music():
-    pygame.mixer.music.load("data/audio/dungeonmusic.mp3")
+    pygame.mixer.music.load("data/audio/dungeonmusic.wav")
     pygame.mixer.music.play(-1)
     return
 
