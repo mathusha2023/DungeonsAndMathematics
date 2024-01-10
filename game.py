@@ -336,11 +336,11 @@ def format_time(seconds):
 
 def start_game(prev_player=None):
     started = 0
-    sounds.dungeon_music()
     empty_groups()
     if prev_player is None:
         map_ = "map1.txt"
         sounds.start_sound()
+        sounds.dungeon_music()
     elif prev_player.dungeon_level == 3:
         db.load_record(*get_record(prev_player))
         sounds.lobby_music()
