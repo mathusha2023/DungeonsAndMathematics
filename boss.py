@@ -50,6 +50,8 @@ class BossSinus(pygame.sprite.Sprite):
                                  ["Что ж, ты победил меня",
                                   "Я дарую тебе все свои знания в математике",
                                   "Но будет ли этого достаточно для выполнения твоей цели?"])
+        self.audio_phrases = sounds.BossPhrases()
+        self.phrase_pauses = iter([4, 7, 8, 10, 4, 5, 7])
         self.death = False
         self.phrase = None
 
@@ -135,7 +137,8 @@ class BossSinus(pygame.sprite.Sprite):
         if self.starting:
             try:
                 self.phrase = next(self.start_phrases)
-                self.pause_counter = 3 * consts.FPS
+                next(self.audio_phrases)
+                self.pause_counter = next(self.phrase_pauses) * consts.FPS
             except StopIteration:
                 self.starting = False
                 self.pause_counter = 0
@@ -143,7 +146,8 @@ class BossSinus(pygame.sprite.Sprite):
         if self.death:
             try:
                 self.phrase = next(self.death_phrases)
-                self.pause_counter = 3 * consts.FPS
+                next(self.audio_phrases)
+                self.pause_counter = next(self.phrase_pauses) * consts.FPS
             except StopIteration:
                 self.fight = False
                 self.kill_()
@@ -203,7 +207,7 @@ class BossSinus(pygame.sprite.Sprite):
             self.update_boss_walls()
             self.death = True
             self.pause_counter = 0
-            pygame.mixer.music.fadeout(3000)
+            pygame.mixer.music.stop()
 
     def kill_(self):
         self.fight = False

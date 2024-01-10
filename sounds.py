@@ -58,3 +58,16 @@ def fire_sound():
     sound = pygame.mixer.Sound("data/audio/fire.wav")
     sound.play()
 
+
+class BossPhrases:
+    def __init__(self):
+        self.p = []
+        self.load_phrases()
+        self.p = iter(self.p)
+
+    def load_phrases(self):
+        for i in range(1, 8):
+            self.p.append(pygame.mixer.Sound(f"data/audio/bossphrases/phrase{i}.wav"))
+
+    def __next__(self):
+        next(self.p).play()
