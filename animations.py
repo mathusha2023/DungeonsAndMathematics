@@ -1,7 +1,6 @@
 import pygame
 import consts
 import specfunctions
-import sounds
 
 
 def escape_animation():
