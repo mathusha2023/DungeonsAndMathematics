@@ -195,6 +195,7 @@ class BossSinus(pygame.sprite.Sprite):
             self.take_images(AnswerStone.wrong)
         else:
             self.take_images(AnswerStone.right)
+            sounds.boss_right_sound()
 
     def get_damage(self):
         self.hp -= 1

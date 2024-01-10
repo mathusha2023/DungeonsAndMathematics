@@ -24,6 +24,11 @@ def start_sound():
     sound.play()
 
 
+def boss_right_sound():
+    sound = pygame.mixer.Sound("data/audio/right.wav")
+    sound.play()
+
+
 def tp_sound():
     sound = pygame.mixer.Sound("data/audio/tp.wav")
     sound.play()
