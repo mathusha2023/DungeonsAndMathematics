@@ -1,6 +1,7 @@
 import pygame
 import consts
 import specfunctions
+import sounds
 from spriteGroups import bonus_group, all_sprites
 
 
@@ -35,4 +36,5 @@ class Heal(Bonus):
         player.hp += 3
         if player.hp > 10:
             player.hp = 10
+        sounds.heal_sound()
         self.kill()

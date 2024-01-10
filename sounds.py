@@ -59,6 +59,11 @@ def fire_sound():
     sound.play()
 
 
+def heal_sound():
+    sound = pygame.mixer.Sound("data/audio/heal.wav")
+    sound.play()
+
+
 class BossPhrases:
     def __init__(self):
         self.p = []
