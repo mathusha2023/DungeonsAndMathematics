@@ -349,7 +349,7 @@ def start_game(prev_player=None):
         player.copy_previous(prev_player)
     camera = Camera()
     clock = pygame.time.Clock()
-    exit_btn = buttons.RightExitButton(all_sprites, exit_btn_group, text="Выход",
+    button = buttons.RightEscapeButton(all_sprites, exit_btn_group, text="Выход",
                                        x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=40)
 
     while True:
@@ -367,7 +367,7 @@ def start_game(prev_player=None):
         draw_all(player)
         all_sprites.update()
         weapons.update()
-        if exit_btn.clicked:
+        if button.clicked:
             sounds.lobby_music()
             return
         if not player.isalive:

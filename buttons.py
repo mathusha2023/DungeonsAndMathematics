@@ -45,7 +45,7 @@ class RightButton(Button):
         self.center = self.rect.center
 
 
-class ExitButton(Button):
+class EscapeButton(Button):
     def __init__(self, *groups, text="Button", x=0, y=0,
                  font=None, f_size=24, f_color=(255, 255, 255), f_active_color=(255, 255, 0)):
         super().__init__(*groups, text=text, x=x, y=y,
@@ -64,5 +64,5 @@ class ExitButton(Button):
                     self.clicked = True
 
 
-class RightExitButton(ExitButton, RightButton):
+class RightEscapeButton(EscapeButton, RightButton):
     pass

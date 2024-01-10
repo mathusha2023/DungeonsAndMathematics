@@ -61,7 +61,7 @@ class Record(pygame.sprite.Sprite):
 def records_menu():
     clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
-    button = buttons.ExitButton(all_sprites, text="Назад", x=consts.WIDTH // 2, y=650, f_size=45)
+    button = buttons.EscapeButton(all_sprites, text="Назад", x=consts.WIDTH // 2, y=650, f_size=45)
     Record(all_sprites)
 
     while True:
