@@ -11,7 +11,7 @@ class Settings:
     eng = 0
     rus = 1
     jpn = 2
-    langs = {0: "английский", 1: "русский", 2: "японский"}
+    langs = {0: "english", 1: "русский", 2: "rjdfktd kj["}
 
     vol_music = 1
     vol_sound = 1
