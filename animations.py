@@ -25,7 +25,6 @@ def escape_animation():
 
 
 def start_animation():
-    sounds.tp_sound()
     surface = pygame.Surface(consts.SIZE)
     surface2 = pygame.Surface(consts.SIZE)
     clock = pygame.time.Clock()

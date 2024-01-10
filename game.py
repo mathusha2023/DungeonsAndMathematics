@@ -146,6 +146,7 @@ class Player(pygame.sprite.Sprite):
     def get_damage(self, damage):
         self.hp -= damage
         self.damage_counter = 5
+        sounds.damage_sound()
         if self.hp <= 0:
             self.isalive = False
             sounds.death_sound()
@@ -339,6 +340,7 @@ def start_game(prev_player=None):
     empty_groups()
     if prev_player is None:
         map_ = "map1.txt"
+        sounds.start_sound()
     elif prev_player.dungeon_level == 3:
         db.load_record(*get_record(prev_player))
         sounds.lobby_music()
@@ -378,6 +380,7 @@ def start_game(prev_player=None):
             return
         if player.tp:
             animations.escape_animation()
+            sounds.tp_sound()
             start_game(player)
             return
         camera.update(player)

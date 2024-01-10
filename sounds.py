@@ -19,6 +19,11 @@ def boss_music():
     return
 
 
+def start_sound():
+    sound = pygame.mixer.Sound("data/audio/start.ogg")
+    sound.play()
+
+
 def tp_sound():
     sound = pygame.mixer.Sound("data/audio/tp.wav")
     sound.play()
@@ -38,3 +43,12 @@ def punch_sound():
 def death_sound():
     sound = pygame.mixer.Sound("data/audio/death.wav")
     sound.play()
+
+
+def damage_sound():
+    sound = pygame.mixer.Sound("data/audio/damage.wav")
+    sound.play()
+
+
+def stop_music():
+    pygame.mixer.music.fadeout(3000)

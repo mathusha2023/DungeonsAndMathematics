@@ -207,7 +207,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.fight = False
         self.kill()
         [i for i in player_group][0].score += 300
-        sounds.dungeon_music()
+        sounds.stop_music()
 
     def is_alive(self):
         return self.hp > 0
