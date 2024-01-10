@@ -2,6 +2,7 @@ import pygame
 import os
 import sys
 import db
+from settings import Settings
 
 
 def load_image(name, colorkey=None):
@@ -23,4 +24,5 @@ def load_image(name, colorkey=None):
 def terminate():
     pygame.quit()
     db.connection.close()
+    Settings.write()
     sys.exit()
