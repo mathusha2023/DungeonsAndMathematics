@@ -2,6 +2,7 @@ import pygame
 import random
 import consts
 import specfunctions
+import sounds
 from spriteGroups import all_sprites, player_group, player_bullets, walls, boss_walls, boss_group
 
 
@@ -118,6 +119,7 @@ class BossSinus(pygame.sprite.Sprite):
             self.right_answer = None
         if self.check_player() and not self.fight:
             self.update_boss_walls()
+            sounds.boss_music()
             self.fight = True
         if not self.fight:
             return
@@ -205,6 +207,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.fight = False
         self.kill()
         [i for i in player_group][0].score += 300
+        sounds.dungeon_music()
 
     def is_alive(self):
         return self.hp > 0

@@ -2,8 +2,8 @@ import pygame
 
 
 def lobby_music():
-    # pygame.mixer.music.load("data/audio/lobby.wav")
-    # pygame.mixer.music.play(-1)
+    pygame.mixer.music.load("data/audio/lobby.wav")
+    pygame.mixer.music.play(-1)
     return
 
 
@@ -14,11 +14,27 @@ def dungeon_music():
 
 
 def boss_music():
-    # pygame.mixer.music.load("data/audio/bossmusic.mp3")
-    # pygame.mixer.music.play(-1)
+    pygame.mixer.music.load("data/audio/bossmusic.mp3")
+    pygame.mixer.music.play(-1)
     return
 
 
 def tp_sound():
     sound = pygame.mixer.Sound("data/audio/tp.ogg")
+    sound.play()
+
+
+def shoot_sound():
+    sound = pygame.mixer.Sound("data/audio/weapon.mp3")
+    sound.play()
+
+
+def punch_sound():
+    # sound = pygame.mixer.Sound("data/audio/weapon.mp3")
+    # sound.play()
+    return
+
+
+def death_sound():
+    sound = pygame.mixer.Sound("data/audio/death.mp3")
     sound.play()

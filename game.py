@@ -43,10 +43,10 @@ class Player(pygame.sprite.Sprite):
         self.ammo = 0
         self.hp = 10
         self.score = 0
-        self.speed = 50
-        self.ammo = 1000
-        self.hp = 10000
-        self.score = 10000
+        # self.speed = 50
+        # self.ammo = 1000
+        # self.hp = 10000
+        # self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
         self.dungeon_level = 1
@@ -108,8 +108,10 @@ class Player(pygame.sprite.Sprite):
                     self.state = Player.left
                     self.weapon.state = weapon.Weapon.left
                 self.weapon.shoot(x, y)
+                sounds.shoot_sound()
         else:
             self.punch()
+            sounds.punch_sound()
 
     def punch(self):
         if not self.punch_kd % consts.FPS:
@@ -146,6 +148,7 @@ class Player(pygame.sprite.Sprite):
         self.damage_counter = 5
         if self.hp <= 0:
             self.isalive = False
+            sounds.death_sound()
 
     def copy_previous(self, other):
         self.ammo = other.ammo
