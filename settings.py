@@ -11,6 +11,7 @@ class Settings:
     eng = 0
     rus = 1
     jpn = 2
+    langs = {0: "английский", 1: "русский", 2: "японский"}
 
     vol_music = 1
     vol_sound = 1
@@ -36,7 +37,8 @@ class SliderText(pygame.sprite.Sprite):
 def update_settings(music, sound, lang):
     Settings.vol_music = music
     Settings.vol_sound = sound
-    Settings.language = lang
+    if lang is not None:
+        Settings.language = lang
 
 
 def settings_menu():
@@ -55,9 +57,12 @@ def settings_menu():
     SliderText(consts.WIDTH // 2 + 200, 140, music_slider, all_sprites)
     SliderText(consts.WIDTH // 2 + 200, 290, sound_slider, all_sprites)
 
-    dropdown = Dropdown(consts.SCREEN, consts.WIDTH // 2, 400, 400, 40, name="Language",
-                        choices=["английский", "русский", "японский"],
-                        values=[Settings.eng, Settings.rus, Settings.jpn])
+    dropdown = Dropdown(consts.SCREEN, consts.WIDTH // 2, 400, 400, 40,
+                        name=Settings.langs[Settings.language],
+                        choices=Settings.langs.values(),
+                        values=[Settings.eng, Settings.rus, Settings.jpn],
+                        textColour=(255, 255, 255), fontSize=34, inactiveColour=(0, 0, 0), hoverColour=(120, 120, 120),
+                        pressedColour=(120, 120, 120))
 
     while True:
         events = pygame.event.get()
@@ -68,7 +73,7 @@ def settings_menu():
         consts.SCREEN.fill((0, 0, 0))
         all_sprites.draw(consts.SCREEN)
         pygame_widgets.update(events)
-        update_settings(music_slider.getValue() / 100, sound_slider.getValue() / 100, Settings.rus)
+        update_settings(music_slider.getValue() / 100, sound_slider.getValue() / 100, dropdown.getSelected())
         if button.clicked:
             music_slider.hide()
             sound_slider.hide()
