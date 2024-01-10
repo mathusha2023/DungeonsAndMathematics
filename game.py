@@ -331,6 +331,7 @@ def format_time(seconds):
 
 
 def start_game(prev_player=None):
+    started = 0
     sounds.dungeon_music()
     empty_groups()
     if prev_player is None:
@@ -378,5 +379,10 @@ def start_game(prev_player=None):
             return
         camera.update(player)
         apply_all(camera)
-        pygame.display.flip()
+        if started > 1:
+            pygame.display.flip()
+        if started <= 2:
+            started += 1
+        if started == 2:
+            animations.start_animation()
         clock.tick(consts.FPS)
