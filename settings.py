@@ -1,6 +1,7 @@
 import pygame
 import pygame_widgets
 from pygame_widgets.slider import Slider
+from pygame_widgets.dropdown import Dropdown
 import consts
 import specfunctions
 import buttons
@@ -53,6 +54,10 @@ def settings_menu():
 
     SliderText(consts.WIDTH // 2 + 200, 140, music_slider, all_sprites)
     SliderText(consts.WIDTH // 2 + 200, 290, sound_slider, all_sprites)
+
+    dropdown = Dropdown(consts.SCREEN, consts.WIDTH // 2, 400, 400, 40, name="Language",
+                        choices=["английский", "русский", "японский"],
+                        values=[Settings.eng, Settings.rus, Settings.jpn])
 
     while True:
         events = pygame.event.get()
