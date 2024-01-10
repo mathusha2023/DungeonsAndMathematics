@@ -1,3 +1,4 @@
 .idea
 !/data/db/records.sqlite
 !/.venv/
+!/data/db/settings.txt
