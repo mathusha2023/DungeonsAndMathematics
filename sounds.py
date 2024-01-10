@@ -17,3 +17,8 @@ def boss_music():
     # pygame.mixer.music.load("data/audio/bossmusic.mp3")
     # pygame.mixer.music.play(-1)
     return
+
+
+def tp_sound():
+    sound = pygame.mixer.Sound("data/audio/tp.ogg")
+    sound.play()

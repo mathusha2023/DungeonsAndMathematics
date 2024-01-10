@@ -1,6 +1,7 @@
 import pygame
 import consts
 import specfunctions
+import sounds
 
 
 def escape_animation():
@@ -24,6 +25,7 @@ def escape_animation():
 
 
 def start_animation():
+    sounds.tp_sound()
     surface = pygame.Surface(consts.SIZE)
     surface2 = pygame.Surface(consts.SIZE)
     clock = pygame.time.Clock()
