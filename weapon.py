@@ -2,6 +2,7 @@ import pygame
 import math
 import consts
 import specfunctions
+import sounds
 from spriteGroups import bullets, weapons, all_sprites, walls, player_bullets, enemies_bullets
 
 
@@ -262,6 +263,7 @@ class Fire(pygame.sprite.Sprite):
     def update(self, *args):
         self.counter += 1
         self.update_image()
+        sounds.fire_sound()
         if not self.counter % 3:
             self.cur_frame = (self.cur_frame + 1) % len(self.right_frames)
             self.counter = 0

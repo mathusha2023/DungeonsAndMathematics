@@ -111,12 +111,12 @@ class Player(pygame.sprite.Sprite):
                 sounds.shoot_sound()
         else:
             self.punch()
-            sounds.punch_sound()
 
     def punch(self):
         if not self.punch_kd % consts.FPS:
             weapon.Fist(*self.rect.center, self.state)
             self.punch_kd = 1
+            sounds.punch_sound()
 
     def interaction(self, x, y):
         portal = [i for i in portal_group][0]
