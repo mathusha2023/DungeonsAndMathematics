@@ -101,6 +101,7 @@ def settings_menu():
 
 
 def ingame_settings_menu():
+    pygame.mixer.pause()
     surface = pygame.Surface(consts.SIZE)
     surface.blit(consts.SCREEN, (0, 0))
     s = pygame.Surface((consts.WIDTH // 2, consts.HEIGHT // 2), pygame.SRCALPHA)
@@ -143,6 +144,8 @@ def ingame_settings_menu():
         if escape_button.clicked or return_button.clicked:
             music_slider.hide()
             sound_slider.hide()
+            if return_button.clicked:
+                pygame.mixer.unpause()
             return escape_button.clicked
         pygame.display.flip()
         clock.tick(consts.FPS)
