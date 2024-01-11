@@ -78,7 +78,7 @@ def settings_menu():
     SliderText(consts.WIDTH // 2 + 100, 290, sound_slider, all_sprites)
 
     dropdown = Dropdown(consts.SCREEN, consts.WIDTH // 2 - 100, 400, 400, 40,
-                        name=Settings.langs[Settings.language],
+                        name=Settings.langs[int(Settings.language)],
                         choices=Settings.langs.values(),
                         values=[Settings.eng, Settings.rus],
                         textColour=(255, 255, 255), fontSize=38, inactiveColour=(0, 0, 0), hoverColour=(120, 120, 120),
