@@ -16,6 +16,20 @@ class Localisation:
     __date = {Settings.eng: "Date", Settings.rus: "Дата прохождения"}
     __sine = {Settings.eng: "Sine, Envoy of the Mathematics", Settings.rus: "Синус, Посланник Математики"}
     __reply_time = {Settings.eng: "Reply time:", Settings.rus: "Время на ответ:"}
+    __sfrase1 = {Settings.eng: "Who are you?",
+                 Settings.rus: "Кто ты такой?"}
+    __sfrase2 = {Settings.eng: "Some kid got here? Impossible!",
+                 Settings.rus: "Какой-то мальчишка добрался сюда? Невозможно!"}
+    __sfrase3 = {Settings.eng: "Are you looking for knowledge in mathematics? Well, well, well...",
+                 Settings.rus: "Ты ищешь знаний в математике? Ну хорошо"}
+    __sfrase4 = {Settings.eng: "If so, you'll have to defeat me!",
+                 Settings.rus: "Только для начала тебе придется победить меня!"}
+    __sfrase5 = {Settings.eng: "Oh well, you have defeated me",
+                 Settings.rus: "Что ж, ты победил меня"}
+    __sfrase6 = {Settings.eng: "I will endow you with all my knowledge of mathematics",
+                 Settings.rus: "Я дарую тебе все свои знания в математике"}
+    __sfrase7 = {Settings.eng: "But will it be enough to fulfill your goal?",
+                 Settings.rus: "Но будет ли этого достаточно для выполнения твоей цели?"}
 
     @staticmethod
     def play():
@@ -72,3 +86,31 @@ class Localisation:
     @staticmethod
     def reply_time():
         return Localisation.__reply_time[Settings.language]
+
+    @staticmethod
+    def sfrase1():
+        return Localisation.__sfrase1[Settings.language]
+
+    @staticmethod
+    def sfrase2():
+        return Localisation.__sfrase2[Settings.language]
+
+    @staticmethod
+    def sfrase3():
+        return Localisation.__sfrase3[Settings.language]
+
+    @staticmethod
+    def sfrase4():
+        return Localisation.__sfrase4[Settings.language]
+
+    @staticmethod
+    def sfrase5():
+        return Localisation.__sfrase5[Settings.language]
+
+    @staticmethod
+    def sfrase6():
+        return Localisation.__sfrase6[Settings.language]
+
+    @staticmethod
+    def sfrase7():
+        return Localisation.__sfrase7[Settings.language]

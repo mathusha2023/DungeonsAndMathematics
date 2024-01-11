@@ -43,14 +43,14 @@ class BossSinus(pygame.sprite.Sprite):
         self.pause_counter = 0
         self.starting = True
         self.start_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
-                                 ["Кто ты такой?",
-                                  "Какой-то мальчишка добрался сюда? Невозможно!",
-                                  "Ты ищешь знаний в математике? Ну хорошо",
-                                  "Только для начала тебе придется победить меня!"])
+                                 [Localisation.sfrase1(),
+                                  Localisation.sfrase2(),
+                                  Localisation.sfrase3(),
+                                  Localisation.sfrase4()])
         self.death_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
-                                 ["Что ж, ты победил меня",
-                                  "Я дарую тебе все свои знания в математике",
-                                  "Но будет ли этого достаточно для выполнения твоей цели?"])
+                                 [Localisation.sfrase5(),
+                                  Localisation.sfrase6(),
+                                  Localisation.sfrase7()])
         self.audio_phrases = sounds.BossPhrases()
         self.phrase_pauses = iter([4, 7, 8, 10, 4, 5, 7])
         self.death = False
