@@ -2,7 +2,7 @@ import random
 import time
 import consts
 import db
-import settings
+import settingsMenu
 import specfunctions
 import weapon
 import bonuses
@@ -11,6 +11,7 @@ import boss
 import sounds
 import buttons
 import animations
+from localisation import Localisation
 from spriteGroups import *
 
 
@@ -359,9 +360,9 @@ def start_game(prev_player=None):
         player.copy_previous(prev_player)
     camera = Camera()
     clock = pygame.time.Clock()
-    button = buttons.RightEscapeEventButton(all_sprites, exit_btn_group, text="Настройки",
+    button = buttons.RightEscapeEventButton(all_sprites, exit_btn_group, text=Localisation.settings(),
                                             x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=38,
-                                            press_event=settings.ingame_settings_menu)
+                                            press_event=settingsMenu.ingame_settings_menu)
 
     while True:
         for event in pygame.event.get():

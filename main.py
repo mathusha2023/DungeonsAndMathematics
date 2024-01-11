@@ -6,6 +6,7 @@ import specfunctions
 import game
 import records
 import settings
+import settingsMenu
 import sounds
 
 pygame.display.set_caption(consts.TITLE)
@@ -33,7 +34,7 @@ buttons.Button(all_sprites, text="Играть!", x=consts.WIDTH // 2, y=375, f_
 buttons.Button(all_sprites, text="Рекорды", x=consts.WIDTH // 2, y=450, f_size=45,
                press_event=records.records_menu)
 buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=525, f_size=45,
-               press_event=settings.settings_menu)
+               press_event=settingsMenu.settings_menu)
 buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=600, f_size=45,
                press_event=specfunctions.terminate)
 buttons.RightButton(all_sprites, text="Поддержать автора", x=consts.WIDTH - 25, y=consts.HEIGHT - 10,
