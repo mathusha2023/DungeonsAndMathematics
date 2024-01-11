@@ -3,6 +3,7 @@ import random
 import consts
 import specfunctions
 import sounds
+from localisation import Localisation
 from spriteGroups import all_sprites, player_group, player_bullets, walls, boss_walls, boss_group
 
 
@@ -91,12 +92,12 @@ class BossSinus(pygame.sprite.Sprite):
     def draw_bossbar(self, surface):
         pygame.draw.rect(consts.SCREEN, (155, 45, 48), (240, 630, 200 * self.hp, 40))
         pygame.draw.rect(consts.SCREEN, (0, 0, 0), (240 + 200 * self.hp, 630, (3 - self.hp) * 200, 40))
-        txt = pygame.font.Font(None, 40).render("Синус: Посланник Математики",
+        txt = pygame.font.Font(None, 40).render(Localisation.sine(),
                                                 True, (255, 255, 255))
         surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 650 - txt.get_rect().height // 2))
 
     def draw_timer(self, surface):
-        txt = pygame.font.Font(None, 38).render(f"Время на ответ: {self.ask_counter / consts.FPS:.2f}",
+        txt = pygame.font.Font(None, 38).render(f"{Localisation.reply_time()} {self.ask_counter / consts.FPS:.2f}",
                                                 True, (255, 255, 255))
         surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 600 - txt.get_rect().height // 2))
 
