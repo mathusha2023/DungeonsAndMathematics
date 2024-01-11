@@ -47,11 +47,17 @@ class Button(pygame.sprite.Sprite):
 class RightButton(Button):
     def __init__(self, *groups, text="Button", x=0, y=0,
                  font=None, f_size=24, f_color=(255, 255, 255), f_active_color=(255, 255, 0), press_event=None):
-        super().__init__(*groups, text=text, font=font, f_size=f_size, f_color=f_color, f_active_color=f_active_color,
-                         press_event=press_event)
-        self.rect.right = x
-        self.rect.bottom = y
-        self.center = self.rect.center
+        self.right = x
+        self.bottom = y
+        super().__init__(*groups, text=text, font=font, f_size=f_size, f_color=f_color,
+                         f_active_color=f_active_color, press_event=press_event)
+
+    def config_image(self, im):
+        super().config_image(im)
+        if im == 1:
+            self.rect.bottomright = (self.right, self.bottom)
+        else:
+            self.rect.bottomright = (self.right + 9, self.bottom + 1)
 
 
 class EscapeButton(Button):
