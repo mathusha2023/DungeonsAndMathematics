@@ -6,13 +6,13 @@ class Localisation:
     __records = {Settings.eng: "Records", Settings.rus: "Рекорды"}
     __settings = {Settings.eng: "Settings", Settings.rus: "Настройки"}
     __exit = {Settings.eng: "Exit", Settings.rus: "Выход"}
-    __support = {Settings.eng: "Buy ass a coffee", Settings.rus: "Поддержать автора"}
+    __support = {Settings.eng: "Buy us a coffee", Settings.rus: "Поддержать автора"}
     __music = {Settings.eng: "Music:", Settings.rus: "Музыка:"}
     __sound = {Settings.eng: "Sound:", Settings.rus: "Звуки:"}
     __language = {Settings.eng: "Language:", Settings.rus: "Язык:"}
     __back = {Settings.eng: "Back", Settings.rus: "Назад"}
     __weapon = {Settings.eng: "Weapon", Settings.rus: "Оружие"}
-    __time = {Settings.eng: "Time needed", Settings.rus: "Затрачено времени"}
+    __time = {Settings.eng: "Time spent", Settings.rus: "Затрачено времени"}
     __date = {Settings.eng: "Date", Settings.rus: "Дата прохождения"}
     __sine = {Settings.eng: "Sine, Envoy of the Mathematics", Settings.rus: "Синус, Посланник Математики"}
     __reply_time = {Settings.eng: "Reply time:", Settings.rus: "Время на ответ:"}
