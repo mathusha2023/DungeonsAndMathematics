@@ -131,6 +131,7 @@ class Player(pygame.sprite.Sprite):
                     self.weapon.rect.center = w.rect.center
                 self.weapon = w
                 w.owner = self
+                sounds.pickweapon_sound()
                 return
 
     def take_bonuses(self):

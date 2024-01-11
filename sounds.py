@@ -78,6 +78,12 @@ def heal_sound():
     sound.play()
 
 
+def pickweapon_sound():
+    sound = pygame.mixer.Sound("data/audio/pickweapon.wav")
+    sound.set_volume(Settings.vol_sound)
+    sound.play()
+
+
 class BossPhrases:
     def __init__(self):
         self.p = []

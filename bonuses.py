@@ -22,6 +22,7 @@ class Ammo(Bonus):
 
     def take(self, player):
         player.ammo += 25
+        sounds.pickweapon_sound()
         self.kill()
 
 
