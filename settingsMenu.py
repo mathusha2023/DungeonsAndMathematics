@@ -45,7 +45,7 @@ def update_settings(music, sound, lang=None):
 def settings_menu():
     clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
-    button = buttons.EscapeButton(all_sprites, text="Назад", x=consts.WIDTH // 2, y=650, f_size=45)
+    button = buttons.EscapeButton(all_sprites, text=Localisation.back(), x=consts.WIDTH // 2, y=650, f_size=45)
 
     music_slider = Slider(consts.SCREEN, consts.WIDTH // 2 - 100, 100, 400, 20,
                           min=0, max=100, step=1, colour=(120, 120, 120),
@@ -65,9 +65,9 @@ def settings_menu():
                         textColour=(255, 255, 255), fontSize=38, inactiveColour=(0, 0, 0), hoverColour=(120, 120, 120),
                         pressedColour=(120, 120, 120))
 
-    Text(consts.WIDTH // 2 - 320, 100, 45, "Музыка:", all_sprites)
-    Text(consts.WIDTH // 2 - 320, 250, 45, "Звуки:", all_sprites)
-    Text(consts.WIDTH // 2 - 320, 405, 45, "Язык:", all_sprites)
+    Text(consts.WIDTH // 2 - 320, 100, 45, Localisation.music(), all_sprites)
+    Text(consts.WIDTH // 2 - 320, 250, 45, Localisation.sound(), all_sprites)
+    Text(consts.WIDTH // 2 - 320, 405, 45, Localisation.language(), all_sprites)
 
     while True:
         events = pygame.event.get()
@@ -108,13 +108,13 @@ def ingame_settings_menu():
     SliderText(consts.WIDTH // 2 + 100, consts.HEIGHT // 4 + 70, music_slider, all_sprites)
     SliderText(consts.WIDTH // 2 + 100, consts.HEIGHT // 4 + 170, sound_slider, all_sprites)
 
-    Text(consts.WIDTH // 2 - 200, consts.HEIGHT // 4 + 50, 34, "Музыка:", all_sprites)
-    Text(consts.WIDTH // 2 - 200, consts.HEIGHT // 4 + 150, 34, "Звуки:", all_sprites)
+    Text(consts.WIDTH // 2 - 200, consts.HEIGHT // 4 + 50, 34, Localisation.music(), all_sprites)
+    Text(consts.WIDTH // 2 - 200, consts.HEIGHT // 4 + 150, 34, Localisation.sound(), all_sprites)
 
-    return_button = buttons.EscapeButton(all_sprites, text="Назад", x=consts.WIDTH // 2,
+    return_button = buttons.EscapeButton(all_sprites, text=Localisation.back(), x=consts.WIDTH // 2,
                                          y=consts.HEIGHT // 4 + 250, f_size=42)
 
-    escape_button = buttons.EscapeButton(all_sprites, text="Выйти", x=consts.WIDTH // 2,
+    escape_button = buttons.EscapeButton(all_sprites, text=Localisation.exit(), x=consts.WIDTH // 2,
                                   y=consts.HEIGHT // 4 + 310, f_size=42, f_active_color=(255, 0, 0))
 
     while True:

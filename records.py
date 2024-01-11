@@ -3,6 +3,7 @@ import consts
 import db
 import specfunctions
 import buttons
+from localisation import Localisation
 
 
 class Record(pygame.sprite.Sprite):
@@ -24,15 +25,15 @@ class Record(pygame.sprite.Sprite):
             pygame.draw.line(self.image, (255, 255, 255), (x, 0), (x, 550))
 
     def draw_records(self):
-        txt1 = self.title_font.render("Оружие", True, (255, 255, 255))
+        txt1 = self.title_font.render(Localisation.weapon(), True, (255, 255, 255))
         self.image.blit(txt1, (100 - txt1.get_rect().width // 2,
                                27 - txt1.get_rect().height // 2))
 
-        txt2 = self.title_font.render("Затрачено времени", True, (255, 255, 255))
+        txt2 = self.title_font.render(Localisation.time(), True, (255, 255, 255))
         self.image.blit(txt2, (300 - txt2.get_rect().width // 2,
                                27 - txt2.get_rect().height // 2))
 
-        txt3 = self.title_font.render("Дата прохождения", True, (255, 255, 255))
+        txt3 = self.title_font.render(Localisation.date(), True, (255, 255, 255))
         self.image.blit(txt3, (500 - txt3.get_rect().width // 2,
                                27 - txt3.get_rect().height // 2))
 
@@ -61,7 +62,7 @@ class Record(pygame.sprite.Sprite):
 def records_menu():
     clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
-    button = buttons.EscapeButton(all_sprites, text="Назад", x=consts.WIDTH // 2, y=650, f_size=45)
+    button = buttons.EscapeButton(all_sprites, text=Localisation.back(), x=consts.WIDTH // 2, y=650, f_size=45)
     Record(all_sprites)
 
     while True:

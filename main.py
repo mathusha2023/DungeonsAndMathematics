@@ -5,9 +5,9 @@ import buttons
 import specfunctions
 import game
 import records
-import settings
 import settingsMenu
 import sounds
+from localisation import Localisation
 
 pygame.display.set_caption(consts.TITLE)
 pygame.display.set_icon(specfunctions.load_image("logo.png"))
@@ -29,15 +29,15 @@ class Title(pygame.sprite.Sprite):
 
 
 Title()
-buttons.Button(all_sprites, text="Играть!", x=consts.WIDTH // 2, y=375, f_size=45,
+buttons.Button(all_sprites, text=Localisation.play(), x=consts.WIDTH // 2, y=375, f_size=45,
                press_event=game.start_game)
-buttons.Button(all_sprites, text="Рекорды", x=consts.WIDTH // 2, y=450, f_size=45,
+buttons.Button(all_sprites, text=Localisation.records(), x=consts.WIDTH // 2, y=450, f_size=45,
                press_event=records.records_menu)
-buttons.Button(all_sprites, text="Настройки", x=consts.WIDTH // 2, y=525, f_size=45,
+buttons.Button(all_sprites, text=Localisation.settings(), x=consts.WIDTH // 2, y=525, f_size=45,
                press_event=settingsMenu.settings_menu)
-buttons.Button(all_sprites, text="Выход", x=consts.WIDTH // 2, y=600, f_size=45,
+buttons.Button(all_sprites, text=Localisation.exit(), x=consts.WIDTH // 2, y=600, f_size=45,
                press_event=specfunctions.terminate)
-buttons.RightButton(all_sprites, text="Поддержать автора", x=consts.WIDTH - 25, y=consts.HEIGHT - 10,
+buttons.RightButton(all_sprites, text=Localisation.support(), x=consts.WIDTH - 25, y=consts.HEIGHT - 10,
                     press_event=lambda: webbrowser.open(
                         "https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212"),
                     f_active_color=(0, 255, 0))
