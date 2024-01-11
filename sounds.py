@@ -1,5 +1,6 @@
 import pygame
 import specfunctions
+from settings import Settings
 
 
 def lobby_music():
@@ -25,46 +26,55 @@ def boss_music():
 
 def start_sound():
     sound = pygame.mixer.Sound("data/audio/start.ogg")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def boss_right_sound():
     sound = pygame.mixer.Sound("data/audio/right.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def tp_sound():
     sound = pygame.mixer.Sound("data/audio/tp.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def shoot_sound():
     sound = pygame.mixer.Sound("data/audio/weapon.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def punch_sound():
     sound = pygame.mixer.Sound("data/audio/punch.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def death_sound():
     sound = pygame.mixer.Sound("data/audio/death.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def damage_sound():
     sound = pygame.mixer.Sound("data/audio/damage.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def fire_sound():
     sound = pygame.mixer.Sound("data/audio/fire.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
 def heal_sound():
     sound = pygame.mixer.Sound("data/audio/heal.wav")
+    sound.set_volume(Settings.vol_sound)
     sound.play()
 
 
@@ -76,7 +86,9 @@ class BossPhrases:
 
     def load_phrases(self):
         for i in range(1, 8):
-            self.p.append(pygame.mixer.Sound(f"data/audio/bossphrases/phrase{i}.wav"))
+            sound = pygame.mixer.Sound(f"data/audio/bossphrases/phrase{i}.wav")
+            sound.set_volume(Settings.vol_sound)
+            self.p.append(sound)
 
     def __next__(self):
         next(self.p).play()
