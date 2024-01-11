@@ -32,7 +32,7 @@ class Button(pygame.sprite.Sprite):
         if args:
             event = args[0]
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and self.is_focused():
+                if event.button == 1 and self.rect.collidepoint(*event.pos):
                     if self.event is not None:
                         self.event()
                         self.config_image(1)
@@ -63,7 +63,7 @@ class EscapeButton(Button):
         if args:
             event = args[0]
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and self.is_focused():
+                if event.button == 1 and self.rect.collidepoint(*event.pos):
                     self.clicked = True
 
 
@@ -82,7 +82,7 @@ class EscapeEventButton(Button):
         if args:
             event = args[0]
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and self.is_focused():
+                if event.button == 1 and self.rect.collidepoint(*event.pos):
                     if self.event is not None:
                         self.escape = self.event()
                         self.config_image(1)
