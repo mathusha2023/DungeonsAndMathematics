@@ -6,7 +6,7 @@ class Localisation:
     __records = {Settings.eng: "Records", Settings.rus: "Рекорды"}
     __settings = {Settings.eng: "Settings", Settings.rus: "Настройки"}
     __exit = {Settings.eng: "Exit", Settings.rus: "Выход"}
-    __support = {Settings.eng: "Buy as a coffee", Settings.rus: "Поддержать автора"}
+    __support = {Settings.eng: "Buy ass a coffee", Settings.rus: "Поддержать автора"}
     __music = {Settings.eng: "Music:", Settings.rus: "Музыка:"}
     __sound = {Settings.eng: "Sound:", Settings.rus: "Звуки:"}
     __language = {Settings.eng: "Language:", Settings.rus: "Язык:"}
