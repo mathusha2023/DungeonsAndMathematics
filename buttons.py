@@ -21,15 +21,18 @@ class Button(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.center
 
+    def is_focused(self):
+        return self.rect.collidepoint(*pygame.mouse.get_pos())
+
     def update(self, *args):
-        if self.rect.collidepoint(*pygame.mouse.get_pos()):
+        if self.is_focused():
             self.config_image(2)
         else:
             self.config_image(1)
         if args:
             event = args[0]
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and self.rect.collidepoint(*event.pos):
+                if event.button == 1 and self.is_focused():
                     if self.event is not None:
                         self.event()
                         self.config_image(1)
@@ -53,14 +56,14 @@ class EscapeButton(Button):
         self.clicked = False
 
     def update(self, *args):
-        if self.rect.collidepoint(*pygame.mouse.get_pos()):
+        if self.is_focused():
             self.config_image(2)
         else:
             self.config_image(1)
         if args:
             event = args[0]
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and self.rect.collidepoint(*event.pos):
+                if event.button == 1 and self.is_focused():
                     self.clicked = True
 
 
@@ -72,14 +75,14 @@ class EscapeEventButton(Button):
         self.escape = False
 
     def update(self, *args):
-        if self.rect.collidepoint(*pygame.mouse.get_pos()):
+        if self.is_focused():
             self.config_image(2)
         else:
             self.config_image(1)
         if args:
             event = args[0]
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and self.rect.collidepoint(*event.pos):
+                if event.button == 1 and self.is_focused():
                     if self.event is not None:
                         self.escape = self.event()
                         self.config_image(1)

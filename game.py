@@ -367,7 +367,7 @@ def start_game(prev_player=None):
             if event.type == pygame.QUIT:
                 specfunctions.terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
+                if event.button == 1 and not button.is_focused():
                     player.shoot(*event.pos)
                 if event.button == 2:
                     player.punch()
