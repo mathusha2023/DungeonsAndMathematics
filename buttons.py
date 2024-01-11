@@ -64,5 +64,26 @@ class EscapeButton(Button):
                     self.clicked = True
 
 
-class RightEscapeButton(EscapeButton, RightButton):
+class EscapeEventButton(Button):
+    def __init__(self, *groups, text="Button", x=0, y=0,
+                 font=None, f_size=24, f_color=(255, 255, 255), f_active_color=(255, 255, 0), press_event=None):
+        super().__init__(*groups, text=text, x=x, y=y, font=font, f_size=f_size, f_color=f_color,
+                         f_active_color=f_active_color, press_event=press_event)
+        self.escape = False
+
+    def update(self, *args):
+        if self.rect.collidepoint(*pygame.mouse.get_pos()):
+            self.config_image(2)
+        else:
+            self.config_image(1)
+        if args:
+            event = args[0]
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and self.rect.collidepoint(*event.pos):
+                    if self.event is not None:
+                        self.escape = self.event()
+                        self.config_image(1)
+
+
+class RightEscapeEventButton(EscapeEventButton, RightButton):
     pass

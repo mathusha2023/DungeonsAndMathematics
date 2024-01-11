@@ -131,11 +131,11 @@ def ingame_settings_menu():
     Text(consts.WIDTH // 2 - 200, consts.HEIGHT // 4 + 50, 34, "Музыка:", all_sprites)
     Text(consts.WIDTH // 2 - 200, consts.HEIGHT // 4 + 150, 34, "Звуки:", all_sprites)
 
-    escape_button = buttons.EscapeButton(all_sprites, text="Назад", x=consts.WIDTH // 2,
+    return_button = buttons.EscapeButton(all_sprites, text="Назад", x=consts.WIDTH // 2,
                                          y=consts.HEIGHT // 4 + 250, f_size=42)
 
-    button = buttons.Button(all_sprites, text="Выйти", x=consts.WIDTH // 2,
-                            y=consts.HEIGHT // 4 + 310, f_size=42, f_active_color=(255, 0, 0))
+    escape_button = buttons.EscapeButton(all_sprites, text="Выйти", x=consts.WIDTH // 2,
+                                  y=consts.HEIGHT // 4 + 310, f_size=42, f_active_color=(255, 0, 0))
 
     while True:
         events = pygame.event.get()
@@ -147,9 +147,9 @@ def ingame_settings_menu():
         all_sprites.draw(consts.SCREEN)
         pygame_widgets.update(events)
         update_settings(music_slider.getValue() / 100, sound_slider.getValue() / 100)
-        if escape_button.clicked:
+        if escape_button.clicked or return_button.clicked:
             music_slider.hide()
             sound_slider.hide()
-            return
+            return escape_button.clicked
         pygame.display.flip()
         clock.tick(consts.FPS)

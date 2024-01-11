@@ -358,9 +358,9 @@ def start_game(prev_player=None):
         player.copy_previous(prev_player)
     camera = Camera()
     clock = pygame.time.Clock()
-    buttons.RightButton(all_sprites, exit_btn_group, text="Настройки",
-                        x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=40,
-                        press_event=settings.ingame_settings_menu)
+    button = buttons.RightEscapeEventButton(all_sprites, exit_btn_group, text="Настройки",
+                                            x=consts.WIDTH - 25, y=consts.HEIGHT - 10, f_size=38,
+                                            press_event=settings.ingame_settings_menu)
 
     while True:
         for event in pygame.event.get():
@@ -377,7 +377,7 @@ def start_game(prev_player=None):
         draw_all(player)
         all_sprites.update()
         weapons.update()
-        if not player.isalive:
+        if not player.isalive or button.escape:
             animations.escape_animation()
             sounds.lobby_music()
             return
