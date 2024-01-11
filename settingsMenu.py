@@ -28,10 +28,14 @@ class SliderText(pygame.sprite.Sprite):
 class Text(pygame.sprite.Sprite):
     def __init__(self, x, y, fsize, text, *groups):
         super().__init__(*groups)
-        self.image = pygame.font.Font(None, fsize).render(text, True, (255, 255, 255))
+        self.font = pygame.font.Font(None, fsize)
+        self.image = self.font.render(text, True, (255, 255, 255))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+    def set_text(self, text):
+        self.image = self.font.render(text, True, (255, 255, 255))
 
 
 def update_settings(music, sound, lang=None):
@@ -40,6 +44,14 @@ def update_settings(music, sound, lang=None):
     if lang is not None:
         Settings.language = lang
     specfunctions.set_music_volume()
+
+
+def update_text(button, t1, t2, t3):
+    button.set_text(Localisation.back())
+    button.update()
+    t1.set_text(Localisation.music())
+    t2.set_text(Localisation.sound())
+    t3.set_text(Localisation.language())
 
 
 def settings_menu():
@@ -65,9 +77,9 @@ def settings_menu():
                         textColour=(255, 255, 255), fontSize=38, inactiveColour=(0, 0, 0), hoverColour=(120, 120, 120),
                         pressedColour=(120, 120, 120))
 
-    Text(consts.WIDTH // 2 - 320, 100, 45, Localisation.music(), all_sprites)
-    Text(consts.WIDTH // 2 - 320, 250, 45, Localisation.sound(), all_sprites)
-    Text(consts.WIDTH // 2 - 320, 405, 45, Localisation.language(), all_sprites)
+    t1 = Text(consts.WIDTH // 2 - 320, 100, 45, Localisation.music(), all_sprites)
+    t2 = Text(consts.WIDTH // 2 - 320, 250, 45, Localisation.sound(), all_sprites)
+    t3 = Text(consts.WIDTH // 2 - 320, 405, 45, Localisation.language(), all_sprites)
 
     while True:
         events = pygame.event.get()
@@ -79,6 +91,7 @@ def settings_menu():
         all_sprites.draw(consts.SCREEN)
         pygame_widgets.update(events)
         update_settings(music_slider.getValue() / 100, sound_slider.getValue() / 100, dropdown.getSelected())
+        update_text(button, t1, t2, t3)
         if button.clicked:
             music_slider.hide()
             sound_slider.hide()
@@ -115,7 +128,7 @@ def ingame_settings_menu():
                                          y=consts.HEIGHT // 4 + 250, f_size=42)
 
     escape_button = buttons.EscapeButton(all_sprites, text=Localisation.exit(), x=consts.WIDTH // 2,
-                                  y=consts.HEIGHT // 4 + 310, f_size=42, f_active_color=(255, 0, 0))
+                                         y=consts.HEIGHT // 4 + 310, f_size=42, f_active_color=(255, 0, 0))
 
     while True:
         events = pygame.event.get()

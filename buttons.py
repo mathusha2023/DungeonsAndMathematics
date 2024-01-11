@@ -5,10 +5,12 @@ class Button(pygame.sprite.Sprite):
     def __init__(self, *groups, text="Button", x=0, y=0,
                  font=None, f_size=24, f_color=(255, 255, 255), f_active_color=(255, 255, 0), press_event=None):
         super().__init__(*groups)
-        font1 = pygame.font.Font(font, f_size)
-        font2 = pygame.font.Font(font, f_size + 6)
-        self.text1 = font1.render(text, True, f_color)
-        self.text2 = font2.render(text, True, f_active_color)
+        self.font1 = pygame.font.Font(font, f_size)
+        self.font2 = pygame.font.Font(font, f_size + 6)
+        self.f_color = f_color
+        self.f_active_color = f_active_color
+        self.text1 = self.font1.render(text, True, f_color)
+        self.text2 = self.font2.render(text, True, f_active_color)
         self.center = (x, y)
         self.config_image(1)
         self.event = press_event
@@ -36,6 +38,10 @@ class Button(pygame.sprite.Sprite):
                     if self.event is not None:
                         self.event()
                         self.config_image(1)
+
+    def set_text(self, text):
+        self.text1 = self.font1.render(text, True, self.f_color)
+        self.text2 = self.font2.render(text, True, self.f_active_color)
 
 
 class RightButton(Button):
