@@ -1,20 +1,24 @@
 import pygame
+import specfunctions
 
 
 def lobby_music():
     pygame.mixer.music.load("data/audio/lobby.wav")
+    specfunctions.set_music_volume()
     pygame.mixer.music.play(-1)
     return
 
 
 def dungeon_music():
     pygame.mixer.music.load("data/audio/dungeonmusic.wav")
+    specfunctions.set_music_volume()
     pygame.mixer.music.play(-1)
     return
 
 
 def boss_music():
     pygame.mixer.music.load("data/audio/bossmusic.mp3")
+    specfunctions.set_music_volume()
     pygame.mixer.music.play(-1)
     return
 

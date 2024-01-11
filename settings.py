@@ -59,6 +59,7 @@ def update_settings(music, sound, lang):
     Settings.vol_sound = sound
     if lang is not None:
         Settings.language = lang
+    specfunctions.set_music_volume()
 
 
 def settings_menu():

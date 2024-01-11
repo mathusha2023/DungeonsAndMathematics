@@ -26,3 +26,7 @@ def terminate():
     db.connection.close()
     Settings.write()
     sys.exit()
+
+
+def set_music_volume():
+    pygame.mixer.music.set_volume(Settings.vol_music)
