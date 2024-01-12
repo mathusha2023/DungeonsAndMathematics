@@ -63,14 +63,14 @@ class BossSinus(pygame.sprite.Sprite):
         self.pause_counter = 0
         self.starting = True
         self.start_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
-                                 [Localisation.sfrase1(),
-                                  Localisation.sfrase2(),
-                                  Localisation.sfrase3(),
-                                  Localisation.sfrase4()])
+                                 [Localisation.sphrase1(),
+                                  Localisation.sphrase2(),
+                                  Localisation.sphrase3(),
+                                  Localisation.sphrase4()])
         self.death_phrases = map(lambda x: self.font.render(x, True, (255, 255, 255)),
-                                 [Localisation.sfrase5(),
-                                  Localisation.sfrase6(),
-                                  Localisation.sfrase7()])
+                                 [Localisation.sphrase5(),
+                                  Localisation.sphrase6(),
+                                  Localisation.sphrase7()])
         self.audio_phrases = sounds.BossPhrases()
         self.phrase_pauses = iter([4, 7, 8, 10, 4, 5, 7])
         self.death = False
