@@ -92,7 +92,7 @@ class BossPhrases:
 
     def load_phrases(self):
         for i in range(1, 8):
-            sound = pygame.mixer.Sound(f"data/audio/bossphrases/phrase{i}.wav")
+            sound = pygame.mixer.Sound(f"data/audio/bossphrases/phrase{i}_rus.wav")
             sound.set_volume(Settings.vol_sound)
             self.p.append(sound)
 
