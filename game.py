@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 5
         self.ammo = 0
         self.hp = 10
-        # self.score = 0
+        self.score = 0
         # self.speed = 50
         # self.ammo = 1000
         # self.hp = 10000

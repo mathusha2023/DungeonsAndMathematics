@@ -95,6 +95,7 @@ def settings_menu():
         if button.clicked:
             music_slider.hide()
             sound_slider.hide()
+            dropdown.hide()
             return
         pygame.display.flip()
         clock.tick(consts.FPS)
