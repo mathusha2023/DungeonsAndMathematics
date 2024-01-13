@@ -45,10 +45,10 @@ class Player(pygame.sprite.Sprite):
         self.ammo = 0
         self.hp = 10
         self.score = 0
-        self.speed = 50
-        self.ammo = 1000
-        self.hp = 10000
-        self.score = 10000
+        # self.speed = 50
+        # self.ammo = 1000
+        # self.hp = 10000
+        # self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
         self.dungeon_level = 1
@@ -345,6 +345,7 @@ def start_game(prev_player=None):
         sounds.start_sound()
         sounds.dungeon_music()
     elif prev_player.dungeon_level == 3:
+        animations.to_be_continued()
         db.load_record(*get_record(prev_player))
         sounds.lobby_music()
         return
