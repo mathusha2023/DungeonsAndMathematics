@@ -5,7 +5,7 @@ from pygame_widgets.dropdown import Dropdown
 import consts
 import specfunctions
 import buttons
-from settings import Settings
+from settings import settings
 from localisation import Localisation
 
 
@@ -39,10 +39,10 @@ class Text(pygame.sprite.Sprite):
 
 
 def update_settings(music, sound, lang=None):
-    Settings.vol_music = music
-    Settings.vol_sound = sound
+    settings.vol_music = music
+    settings.vol_sound = sound
     if lang is not None:
-        Settings.language = lang
+        settings.language = lang
     specfunctions.set_music_volume()
 
 
@@ -61,19 +61,19 @@ def settings_menu():
 
     music_slider = Slider(consts.SCREEN, consts.WIDTH // 2 - 100, 100, 400, 20,
                           min=0, max=100, step=1, colour=(120, 120, 120),
-                          handleColour=(200, 200, 200), initial=Settings.vol_music * 100)
+                          handleColour=(200, 200, 200), initial=settings.vol_music * 100)
 
     sound_slider = Slider(consts.SCREEN, consts.WIDTH // 2 - 100, 250, 400, 20,
                           min=0, max=100, step=1, colour=(120, 120, 120),
-                          handleColour=(200, 200, 200), initial=Settings.vol_sound * 100)
+                          handleColour=(200, 200, 200), initial=settings.vol_sound * 100)
 
     SliderText(consts.WIDTH // 2 + 100, 140, music_slider, all_sprites)
     SliderText(consts.WIDTH // 2 + 100, 290, sound_slider, all_sprites)
 
     dropdown = Dropdown(consts.SCREEN, consts.WIDTH // 2 - 100, 400, 400, 40,
-                        name=Settings.langs[int(Settings.language)],
-                        choices=Settings.langs.values(),
-                        values=[Settings.eng, Settings.rus],
+                        name=settings.langs[int(settings.language)],
+                        choices=settings.langs.values(),
+                        values=[settings.eng, settings.rus],
                         textColour=(255, 255, 255), fontSize=38, inactiveColour=(0, 0, 0), hoverColour=(120, 120, 120),
                         pressedColour=(120, 120, 120))
 
@@ -113,11 +113,11 @@ def ingame_settings_menu():
 
     music_slider = Slider(consts.SCREEN, consts.WIDTH // 2, consts.HEIGHT // 4 + 50, 200, 10,
                           min=0, max=100, step=1, colour=(100, 100, 100),
-                          handleColour=(180, 180, 180), initial=Settings.vol_music * 100)
+                          handleColour=(180, 180, 180), initial=settings.vol_music * 100)
 
     sound_slider = Slider(consts.SCREEN, consts.WIDTH // 2, consts.HEIGHT // 4 + 150, 200, 10,
                           min=0, max=100, step=1, colour=(100, 100, 100),
-                          handleColour=(180, 180, 180), initial=Settings.vol_sound * 100)
+                          handleColour=(180, 180, 180), initial=settings.vol_sound * 100)
 
     SliderText(consts.WIDTH // 2 + 100, consts.HEIGHT // 4 + 70, music_slider, all_sprites)
     SliderText(consts.WIDTH // 2 + 100, consts.HEIGHT // 4 + 170, sound_slider, all_sprites)

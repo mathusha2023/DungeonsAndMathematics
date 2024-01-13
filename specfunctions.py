@@ -2,7 +2,7 @@ import pygame
 import os
 import sys
 import db
-from settings import Settings
+from settings import settings
 
 
 def load_image(name, colorkey=None):
@@ -24,9 +24,9 @@ def load_image(name, colorkey=None):
 def terminate():
     pygame.quit()
     db.connection.close()
-    Settings.write()
+    settings.write()
     sys.exit()
 
 
 def set_music_volume():
-    pygame.mixer.music.set_volume(Settings.vol_music)
+    pygame.mixer.music.set_volume(settings.vol_music)
