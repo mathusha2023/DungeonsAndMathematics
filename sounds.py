@@ -1,6 +1,7 @@
 import pygame
 import specfunctions
 from settings import settings
+from localisation import Localisation
 
 
 def lobby_music():
@@ -92,7 +93,7 @@ class BossPhrases:
 
     def load_phrases(self):
         for i in range(1, 8):
-            sound = pygame.mixer.Sound(f"data/audio/bossphrases/ru/phrase{i}_rus.wav")
+            sound = pygame.mixer.Sound(Localisation.audiophrase_path().format(i))
             sound.set_volume(settings.vol_sound)
             self.p.append(sound)
 

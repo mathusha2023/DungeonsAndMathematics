@@ -30,6 +30,8 @@ class Localisation:
                   settings.rus: "Я дарую тебе все свои знания в математике"}
     __sphrase7 = {settings.eng: "But will it be enough to fulfill your goal?",
                   settings.rus: "Но будет ли этого достаточно для выполнения твоей цели?"}
+    __audiophrase_path = {settings.eng: "data/audio/bossphrases/eng/phrase{}_eng.wav",
+                          settings.rus: "data/audio/bossphrases/rus/phrase{}_rus.wav"}
 
     @staticmethod
     def play():
@@ -114,3 +116,7 @@ class Localisation:
     @staticmethod
     def sphrase7():
         return Localisation.__sphrase7[settings.language]
+
+    @staticmethod
+    def audiophrase_path():
+        return Localisation.__audiophrase_path[settings.language]
