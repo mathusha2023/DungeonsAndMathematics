@@ -72,7 +72,7 @@ class BossSinus(pygame.sprite.Sprite):
                                   Localisation.sphrase6(),
                                   Localisation.sphrase7()])
         self.audio_phrases = sounds.BossPhrases()
-        self.phrase_pauses = iter([4, 7, 8, 10, 4, 5, 7])
+        self.phrase_pauses = iter([4, 7, 9, 10, 6, 8, 7])
         self.death = False
         self.phrase = None
 

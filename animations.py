@@ -1,6 +1,7 @@
 import pygame
 import consts
 import specfunctions
+from localisation import Localisation
 
 
 def escape_animation():
@@ -44,3 +45,17 @@ def start_animation():
         x -= consts.WIDTH // 2 // consts.FPS
         y -= consts.HEIGHT // 2 // consts.FPS
         clock.tick(consts.FPS)
+
+
+def to_be_continued():
+    text = pygame.font.Font(None, 50).render(Localisation.to_be_continued(), True,
+                                             (255, 255, 255))
+    consts.SCREEN.fill((0, 0, 0))
+    consts.SCREEN.blit(text, ((consts.WIDTH - text.get_rect().width) // 2, consts.HEIGHT // 2))
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                specfunctions.terminate()
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 or event.type == pygame.KEYDOWN:
+                return

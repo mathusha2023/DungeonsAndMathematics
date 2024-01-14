@@ -32,6 +32,7 @@ class Localisation:
                   settings.rus: "Но будет ли этого достаточно для выполнения твоей цели?"}
     __audiophrase_path = {settings.eng: "data/audio/bossphrases/eng/phrase{}_eng.wav",
                           settings.rus: "data/audio/bossphrases/rus/phrase{}_rus.wav"}
+    __tobecontinued = {settings.eng: "To be continued...", settings.rus: "Продолжение следует..."}
 
     @staticmethod
     def play():
@@ -120,3 +121,7 @@ class Localisation:
     @staticmethod
     def audiophrase_path():
         return Localisation.__audiophrase_path[settings.language]
+
+    @staticmethod
+    def to_be_continued():
+        return Localisation.__tobecontinued[settings.language]
