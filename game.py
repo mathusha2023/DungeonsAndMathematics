@@ -381,6 +381,9 @@ def start_game(prev_player=None):
         all_sprites.update()
         weapons.update()
         if not player.isalive or button.escape:
+            if not player.isalive:
+                draw_all(player)
+                animations.you_dead()
             animations.escape_animation()
             sounds.lobby_music()
             return
