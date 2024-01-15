@@ -45,10 +45,10 @@ class Player(pygame.sprite.Sprite):
         self.ammo = 0
         self.hp = 10
         self.score = 0
-        self.speed = 50
-        self.ammo = 1000
-        self.hp = 10000
-        self.score = 10000
+        # self.speed = 50
+        # self.ammo = 1000
+        # self.hp = 10000
+        # self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
         self.dungeon_level = 1
@@ -126,7 +126,7 @@ class Player(pygame.sprite.Sprite):
                 pygame.sprite.collide_rect(self, portal) and self.score > 250 * self.dungeon_level):
             self.tp = True
         for w in weapons:
-            if w.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, w):
+            if w.rect.collidepoint(x, y) and pygame.sprite.collide_rect(self, w) and w is not self.weapon:
                 if self.weapon:
                     self.weapon.owner = None
                     self.weapon.rect.center = w.rect.center
