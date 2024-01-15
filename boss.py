@@ -111,8 +111,8 @@ class BossSinus(pygame.sprite.Sprite):
                 self.draw_timer(surface)
 
     def draw_bossbar(self, surface):
-        pygame.draw.rect(consts.SCREEN, (155, 45, 48), (240, 630, 200 * self.hp, 40))
-        pygame.draw.rect(consts.SCREEN, (0, 0, 0), (240 + 200 * self.hp, 630, (3 - self.hp) * 200, 40))
+        pygame.draw.rect(consts.SCREEN, (155, 45, 48), (257, 635, 200 * self.hp, 40))
+        pygame.draw.rect(consts.SCREEN, (0, 0, 0), (257 + 200 * self.hp, 635, (3 - self.hp) * 200, 40))
         consts.SCREEN.blit(self.bossbar_im, (240, 630))
         txt = pygame.font.Font(None, 40).render(Localisation.sine(),
                                                 True, (255, 255, 255))
