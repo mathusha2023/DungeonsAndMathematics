@@ -111,12 +111,12 @@ class BossSinus(pygame.sprite.Sprite):
                 self.draw_timer(surface)
 
     def draw_bossbar(self, surface):
-        pygame.draw.rect(consts.SCREEN, (155, 45, 48), (257, 635, 200 * self.hp, 40))
-        pygame.draw.rect(consts.SCREEN, (0, 0, 0), (257 + 200 * self.hp, 635, (3 - self.hp) * 200, 40))
-        consts.SCREEN.blit(self.bossbar_im, (240, 630))
+        pygame.draw.rect(consts.SCREEN, (155, 45, 48), (240, 635, 200 * self.hp, 40))
+        pygame.draw.rect(consts.SCREEN, (0, 0, 0), (240 + 200 * self.hp, 635, (3 - self.hp) * 200, 40))
+        consts.SCREEN.blit(self.bossbar_im, (222, 630))
         txt = pygame.font.Font(None, 40).render(Localisation.sine(),
                                                 True, (255, 255, 255))
-        surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 650 - txt.get_rect().height // 2))
+        surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 655 - txt.get_rect().height // 2))
 
     def draw_timer(self, surface):
         txt = pygame.font.Font(None, 38).render(f"{Localisation.reply_time()} {self.ask_counter / consts.FPS:.2f}",
@@ -277,7 +277,7 @@ class AnswerStone(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
     def load_variant(self, variant):
-        if variant:
+        if variant is not None:
             self.variant = self.font.render(str(variant), True, (255, 255, 255))
         else:
             self.variant = None
