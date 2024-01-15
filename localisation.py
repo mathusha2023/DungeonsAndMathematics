@@ -33,7 +33,7 @@ class Localisation:
     __audiophrase_path = {settings.eng: "data/audio/bossphrases/eng/phrase{}_eng.wav",
                           settings.rus: "data/audio/bossphrases/rus/phrase{}_rus.wav"}
     __tobecontinued = {settings.eng: "To be continued...", settings.rus: "Продолжение следует..."}
-    __youdead = {settings.eng: "YOU ARE DIED!", settings.rus: "Ты был убит!"}
+    __youdead = {settings.eng: "YOU ARE DEAD!", settings.rus: "Ты был убит!"}
 
     @staticmethod
     def play():
