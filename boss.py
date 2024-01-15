@@ -16,6 +16,7 @@ class BossSinus(pygame.sprite.Sprite):
         self.im = 0
         self.counter = 0
         self.image = self.images[0]
+        self.bossbar_im = specfunctions.load_image("bosses/sinus/sinus_bossbar.png")
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH - 10
         self.rect.y = pos_y * consts.TILE_HEIGHT
@@ -112,6 +113,7 @@ class BossSinus(pygame.sprite.Sprite):
     def draw_bossbar(self, surface):
         pygame.draw.rect(consts.SCREEN, (155, 45, 48), (240, 630, 200 * self.hp, 40))
         pygame.draw.rect(consts.SCREEN, (0, 0, 0), (240 + 200 * self.hp, 630, (3 - self.hp) * 200, 40))
+        consts.SCREEN.blit(self.bossbar_im, (240, 630))
         txt = pygame.font.Font(None, 40).render(Localisation.sine(),
                                                 True, (255, 255, 255))
         surface.blit(txt, (consts.WIDTH // 2 - txt.get_rect().width // 2, 650 - txt.get_rect().height // 2))
