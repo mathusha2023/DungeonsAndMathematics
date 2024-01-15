@@ -245,6 +245,7 @@ class Fire(pygame.sprite.Sprite):
         self.update_image()
         self.counter = 0
         self.damage = 1
+        self.sound_counter = 0
 
     def add_frames(self):
         for i in range(1, 11):
@@ -262,8 +263,12 @@ class Fire(pygame.sprite.Sprite):
 
     def update(self, *args):
         self.counter += 1
+        if self.sound_counter < consts.FPS:
+            self.sound_counter += 1
         self.update_image()
-        sounds.fire_sound()
+        if self.sound_counter == consts.FPS:
+            self.sound_counter = 0
+            sounds.fire_sound()
         if not self.counter % 3:
             self.cur_frame = (self.cur_frame + 1) % len(self.right_frames)
             self.counter = 0
