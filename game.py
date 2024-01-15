@@ -151,6 +151,7 @@ class Player(pygame.sprite.Sprite):
         self.damage_counter = 5
         sounds.damage_sound()
         if self.hp <= 0:
+            self.hp = 0
             self.isalive = False
             sounds.death_sound()
 
