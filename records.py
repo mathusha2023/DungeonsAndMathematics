@@ -58,11 +58,17 @@ class Record(pygame.sprite.Sprite):
         self.image.blit(im, (100 - im.get_rect().width // 2,
                              y + 27 - im.get_rect().height // 2))
 
+    def update(self, *args):
+        self.__init__(*self.groups())
+
 
 def records_menu():
     clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
-    button = buttons.EscapeButton(all_sprites, text=Localisation.back(), x=consts.WIDTH // 2, y=650, f_size=45)
+    button = buttons.EscapeButton(all_sprites, text=Localisation.back(),
+                                  x=consts.WIDTH // 2 - 100, y=650, f_size=45)
+    buttons.Button(all_sprites, text=Localisation.clear(),
+                   x=consts.WIDTH // 2 + 100, y=650, f_size=45, press_event=db.clear_records)
     Record(all_sprites)
 
     while True:

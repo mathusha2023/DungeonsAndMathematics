@@ -14,6 +14,7 @@ class Localisation:
     __weapon = {settings.eng: "Weapon", settings.rus: "Оружие"}
     __time = {settings.eng: "Time spent", settings.rus: "Затрачено времени"}
     __date = {settings.eng: "Date", settings.rus: "Дата прохождения"}
+    __clear = {settings.eng: "Clear", settings.rus: "Сбросить"}
     __sine = {settings.eng: "Sine, Envoy of the Mathematics", settings.rus: "Синус, Посланник Математики"}
     __reply_time = {settings.eng: "Reply time:", settings.rus: "Время на ответ:"}
     __sphrase1 = {settings.eng: "Who are you?",
@@ -82,6 +83,10 @@ class Localisation:
     @staticmethod
     def time():
         return Localisation.__time[settings.language]
+
+    @staticmethod
+    def clear():
+        return Localisation.__clear[settings.language]
 
     @staticmethod
     def sine():

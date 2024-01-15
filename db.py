@@ -19,3 +19,9 @@ def load_record(weapon, result):
     WHERE weapon = ?"""
     cur.execute(recv, (result, datetime.date.today().strftime("%d.%m.%Y"), weapon))
     connection.commit()
+
+
+def clear_records():
+    recv = """DELETE FROM records"""
+    cur.execute(recv)
+    connection.commit()
