@@ -1,0 +1,1 @@
+pyinstaller --onefile --noconsole --name "Dungeons&Mathematics" --icon "data\images\logo.ico" main.py
