@@ -45,10 +45,11 @@ class Player(pygame.sprite.Sprite):
         self.ammo = 0
         self.hp = 10
         self.score = 0
-        self.speed = 50
-        self.ammo = 1000
-        self.hp = 10000
-        self.score = 10000
+        # читы для ленивых разрабов, которые не хотят проходить игру
+        # self.speed = 50
+        # # self.ammo = 1000
+        # # self.hp = 10000
+        # # self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
         self.dungeon_level = 1
