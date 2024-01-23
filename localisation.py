@@ -36,8 +36,8 @@ class Localisation:
     __tobecontinued = {settings.eng: "To be continued...", settings.rus: "Продолжение следует..."}
     __youdead = {settings.eng: "YOU ARE DEAD!", settings.rus: "Ты был убит!"}
     __youdevoured = {settings.eng: "YOU WERE DEVOURED!", settings.rus: "Пауки сожрали тебя!"}
-    __spiderdungeon_path = {settings.eng: "data/audio/spider_dungeon_en.mp3",
-                            settings.rus: "data/audio/spider_dungeon_ru.mp3"}
+    __spiderdungeon_path = {settings.eng: "data/audio/spider_dungeon_en.ogg",
+                            settings.rus: "data/audio/spider_dungeon_ru.ogg"}
 
     @staticmethod
     def play():
