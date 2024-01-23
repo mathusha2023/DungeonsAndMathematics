@@ -25,6 +25,20 @@ def boss_music():
     return
 
 
+def spider_lobby_music():
+    pygame.mixer.music.load("data/audio/spider_lobby.mp3")
+    specfunctions.set_music_volume()
+    pygame.mixer.music.play(-1)
+    return
+
+
+def spider_dungeon_music():
+    pygame.mixer.music.load(Localisation.spider_dungeon_music_path())
+    specfunctions.set_music_volume()
+    pygame.mixer.music.play(-1)
+    return
+
+
 def start_sound():
     sound = pygame.mixer.Sound("data/audio/start.ogg")
     sound.set_volume(settings.vol_sound)

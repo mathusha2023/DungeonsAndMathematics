@@ -351,7 +351,7 @@ def start_game(prev_player=None):
     empty_groups()
     if settings.spiders:
         map_ = "NARKOMANIA.txt"
-        sounds.dungeon_music()
+        sounds.spider_dungeon_music()
     elif prev_player is None:
         map_ = "map1.txt"
         sounds.start_sound()

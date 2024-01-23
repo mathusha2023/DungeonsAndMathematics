@@ -3,6 +3,7 @@ import pygame_widgets
 from pygame_widgets.slider import Slider
 from pygame_widgets.dropdown import Dropdown
 import consts
+import sounds
 import specfunctions
 import buttons
 from settings import settings
@@ -64,6 +65,10 @@ class SpiderButton(pygame.sprite.Sprite):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1 and self.rect.collidepoint(*event.pos):
                     settings.change_spiders()
+                    if settings.spiders:
+                        sounds.spider_lobby_music()
+                    else:
+                        sounds.lobby_music()
 
 
 def update_settings(music, sound, lang=None):
