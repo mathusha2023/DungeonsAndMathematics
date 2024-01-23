@@ -38,6 +38,34 @@ class Text(pygame.sprite.Sprite):
         self.image = self.font.render(text, True, (255, 255, 255))
 
 
+class SpiderButton(pygame.sprite.Sprite):
+    spider = specfunctions.load_image("spider_button.png")
+
+    def __init__(self, *groups):
+        super().__init__(*groups)
+        self.image1 = pygame.Surface((58, 41))
+        self.image1.fill((0, 0, 0))
+        self.image2 = SpiderButton.spider
+        self.image = self.image1
+        self.rect = self.image.get_rect()
+        self.rect.right = consts.WIDTH - 30
+        self.rect.bottom = consts.HEIGHT - 20
+
+    def is_focused(self):
+        return self.rect.collidepoint(*pygame.mouse.get_pos())
+
+    def update(self, *args):
+        if self.is_focused() or settings.spiders:
+            self.image = self.image2
+        else:
+            self.image = self.image1
+        if args:
+            event = args[0]
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and self.rect.collidepoint(*event.pos):
+                    settings.change_spiders()
+
+
 def update_settings(music, sound, lang=None):
     settings.vol_music = music
     settings.vol_sound = sound
@@ -80,6 +108,8 @@ def settings_menu():
     t1 = Text(consts.WIDTH // 2 - 320, 100, 45, Localisation.music(), all_sprites)
     t2 = Text(consts.WIDTH // 2 - 320, 250, 45, Localisation.sound(), all_sprites)
     t3 = Text(consts.WIDTH // 2 - 320, 405, 45, Localisation.language(), all_sprites)
+
+    SpiderButton(all_sprites)
 
     while True:
         events = pygame.event.get()

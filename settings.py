@@ -2,6 +2,7 @@ class Settings:
     eng = 0
     rus = 1
     langs = {0: "english", 1: "русский"}
+    spiders = False
 
     def __init__(self):
         with open("data/db/settings.txt") as file:
@@ -13,6 +14,9 @@ class Settings:
     def write(self):
         with open("data/db/settings.txt", "w") as file:
             file.write("\n".join(map(str, [self.vol_music, self.vol_sound, self.language])))
+
+    def change_spiders(self):
+        self.spiders = not self.spiders
 
 
 settings = Settings()
