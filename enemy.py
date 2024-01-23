@@ -170,7 +170,7 @@ class RamEnemy(Enemy):
 
     def __init__(self, pos_x, pos_y):
         if settings.spiders:
-            super().__init__(pos_x, pos_y, checkrect_sizex=10000000, checkrect_sizey=100000000)
+            super().__init__(pos_x, pos_y, checkrect_sizex=2160, checkrect_sizey=1440)
         else:
             super().__init__(pos_x, pos_y)
         self.dash_left = []
