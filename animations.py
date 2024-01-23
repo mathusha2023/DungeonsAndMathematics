@@ -2,6 +2,7 @@ import pygame
 import consts
 import specfunctions
 from localisation import Localisation
+from settings import settings
 
 
 def escape_animation():
@@ -63,8 +64,12 @@ def to_be_continued():
 
 def you_dead():
     pygame.mixer.music.stop()
-    text = pygame.font.Font(None, 160).render(Localisation.you_dead(), True,
-                                              (255, 0, 0))
+    if settings.spiders:
+        text = pygame.font.Font(None, 135).render(Localisation.you_devoured(), True,
+                                                  (255, 0, 0))
+    else:
+        text = pygame.font.Font(None, 160).render(Localisation.you_dead(), True,
+                                                  (255, 0, 0))
     consts.SCREEN.blit(text, ((consts.WIDTH - text.get_rect().width) // 2, consts.HEIGHT // 4))
     pygame.display.flip()
     while True:

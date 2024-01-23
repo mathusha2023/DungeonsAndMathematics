@@ -172,11 +172,14 @@ def ingame_settings_menu():
         all_sprites.draw(consts.SCREEN)
         pygame_widgets.update(events)
         update_settings(music_slider.getValue() / 100, sound_slider.getValue() / 100)
-        if escape_button.clicked or return_button.clicked:
+        if escape_button.clicked and not settings.spiders:
             music_slider.hide()
             sound_slider.hide()
-            if return_button.clicked:
-                pygame.mixer.unpause()
-            return escape_button.clicked
+            return True
+        if return_button.clicked:
+            music_slider.hide()
+            sound_slider.hide()
+            pygame.mixer.unpause()
+            return
         pygame.display.flip()
         clock.tick(consts.FPS)
