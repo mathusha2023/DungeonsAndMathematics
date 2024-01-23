@@ -41,10 +41,15 @@ class Player(pygame.sprite.Sprite):
         self.counter = 0
         self.damage_counter = 0
         self.state = Player.right
-        self.weapon = None
         self.speed = 5
-        self.ammo = 0
-        self.hp = 10 if not settings.spiders else 150
+        if settings.spiders:
+            self.weapon = weapon.Flamethrower(pos_x, pos_y, owner=self)
+            self.ammo = 1000
+            self.hp = 150
+        else:
+            self.weapon = None
+            self.ammo = 0
+            self.hp = 10
         self.score = 0
         # читы для ленивых разрабов, которые не хотят проходить игру
         # self.speed = 50
