@@ -3,6 +3,7 @@ import math
 import consts
 import specfunctions
 from spriteGroups import all_sprites, enemies, player_group, player_bullets, walls
+from settings import settings
 import weapon
 
 
@@ -168,7 +169,10 @@ class RamEnemy(Enemy):
     right_st_im = specfunctions.load_image("enemies/enemy3/enemy3_right1.png")
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        if settings.spiders:
+            super().__init__(pos_x, pos_y, checkrect_sizex=10000000, checkrect_sizey=100000000)
+        else:
+            super().__init__(pos_x, pos_y)
         self.dash_left = []
         self.dash_right = []
         self.add_frames()

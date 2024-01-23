@@ -11,6 +11,7 @@ import boss
 import sounds
 import buttons
 import animations
+from settings import settings
 from localisation import Localisation
 from spriteGroups import *
 
@@ -43,7 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.weapon = None
         self.speed = 5
         self.ammo = 0
-        self.hp = 10
+        self.hp = 10 if not settings.spiders else 150
         self.score = 0
         # читы для ленивых разрабов, которые не хотят проходить игру
         # self.speed = 50
@@ -294,17 +295,18 @@ def apply_all(camera):
 
 
 def draw_gui(player):
-    ammo = player.ammo
-    hp = player.hp
-    score = player.score
-    pygame.draw.rect(consts.SCREEN, (155, 45, 48), (55, 30, hp * 30, 40))
-    pygame.draw.rect(consts.SCREEN, (0, 0, 0), (55 + hp * 30, 30, (10 - hp) * 30, 40))
-    consts.SCREEN.blit(Images.gui_hp, (10, 20))
-    consts.SCREEN.blit(Images.gui_ammo, (25, 90))
-    text = pygame.font.Font(None, 70).render(str(ammo), True, (255, 255, 255))
-    consts.SCREEN.blit(text, (65, 95))
-    text = pygame.font.Font(None, 70).render(str(score), True, (255, 255, 255))
-    consts.SCREEN.blit(text, (consts.WIDTH - text.get_rect().width - 10, 30))
+    if not settings.spiders:
+        ammo = player.ammo
+        hp = player.hp
+        score = player.score
+        pygame.draw.rect(consts.SCREEN, (155, 45, 48), (55, 30, hp * 30, 40))
+        pygame.draw.rect(consts.SCREEN, (0, 0, 0), (55 + hp * 30, 30, (10 - hp) * 30, 40))
+        consts.SCREEN.blit(Images.gui_hp, (10, 20))
+        consts.SCREEN.blit(Images.gui_ammo, (25, 90))
+        text = pygame.font.Font(None, 70).render(str(ammo), True, (255, 255, 255))
+        consts.SCREEN.blit(text, (65, 95))
+        text = pygame.font.Font(None, 70).render(str(score), True, (255, 255, 255))
+        consts.SCREEN.blit(text, (consts.WIDTH - text.get_rect().width - 10, 30))
 
 
 def draw_all(player):
