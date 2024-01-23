@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         if settings.spiders:
             self.weapon = weapon.Flamethrower(pos_x, pos_y, owner=self)
             self.ammo = 1000
-            self.hp = 150
+            self.hp = 1000
         else:
             self.weapon = None
             self.ammo = 0
@@ -395,6 +395,7 @@ def start_game(prev_player=None):
             if not player.isalive:
                 draw_all(player)
                 animations.you_dead()
+                settings.spiders = False
             animations.escape_animation()
             sounds.lobby_music()
             return
