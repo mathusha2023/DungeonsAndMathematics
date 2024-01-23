@@ -46,7 +46,7 @@ class SpiderButton(pygame.sprite.Sprite):
         self.image1 = pygame.Surface((58, 41))
         self.image1.fill((0, 0, 0))
         self.image2 = SpiderButton.spider
-        self.image = self.image1
+        self.image = self.image2 if settings.spiders else self.image1
         self.rect = self.image.get_rect()
         self.rect.right = consts.WIDTH - 30
         self.rect.bottom = consts.HEIGHT - 20

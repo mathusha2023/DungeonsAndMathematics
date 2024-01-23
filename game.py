@@ -344,23 +344,25 @@ def format_time(seconds):
 def start_game(prev_player=None):
     started = 0
     empty_groups()
-    # if prev_player is None:
-    #     map_ = "map1.txt"
-    #     sounds.start_sound()
-    #     sounds.dungeon_music()
-    # elif prev_player.dungeon_level == 3:
-    #     animations.to_be_continued()
-    #     db.load_record(*get_record(prev_player))
-    #     sounds.lobby_music()
-    #     return
-    # elif not (prev_player.dungeon_level + 1) % 3:
-    #     map_ = "mapboss.txt"
-    #     pygame.mixer.music.stop()
-    # else:
-    #     map_ = random.choice(["map2.txt"])
-    # player, level_x, level_y = generate_level(load_level(map_))
+    if settings.spiders:
+        map_ = "NARKOMANIA.txt"
+        sounds.dungeon_music()
+    elif prev_player is None:
+        map_ = "map1.txt"
+        sounds.start_sound()
+        sounds.dungeon_music()
+    elif prev_player.dungeon_level == 3:
+        animations.to_be_continued()
+        db.load_record(*get_record(prev_player))
+        sounds.lobby_music()
+        return
+    elif not (prev_player.dungeon_level + 1) % 3:
+        map_ = "mapboss.txt"
+        pygame.mixer.music.stop()
+    else:
+        map_ = random.choice(["map2.txt"])
+    player, level_x, level_y = generate_level(load_level(map_))
     # player, level_x, level_y = generate_level(load_level("mapboss.txt"))
-    player, level_x, level_y = generate_level(load_level("NARKOMANIA.txt"))
     if prev_player is not None:
         player.copy_previous(prev_player)
     camera = Camera()
