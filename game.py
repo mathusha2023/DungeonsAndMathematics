@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         if settings.spiders:
             self.weapon = weapon.Flamethrower(pos_x, pos_y, owner=self)
             self.ammo = 1000
-            self.hp = 500
+            self.hp = 300
         else:
             self.weapon = None
             self.ammo = 0
