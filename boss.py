@@ -238,7 +238,7 @@ class BossSinus(pygame.sprite.Sprite):
         [i for i in player_group][0].score += 300
 
     def is_alive(self):
-        return self.hp > 0
+        return self.fight or not self.death
 
 
 class AnswerStone(pygame.sprite.Sprite):
