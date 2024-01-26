@@ -1,15 +1,10 @@
 import pygame
-import random
+from localisation import Localisation
 
 pygame.init()
 
 SIZE = WIDTH, HEIGHT = 1080, 720
 SCREEN = pygame.display.set_mode(SIZE)
 FPS = 60
-TITLE = "Dungeons&Mathematics: " + random.choice(("2 + 2 = 5",
-                                                  "физика лучше!",
-                                                  "история о бесполезной науке",
-                                                  "убей их всех!",
-                                                  "попробуй Soul Knight!",
-                                                  "рот болит и попе больно, в D&M играть прикольно)"))
+TITLE = "Dungeons&Mathematics: " + Localisation.title()
 TILE_WIDTH = TILE_HEIGHT = 60

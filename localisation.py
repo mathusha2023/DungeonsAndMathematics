@@ -1,3 +1,4 @@
+import random
 from settings import settings
 
 
@@ -38,6 +39,13 @@ class Localisation:
     __youdevoured = {settings.eng: "YOU WERE DEVOURED!", settings.rus: "Пауки сожрали тебя!"}
     __spiderdungeon_path = {settings.eng: "data/audio/spider_dungeon_en.ogg",
                             settings.rus: "data/audio/spider_dungeon_ru.ogg"}
+    __title1 = {settings.eng: "2 + 2 = 5", settings.rus: "2 + 2 = 5"}
+    __title2 = {settings.eng: "physics is better", settings.rus: "физика лучше!"}
+    __title3 = {settings.eng: "the story of useless science", settings.rus: "история о бесполезной науке"}
+    __title4 = {settings.eng: "kill them all!", settings.rus: "убей их всех!"}
+    __title5 = {settings.eng: "try Soul Knight!", settings.rus: "попробуй Soul Knight!"}
+    __title6 = {settings.eng: "just don't touch the right corner of the settings!",
+                settings.rus: "только не трогай правый угол настроек!"}
 
     @staticmethod
     def play():
@@ -146,3 +154,8 @@ class Localisation:
     @staticmethod
     def spider_dungeon_music_path():
         return Localisation.__spiderdungeon_path[settings.language]
+
+    @staticmethod
+    def title():
+        return random.choice((Localisation.__title1, Localisation.__title2, Localisation.__title3,
+                              Localisation.__title4, Localisation.__title5, Localisation.__title6))[settings.language]
