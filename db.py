@@ -7,7 +7,7 @@ cur = connection.cursor()
 
 def get_records():
     recv = """SELECT weapon, result, date FROM records
-    ORDER BY RESULT
+    ORDER BY LENGTH(RESULT), RESULT
     LIMIT 9"""
     ans = cur.execute(recv).fetchall()
     return ans
