@@ -43,7 +43,7 @@ class Localisation:
     __title2 = {settings.eng: "physics is better", settings.rus: "физика лучше!"}
     __title3 = {settings.eng: "the story of useless science", settings.rus: "история о бесполезной науке"}
     __title4 = {settings.eng: "kill them all!", settings.rus: "убей их всех!"}
-    __title5 = {settings.eng: "try Soul Knight!", settings.rus: "попробуй Soul Knight!"}
+    __title5 = {settings.eng: "also try Soul Knight!", settings.rus: "попробуй Soul Knight!"}
     __title6 = {settings.eng: "just don't touch the right corner of the settings!",
                 settings.rus: "только не трогай правый угол настроек!"}
 
