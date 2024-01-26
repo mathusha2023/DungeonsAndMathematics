@@ -12,3 +12,4 @@
 8) Независимо от выбранных вариантов, Синус теряет треть здоровья после каждого третьего вопроса
 
 https://mrlevireaper.itch.io/dungeonsmathematics :)
+https://t.me/dungeonsandmathematics
