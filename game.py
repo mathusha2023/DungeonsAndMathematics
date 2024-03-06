@@ -367,7 +367,6 @@ def start_game(prev_player=None):
     else:
         map_ = random.choice(["map2.txt", "map3.txt"])
     player, level_x, level_y = generate_level(load_level(map_))
-    # player, level_x, level_y = generate_level(load_level("mapboss.txt"))
     if prev_player is not None:
         player.copy_previous(prev_player)
     camera = Camera()

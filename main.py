@@ -8,7 +8,9 @@ import records
 import settingsMenu
 import sounds
 from localisation import Localisation
+import db
 
+db.create_base()
 pygame.display.set_caption(consts.TITLE)
 pygame.display.set_icon(specfunctions.load_image("logo.png"))
 sounds.lobby_music()
