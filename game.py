@@ -52,15 +52,16 @@ class Player(pygame.sprite.Sprite):
             self.hp = 10
         self.score = 0
         # читы для ленивых разрабов, которые не хотят проходить игру
-        # self.speed = 50
-        # self.ammo = 1000
-        # self.hp = 10000
-        # self.score = 10000
+        self.speed = 50
+        self.ammo = 1000
+        self.hp = 10000
+        self.score = 10000
         self.punch_kd = consts.FPS
         self.isalive = True
         self.dungeon_level = 1
         self.tp = False
         self.start_time = time.time()
+        self.pause_time = 0
 
     def update(self, *args):
         if self.damage_counter:
@@ -168,6 +169,7 @@ class Player(pygame.sprite.Sprite):
         self.score = other.score
         self.dungeon_level = other.dungeon_level + 1
         self.start_time = other.start_time
+        self.pause_time = other.pause_time
         self.weapon = other.weapon
         if self.weapon:
             self.weapon.owner = self
@@ -336,7 +338,7 @@ def get_record(player):
     else:
         player_weapon = "FIST"
     now = time.time()
-    return player_weapon, format_time(now - player.start_time)
+    return player_weapon, format_time(now - player.start_time - player.pause_time)
 
 
 def format_time(seconds):

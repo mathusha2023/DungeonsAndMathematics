@@ -2,12 +2,14 @@ import pygame
 import pygame_widgets
 from pygame_widgets.slider import Slider
 from pygame_widgets.dropdown import Dropdown
+import time
 import consts
 import sounds
 import specfunctions
 import buttons
 from settings import settings
 from localisation import Localisation
+from spriteGroups import player_group
 
 
 class SliderText(pygame.sprite.Sprite):
@@ -137,6 +139,7 @@ def settings_menu():
 
 
 def ingame_settings_menu():
+    start_pause = time.time()
     pygame.mixer.pause()
     surface = pygame.Surface(consts.SIZE)
     surface.blit(consts.SCREEN, (0, 0))
@@ -185,6 +188,8 @@ def ingame_settings_menu():
             music_slider.hide()
             sound_slider.hide()
             pygame.mixer.unpause()
+            time_in_pause = time.time() - start_pause
+            [i for i in player_group][0].pause_time += time_in_pause
             return
         pygame.display.flip()
         clock.tick(consts.FPS)
