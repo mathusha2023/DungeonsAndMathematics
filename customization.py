@@ -12,15 +12,15 @@ class Header(pygame.sprite.Sprite):
         self.parent = parent
         inactive_text = pygame.font.Font(None, 42).render(text, True, (255, 255, 255))
         active_text = pygame.font.Font(None, 42).render(text, True, (0, 0, 0))
-        self.inactive_image = pygame.Surface((consts.WIDTH // 4, 60))
+        self.inactive_image = pygame.Surface(((consts.WIDTH - 200) // 4, 60))
         self.inactive_image.blit(inactive_text,
-                                 (consts.WIDTH // 8 - inactive_text.get_rect().width // 2,
-                                  (60 - inactive_text.get_rect().height) // 2))
-        self.active_image = pygame.Surface((consts.WIDTH // 4, 60))
+                                 (self.inactive_image.get_rect().width // 2 - inactive_text.get_rect().width // 2,
+                                  (self.inactive_image.get_rect().height - inactive_text.get_rect().height) // 2))
+        self.active_image = pygame.Surface(((consts.WIDTH - 200) // 4, 60))
         self.active_image.fill((255, 255, 0))
         self.active_image.blit(active_text,
-                               (consts.WIDTH // 8 - active_text.get_rect().width // 2,
-                                (60 - active_text.get_rect().height) // 2))
+                               (self.active_image.get_rect().width // 2 - active_text.get_rect().width // 2,
+                                (self.active_image.get_rect().height - active_text.get_rect().height) // 2))
         self.is_active = is_active
         self.image = None
         self.config_image()
@@ -52,10 +52,10 @@ class SkinsMenu(pygame.sprite.Sprite):
         self.rect.center = (500, 500)
 
     def create_headers(self, *groups):
-        self.character_header = Header(self, 0, Localisation.character(), True, *groups)
-        self.weapons_header = Header(self, consts.WIDTH // 4, Localisation.weapon(), False, *groups)
-        self.bosses_header = Header(self, consts.WIDTH // 2, Localisation.bosses(), False, *groups)
-        self.dungeon_header = Header(self, 3 * consts.WIDTH // 4, Localisation.dungeon(), False, *groups)
+        self.character_header = Header(self, 25, Localisation.character(), True, *groups)
+        self.weapons_header = Header(self, consts.WIDTH // 4 + 25, Localisation.weapon(), False, *groups)
+        self.bosses_header = Header(self, consts.WIDTH // 2 + 25, Localisation.bosses(), False, *groups)
+        self.dungeon_header = Header(self, 3 * consts.WIDTH // 4 + 25, Localisation.dungeon(), False, *groups)
         self.headers = [self.character_header, self.weapons_header, self.bosses_header, self.dungeon_header]
 
     def activate_header(self, header):
