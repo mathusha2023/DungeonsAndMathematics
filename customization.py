@@ -44,9 +44,10 @@ class Header(pygame.sprite.Sprite):
 
 
 class SkinBoard(pygame.sprite.Sprite):
-    def __init__(self, parent, size, x, y, is_active, images, *groups):
+    def __init__(self, parent, skin_id, size, x, y, is_active, images, *groups):
         super().__init__(*groups)
         self.parent = parent
+        self.id = skin_id
         self.size = size
         self.is_active = is_active
         self.images = images
@@ -87,22 +88,22 @@ class SkinBoard(pygame.sprite.Sprite):
 
 
 class SkinsPlace:
-    def __init__(self, parent, skins, cell_size=(100, 100)):
+    def __init__(self, parent, skins, active_skin, cell_size=(100, 100)):
         self.parent = parent
         self.cell_size = cell_size
         self.n_x = (consts.WIDTH - 50) // cell_size[0]
         self.n_y = 400 // cell_size[1]
         self.skinboards = []
         self.group = pygame.sprite.Group()
-        self.create_skins(skins)
+        self.create_skins(skins, active_skin)
 
-    def create_skins(self, skins):
+    def create_skins(self, skins, active_skin):
         for y in range(self.n_y):
             for x in range(self.n_x):
                 try:
-                    a = y * self.n_x + x
-                    self.skinboards.append(SkinBoard(self, self.cell_size,
-                                                     25 + self.cell_size[0] * x, 200 + self.cell_size[1] * y, a == 0,
+                    a = y * self.n_x + x == active_skin
+                    self.skinboards.append(SkinBoard(self, y * self.n_x + x, self.cell_size,
+                                                     25 + self.cell_size[0] * x, 200 + self.cell_size[1] * y, a,
                                                      skins.pop(0), self.group))
                 except IndexError:
                     return
@@ -111,6 +112,7 @@ class SkinsPlace:
         for s in self.skinboards:
             s.is_active = False
         skin.is_active = True
+        settings.character_skin = skin.id
 
     def draw(self, surface):
         self.group.draw(surface)
@@ -136,10 +138,10 @@ class SkinsMenu:
               specfunctions.load_image("ura/default/ura_right_go2.png")],
              [specfunctions.load_image("ura/evil/ura_right_go1.png"),
               specfunctions.load_image("ura/evil/ura_right_go2.png")]]
-        self.character_place = SkinsPlace(self, c)
-        self.weapons_place = SkinsPlace(self, [])
-        self.bosses_place = SkinsPlace(self, [])
-        self.dungeon_place = SkinsPlace(self, [])
+        self.character_place = SkinsPlace(self, c, settings.character_skin)
+        self.weapons_place = SkinsPlace(self, [], 0)
+        self.bosses_place = SkinsPlace(self, [], 0)
+        self.dungeon_place = SkinsPlace(self, [], 0)
         self.places = self.character_place, self.weapons_place, self.bosses_place, self.dungeon_place
 
     def activate_header(self, header):
