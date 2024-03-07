@@ -47,6 +47,9 @@ class Localisation:
     __title5 = {settings.eng: "also try Soul Knight!", settings.rus: "попробуй Soul Knight!"}
     __title6 = {settings.eng: "just don't touch the right corner of the settings!",
                 settings.rus: "только не трогай правый угол настроек!"}
+    __character = {settings.eng: "Character", settings.rus: "Персонаж"}
+    __bosses = {settings.eng: "Bosses", settings.rus: "Боссы"}
+    __dungeon = {settings.eng: "Dungeon", settings.rus: "Подземелье"}
 
     @staticmethod
     def play():
@@ -164,3 +167,15 @@ class Localisation:
     def title():
         return random.choice((Localisation.__title1, Localisation.__title2, Localisation.__title3,
                               Localisation.__title4, Localisation.__title5, Localisation.__title6))[settings.language]
+
+    @staticmethod
+    def character():
+        return Localisation.__character[settings.language]
+
+    @staticmethod
+    def bosses():
+        return Localisation.__bosses[settings.language]
+
+    @staticmethod
+    def dungeon():
+        return Localisation.__dungeon[settings.language]
