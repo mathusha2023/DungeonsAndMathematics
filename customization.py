@@ -43,6 +43,13 @@ class Header(pygame.sprite.Sprite):
                     self.parent.activate_header(self)
 
 
+class SkinsPlace(pygame.sprite.Sprite):
+    def __init__(self, parent, *groups):
+        super().__init__(*groups)
+        self.parent = parent
+
+
+
 class SkinsMenu(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super().__init__(*groups)

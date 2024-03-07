@@ -8,12 +8,12 @@ import weapon
 
 
 class Enemy(pygame.sprite.Sprite):
-    left_st_im = specfunctions.load_image("ura/ura_left_st.png")
-    left_go1_im = specfunctions.load_image("ura/ura_left_go1.png")
-    left_go2_im = specfunctions.load_image("ura/ura_left_go2.png")
-    right_st_im = specfunctions.load_image("ura/ura_right_st.png")
-    right_go1_im = specfunctions.load_image("ura/ura_right_go1.png")
-    right_go2_im = specfunctions.load_image("ura/ura_right_go2.png")
+    left_st_im = None
+    left_go1_im = None
+    left_go2_im = None
+    right_st_im = None
+    right_go1_im = None
+    right_go2_im = None
 
     right = 0
     left = 1
