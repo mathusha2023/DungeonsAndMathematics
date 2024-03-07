@@ -13,30 +13,27 @@ import buttons
 import animations
 from settings import settings
 from localisation import Localisation
+from skins import Skins
 from spriteGroups import *
 
 
 class Player(pygame.sprite.Sprite):
-    left_st_im = specfunctions.load_image("ura/default/ura_left_st.png")
-    left_go1_im = specfunctions.load_image("ura/default/ura_left_go1.png")
-    left_go2_im = specfunctions.load_image("ura/default/ura_left_go2.png")
-    right_st_im = specfunctions.load_image("ura/default/ura_right_st.png")
-    right_go1_im = specfunctions.load_image("ura/default/ura_right_go1.png")
-    right_go2_im = specfunctions.load_image("ura/default/ura_right_go2.png")
 
     right = 0
     left = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(all_sprites, player_group)
-        self.image = Player.right_st_im
+        self.left_st_im, self.left_go1_im, self.left_go2_im, self.right_st_im, self.right_go1_im, self.right_go2_im = (
+            Skins.character())
+        self.image = self.right_st_im
         self.rect = self.image.get_rect()
         self.rect.x = pos_x * consts.TILE_WIDTH
         self.rect.y = pos_y * consts.TILE_HEIGHT
         self.prev_x = self.rect.x
         self.prev_y = self.rect.y
-        self.left_ims = [Player.left_go1_im, Player.left_go2_im]
-        self.right_ims = [Player.right_go1_im, Player.right_go2_im]
+        self.left_ims = [self.left_go1_im, self.left_go2_im]
+        self.right_ims = [self.right_go1_im, self.right_go2_im]
         self.im = 0
         self.counter = 0
         self.damage_counter = 0
@@ -94,7 +91,7 @@ class Player(pygame.sprite.Sprite):
                 self.counter = 0
             self.take_bonuses()
         else:
-            self.image = Player.left_st_im if self.state == Player.left else Player.right_st_im
+            self.image = self.left_st_im if self.state == Player.left else self.right_st_im
         if self.punch_kd < consts.FPS:
             self.punch_kd += 1
         self.check_enemy_shot()
