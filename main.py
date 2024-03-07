@@ -4,6 +4,7 @@ import consts
 import buttons
 import specfunctions
 import game
+import customization
 import records
 import settingsMenu
 import sounds
@@ -33,11 +34,13 @@ class Title(pygame.sprite.Sprite):
 Title()
 play_btn = buttons.Button(all_sprites, text=Localisation.play(), x=consts.WIDTH // 2, y=375, f_size=45,
                           press_event=game.start_game)
-rec_btn = buttons.Button(all_sprites, text=Localisation.records(), x=consts.WIDTH // 2, y=450, f_size=45,
+custom_btn = buttons.Button(all_sprites, text=Localisation.customization(), x=consts.WIDTH // 2, y=450, f_size=45,
+                            press_event=customization.customization_menu)
+rec_btn = buttons.Button(all_sprites, text=Localisation.records(), x=consts.WIDTH // 2, y=525, f_size=45,
                          press_event=records.records_menu)
-sett_btn = buttons.Button(all_sprites, text=Localisation.settings(), x=consts.WIDTH // 2, y=525, f_size=45,
+sett_btn = buttons.Button(all_sprites, text=Localisation.settings(), x=consts.WIDTH // 2, y=600, f_size=45,
                           press_event=settingsMenu.settings_menu)
-exit_btn = buttons.Button(all_sprites, text=Localisation.exit(), x=consts.WIDTH // 2, y=600, f_size=45,
+exit_btn = buttons.Button(all_sprites, text=Localisation.exit(), x=consts.WIDTH // 2, y=675, f_size=45,
                           press_event=specfunctions.terminate)
 support_btn = buttons.RightButton(all_sprites, text=Localisation.support(), x=consts.WIDTH - 25,
                                   y=consts.HEIGHT - 10,
@@ -48,6 +51,7 @@ support_btn = buttons.RightButton(all_sprites, text=Localisation.support(), x=co
 
 def update_text():
     play_btn.set_text(Localisation.play())
+    custom_btn.set_text((Localisation.customization()))
     rec_btn.set_text(Localisation.records())
     sett_btn.set_text(Localisation.settings())
     exit_btn.set_text(Localisation.exit())

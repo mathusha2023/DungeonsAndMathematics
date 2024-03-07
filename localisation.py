@@ -4,6 +4,7 @@ from settings import settings
 
 class Localisation:
     __play = {settings.eng: "Play!", settings.rus: "Играть!"}
+    __customization = {settings.eng: "Customization", settings.rus: "Кастомизация"}
     __records = {settings.eng: "Records", settings.rus: "Рекорды"}
     __settings = {settings.eng: "Settings", settings.rus: "Настройки"}
     __exit = {settings.eng: "Exit", settings.rus: "Выход"}
@@ -50,6 +51,10 @@ class Localisation:
     @staticmethod
     def play():
         return Localisation.__play[settings.language]
+
+    @staticmethod
+    def customization():
+        return Localisation.__customization[settings.language]
 
     @staticmethod
     def records():
