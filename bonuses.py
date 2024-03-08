@@ -14,7 +14,7 @@ class Bonus(pygame.sprite.Sprite):
 
 
 class Ammo(Bonus):
-    image = specfunctions.load_image("ammo.png")
+    image = specfunctions.load_image("dungeon/ammo/default/ammo.png")
 
     def __init__(self, pos_x, pos_y):
         self.image = Ammo.image
@@ -27,7 +27,7 @@ class Ammo(Bonus):
 
 
 class Heal(Bonus):
-    image = specfunctions.load_image("heal.png")
+    image = specfunctions.load_image("dungeon/heal/default/heal.png")
 
     def __init__(self, pos_x, pos_y):
         self.image = Heal.image
