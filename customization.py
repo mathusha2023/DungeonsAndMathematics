@@ -145,13 +145,14 @@ class SkinsMenu:
         shotgun = [[specfunctions.load_image("weapons/weapon2/default/weapon2_right.png")]]
         ak47 = [[specfunctions.load_image("weapons/weapon3/default/weapon3_right.png")]]
         flamethrower = [[specfunctions.load_image("weapons/weapon4/default/weapon4_right.png")]]
+        sinus = [[specfunctions.load_image(f"bosses/sinus/default/sinus{i}.png") for i in range(1, 7)]]
 
         self.character_place = SkinsPlace(self, characters, settings.character_skin)
         self.rifle_place = SkinsPlace(self, rifles, 0)
         self.shotgun_place = SkinsPlace(self, shotgun, 0, y=300)
         self.ak47_place = SkinsPlace(self, ak47, 0, y=400)
         self.flamethrower_place = SkinsPlace(self, flamethrower, 0, y=500)
-        self.sinus_place = SkinsPlace(self, [], 0)
+        self.sinus_place = SkinsPlace(self, sinus, 0, cell_size=(140, 210))
         self.floor_place = SkinsPlace(self, [], 0)
         self.wall_place = SkinsPlace(self, [], 0)
         self.places = [self.character_place], [self.rifle_place, self.shotgun_place, self.ak47_place,
