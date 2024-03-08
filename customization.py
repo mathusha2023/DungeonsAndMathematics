@@ -88,11 +88,13 @@ class SkinBoard(pygame.sprite.Sprite):
 
 
 class SkinsPlace:
-    def __init__(self, parent, skins, active_skin, cell_size=(100, 100)):
+    def __init__(self, parent, skins, active_skin, cell_size=(100, 100), x=25, y=200):
         self.parent = parent
         self.cell_size = cell_size
         self.n_x = (consts.WIDTH - 50) // cell_size[0]
         self.n_y = 400 // cell_size[1]
+        self.x = x
+        self.y = y
         self.skinboards = []
         self.group = pygame.sprite.Group()
         self.create_skins(skins, active_skin)
@@ -103,7 +105,7 @@ class SkinsPlace:
                 try:
                     a = y * self.n_x + x == active_skin
                     self.skinboards.append(SkinBoard(self, y * self.n_x + x, self.cell_size,
-                                                     25 + self.cell_size[0] * x, 200 + self.cell_size[1] * y, a,
+                                                     self.x + self.cell_size[0] * x, self.y + self.cell_size[1] * y, a,
                                                      skins.pop(0), self.group))
                 except IndexError:
                     return
@@ -134,15 +136,27 @@ class SkinsMenu:
         self.headers = [self.character_header, self.weapons_header, self.bosses_header, self.dungeon_header]
 
     def create_skins(self):
-        c = [[specfunctions.load_image("ura/default/ura_right_go1.png"),
+        characters = [[specfunctions.load_image("ura/default/ura_right_go1.png"),
               specfunctions.load_image("ura/default/ura_right_go2.png")],
              [specfunctions.load_image("ura/evil/ura_right_go1.png"),
               specfunctions.load_image("ura/evil/ura_right_go2.png")]]
-        self.character_place = SkinsPlace(self, c, settings.character_skin)
-        self.weapons_place = SkinsPlace(self, [], 0)
-        self.bosses_place = SkinsPlace(self, [], 0)
-        self.dungeon_place = SkinsPlace(self, [], 0)
-        self.places = self.character_place, self.weapons_place, self.bosses_place, self.dungeon_place
+
+        rifles = [[specfunctions.load_image("weapons/weapon1/default/weapon1_right.png")]]
+        shotgun = [[specfunctions.load_image("weapons/weapon2/default/weapon2_right.png")]]
+        ak47 = [[specfunctions.load_image("weapons/weapon3/default/weapon3_right.png")]]
+        flamethrower = [[specfunctions.load_image("weapons/weapon4/default/weapon4_right.png")]]
+
+        self.character_place = SkinsPlace(self, characters, settings.character_skin)
+        self.rifle_place = SkinsPlace(self, rifles, 0)
+        self.shotgun_place = SkinsPlace(self, shotgun, 0, y=300)
+        self.ak47_place = SkinsPlace(self, ak47, 0, y=400)
+        self.flamethrower_place = SkinsPlace(self, flamethrower, 0, y=500)
+        self.sinus_place = SkinsPlace(self, [], 0)
+        self.floor_place = SkinsPlace(self, [], 0)
+        self.wall_place = SkinsPlace(self, [], 0)
+        self.places = [self.character_place], [self.rifle_place, self.shotgun_place, self.ak47_place,
+                                               self.flamethrower_place], [self.sinus_place], [self.floor_place,
+                                                                                              self.wall_place]
 
     def activate_header(self, header):
         for h in self.headers:
@@ -152,11 +166,13 @@ class SkinsMenu:
     def draw_skins(self, surface):
         for i in range(len(self.headers)):
             if self.headers[i].is_active:
-                self.places[i].draw(surface)
+                for p in self.places[i]:
+                    p.draw(surface)
 
     def update(self, *args):
-        for p in self.places:
-            p.update(*args)
+        for i in self.places:
+            for p in i:
+                p.update(*args)
 
 
 def customization_menu():

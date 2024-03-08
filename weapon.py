@@ -48,8 +48,8 @@ class Weapon(pygame.sprite.Sprite):
 
 
 class Rifle(Weapon):
-    image_left = specfunctions.load_image("weapons/weapon1_left.png")
-    image_right = specfunctions.load_image("weapons/weapon1_right.png")
+    image_left = specfunctions.load_image("weapons/weapon1/default/weapon1_left.png")
+    image_right = specfunctions.load_image("weapons/weapon1/default/weapon1_right.png")
 
     def __init__(self, pos_x, pos_y, owner=None, is_players=True):
         self.image = Rifle.image_right
@@ -64,8 +64,8 @@ class Rifle(Weapon):
 
 
 class ShotGun(Weapon):
-    image_left = specfunctions.load_image("weapons/weapon2_left.png")
-    image_right = specfunctions.load_image("weapons/weapon2_right.png")
+    image_left = specfunctions.load_image("weapons/weapon2/default/weapon2_left.png")
+    image_right = specfunctions.load_image("weapons/weapon2/default/weapon2_right.png")
 
     def __init__(self, pos_x, pos_y, owner=None, is_players=True):
         self.image = ShotGun.image_right
@@ -84,8 +84,8 @@ class ShotGun(Weapon):
 
 
 class AK47(Weapon):
-    image_left = specfunctions.load_image("weapons/weapon3_left.png")
-    image_right = specfunctions.load_image("weapons/weapon3_right.png")
+    image_left = specfunctions.load_image("weapons/weapon3/default/weapon3_left.png")
+    image_right = specfunctions.load_image("weapons/weapon3/default/weapon3_right.png")
 
     def __init__(self, pos_x, pos_y, owner=None, is_players=True):
         self.image = AK47.image_right
@@ -203,8 +203,8 @@ class Fist(pygame.sprite.Sprite):
 
 
 class Flamethrower(Weapon):
-    image_left = specfunctions.load_image("weapons/weapon4_left.png")
-    image_right = specfunctions.load_image("weapons/weapon4_right.png")
+    image_left = specfunctions.load_image("weapons/weapon4/default/weapon4_left.png")
+    image_right = specfunctions.load_image("weapons/weapon4/default/weapon4_right.png")
 
     def __init__(self, pos_x, pos_y, owner=None):
         self.image = Flamethrower.image_right
