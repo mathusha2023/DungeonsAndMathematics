@@ -175,8 +175,8 @@ class Player(pygame.sprite.Sprite):
 
 
 class Images:
-    wall = specfunctions.load_image("wall.png")
-    floor = specfunctions.load_image("floor.png")
+    wall = specfunctions.load_image("dungeon/wall/default/wall.png")
+    floor = specfunctions.load_image("dungeon/floor/default/floor.png")
     gui_hp = specfunctions.load_image("gui_hp.png")
     gui_ammo = specfunctions.load_image("gui_ammo.png")
     damage_frame = specfunctions.load_image("damage.png")

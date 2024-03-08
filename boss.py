@@ -79,8 +79,8 @@ class BossSinus(pygame.sprite.Sprite):
 
     def add_frames(self):
         for i in range(1, 7):
-            self.images.append(specfunctions.load_image(f"bosses/sinus/sinus{i}.png"))
-            self.images_anger.append(specfunctions.load_image(f"bosses/sinus/sinus{i}_anger.png"))
+            self.images.append(specfunctions.load_image(f"bosses/sinus/default/sinus{i}.png"))
+            self.images_anger.append(specfunctions.load_image(f"bosses/sinus/default/sinus{i}_anger.png"))
 
     def update_checkrect(self):
         self.checking_rect.x = self.rect.x - self.checkrect_sizex // 2
